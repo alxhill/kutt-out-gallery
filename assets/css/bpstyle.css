@@ -1,0 +1,9 @@
+.container {
+	margin-top: 10px;
+}
+
+#column1 {
+	border-left: 1px;
+	border-left-style: dashed;
+	padding-left: 9px;
+}
