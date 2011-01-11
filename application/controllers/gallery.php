@@ -46,7 +46,16 @@ class Gallery extends CI_Controller {
 	function show()
 	{
 		$all = $this->gallery_model->get_all_images();
-		print_r($all); //**UNFINISHED FUNCTION**//
+		if ( ! $all)
+		{
+			$data = array('class' => 'notice','message' => 'There are no photos to display');
+			$this->load->view('upload', $data);
+		}
+		else
+		{
+			$data = array('image_data' => $all);
+			$this->load->view('show_gallery', $data);
+		}		
 	}
 
 }
