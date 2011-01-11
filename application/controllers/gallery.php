@@ -11,7 +11,7 @@ class Gallery extends CI_Controller {
 	
 	function add_photo()
 	{
-		$this->load->view('upload');
+		$this->load->view('gallery/superview', array('title' => 'Upload a new image', 'template' => 'upload'));
 	}
 
 	function upload()
@@ -23,8 +23,8 @@ class Gallery extends CI_Controller {
 		
 		if ( ! $this->upload->do_upload("photo"))
 		{
-			$errors = array('message' => $this->upload->display_errors(), 'class' => 'error');
-			$this->load->view('upload',$errors);
+			$errors = array('message' => $this->upload->display_errors(), 'class' => 'error', 'template' => 'upload', 'title' => 'Upload failed');
+			$this->load->view('gallery/superview',$errors);
 		}
 		else
 		{
@@ -36,9 +36,11 @@ class Gallery extends CI_Controller {
 							 'message' => 'Image successfully uploaded!',
 							 'class' => 'success',
 							 'upload_data' => $this->upload->data(),
-							 'link' => $link
+							 'link' => $link,
+							 'template' => 'post_upload',
+							 'title' => 'Image uploaded'
 							 );
-			$this->load->view('post_upload',$success);
+			$this->load->view('gallery/superview',$success);
 		}
 		
 	} // END OF UPLOAD
@@ -48,13 +50,13 @@ class Gallery extends CI_Controller {
 		$all = $this->gallery_model->get_all_images();
 		if ( ! $all)
 		{
-			$data = array('class' => 'notice','message' => 'There are no photos to display');
-			$this->load->view('upload', $data);
+			$data = array('class' => 'notice','message' => 'There are no photos to display', 'template' => 'upload', 'title' => 'No images to display');
+			$this->load->view('gallery/superview', $data);
 		}
 		else
 		{
-			$data = array('image_data' => $all);
-			$this->load->view('show_gallery', $data);
+			$data = array('image_data' => $all, 'title' => 'Gallery view', 'template' => 'show_gallery');
+			$this->load->view('gallery/superview', $data);
 		}		
 	}
 
