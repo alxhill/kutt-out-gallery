@@ -2,7 +2,7 @@
 
 if (! defined('BASEPATH')) exit('No direct script access');
 
-class Login extends Controller {
+class Login extends CI_Controller {
 
 	//php 5 constructor
 	function __construct() {
