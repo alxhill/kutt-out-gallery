@@ -1,9 +1,13 @@
 <div class='span-24 last'>
-	<?=form_open('login/submit') ?>
-	<label>User name:</label>
-	<input type='text'>
-	<label>Password:</label>
-	<input type='password'>
-	<input type='submit' value='Log in'>
-	</form>
+	<div class='center'>
+		<?=form_open('login/submit') ?>
+		<label>User name:</label><br>
+		<input type='text' name='username' size='50'>
+		<br>
+		<label>Password:</label><br>
+		<input type='password' size='50' name='password'>
+		<br>
+		<input type='submit' value='Log in'>
+		</form>
+	</div>
 </div>

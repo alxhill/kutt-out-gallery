@@ -4,10 +4,9 @@ if (! defined('BASEPATH')) exit('No direct script access');
 
 class Login extends CI_Controller {
 
-	//php 5 constructor
 	function __construct() {
 		parent::__construct();
-		$this->load->helper(array('form','url','notification'));
+		$this->load->helper(array('form','url','notification','session_helper'));
 		$this->load->library('session');
 		$this->load->model('login_model');
 	}
@@ -19,6 +18,16 @@ class Login extends CI_Controller {
 	
 	function submit()
 	{
+		$user = $this->input->post('username');
+		$pass = $this->input->post('password');
+		if (log_in($user,$pass))
+		{
+			$this->load->view('gallery/superview', array('title' => 'Add a photo', 'template' => 'upload'));
+		}
+		else
+		{
+			$this->load->view('gallery/superview', array('title' => 'Log in', 'template' => 'upload', 'class' => error, 'message' => 'There was a problem logging you in. Please try again.'));
+		}
 		
 	}
 
