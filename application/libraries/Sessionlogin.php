@@ -1,5 +1,5 @@
 <?php
-class Session_helper {
+class Sessionlogin {
 	function __construct()
 	{
 		$CI =& get_instance();
@@ -14,6 +14,7 @@ class Session_helper {
 		{
 			$login = array('username' => $user, 'logged_in' => TRUE);
 			$CI->session->set_userdata($login);
+			//$CI->session-> add flashdata here
 			return TRUE;
 		}
 		else

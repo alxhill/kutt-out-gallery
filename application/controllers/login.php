@@ -20,9 +20,9 @@ class Login extends CI_Controller {
 	{
 		$user = $this->input->post('username');
 		$pass = $this->input->post('password');
-		if (log_in($user,$pass))
+		if (($user == 'boydcape') && ($pass == 'kutt-0ut'))
 		{
-			$this->load->view('gallery/superview', array('title' => 'Add a photo', 'template' => 'upload'));
+			
 		}
 		else
 		{
