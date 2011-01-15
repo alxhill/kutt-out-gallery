@@ -9,6 +9,12 @@ class Gallery extends CI_Controller {
 		$this->load->model('gallery_model');
 	}
 	
+	function _login_check()
+	{
+		$logged_in = $this->session->userdata('logged_in');
+		$logged_in ? TRUE : FALSE;
+	}
+	
 	function add_photo()
 	{
 		$this->load->view('gallery/superview', array('title' => 'Upload a new image', 'template' => 'upload'));

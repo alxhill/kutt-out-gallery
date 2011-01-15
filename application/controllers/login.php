@@ -22,11 +22,15 @@ class Login extends CI_Controller {
 		$pass = $this->input->post('password');
 		if (($user == 'boydcape') && ($pass == 'kutt-0ut'))
 		{
-			
+			$this->session->set_userdata('logged_in', TRUE);
+			$this->session->set_flashdata('success', 'You have successfully logged in!');
+			redirect('gallery/upload');
 		}
 		else
 		{
-			$this->load->view('gallery/superview', array('title' => 'Log in', 'template' => 'upload', 'class' => error, 'message' => 'There was a problem logging you in. Please try again.'));
+			$this->session->set_userdata('logged_in', FALSE);
+			$this->session->set_flashdata('error', 'Please try again.');
+			redirect('gallery/show');
 		}
 		
 	}
