@@ -82,7 +82,7 @@ class Gallery extends CI_Controller {
 		
 	} // END OF UPLOAD
 	
-	function show()
+	function index()
 	{
 		$all = $this->gallery_model->get_all_images();
 		if ( ! $all)
