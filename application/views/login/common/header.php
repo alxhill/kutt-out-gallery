@@ -8,3 +8,4 @@
 </head>
 <body>
 <div class="container">
+<?=isset($message) ? show_messages($class,$message) : null ?>

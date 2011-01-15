@@ -24,13 +24,13 @@ class Login extends CI_Controller {
 		{
 			$this->session->set_userdata('logged_in', TRUE);
 			$this->session->set_flashdata('success', 'You have successfully logged in!');
-			redirect('gallery/upload');
+			redirect('gallery/add_photo');
 		}
 		else
 		{
 			$this->session->set_userdata('logged_in', FALSE);
-			$this->session->set_flashdata('error', 'Please try again.');
-			redirect('gallery/show');
+			$data = array('title' => 'Log in', 'template' => 'login_form', 'class' => 'error', 'message' => 'Log in details are incorrect. Please try again.');
+			$this->load->view('login/superview', $data);
 		}
 		
 	}

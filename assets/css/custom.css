@@ -8,3 +8,13 @@ input {
 	margin-left: auto;
 	margin-right: auto;
 }
+
+div.photo_container {
+	display: inline-table;
+	margin: 10px;
+}
+
+div.photo_container a img {
+	padding: 5px;
+	border: 1px solid #000;
+}
