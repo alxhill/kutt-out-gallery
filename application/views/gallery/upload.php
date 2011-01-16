@@ -1,5 +1,5 @@
 
-<div class="span-16 last">
+<div class="span-16 last content">
 <h1>Select a photo:</h1>
 <?=form_open_multipart('gallery/upload'); ?>
 <div id="titleform">

@@ -9,6 +9,55 @@ input {
 	margin-right: auto;
 }
 
+.container {
+	margin-top: 30px;
+}
+
+/* Header style  */
+
+div.title {
+	margin: 20px;
+	padding-bottom: 20px;
+}
+
+div.heading, div.description {
+	font-family: "Times New Roman";
+	display: block;
+	color: #454545;
+
+}
+
+div.heading {
+	font-size: 17px;
+	width: 170px;
+	letter-spacing: -3px;
+	text-align: center;
+	height: 3px;
+}
+
+div.description {
+	padding-top: 8px;
+	font-size: 15px;
+	width: 230px;
+	line-height: 12px;
+}
+
+div.heading h1, div.description p{
+	color: #454545;
+	display: inline;
+	font-style: italic;
+	font-weight: bold;
+}
+
+/* Gallery style */
+
+div.content {
+	margin-left: -10px;
+	width: 450px;
+	background-color: #f1f0ee;
+	padding-bottom: 330px;
+}
+
 div.photo_container {
 	display: inline-table;
 	margin: 10px;
@@ -29,7 +78,11 @@ body {
 }
 
 /* Nav bar */
- 
+
+div#nav {
+	margin-right: -15px;
+}
+
 div#nav ul {
 	padding-right: 10px;
 }
