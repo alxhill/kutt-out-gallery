@@ -98,8 +98,8 @@ class Gallery extends CI_Controller {
 				$imgdata['file_thumb'] = $explode[0] . '_thumb' . '.' . $explode[1];
 			}
 			unset($imgdata);
-			$data = array('image_data' => $all, 'title' => 'Gallery view', 'template' => 'show_gallery');
+			$data = array('image_data' => $all, 'title' => 'Gallery', 'template' => 'show_gallery');
 			$this->load->view('gallery/superview', $data);
 		}
-	}
+	} // END OF INDEX
 }

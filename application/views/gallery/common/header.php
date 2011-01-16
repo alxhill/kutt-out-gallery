@@ -9,8 +9,19 @@
 <script type="text/javascript" src="/gallery/assets/js/scriptaculous.js?load=effects,builder"></script>
 <script type="text/javascript" src="/gallery/assets/js/lightbox.js"></script>
 
-<title><?=$title?></title>
+<title>Kutt Out Studios // <?=$title?></title>
 </head>
 <body>
 <div class="container">
 <?=isset($message) ? show_messages($class,$message) : null ?>
+<div class='span-8' id='nav'>
+	<ul>
+		<li><a href='<?=site_url()?>'><div id='kutt'>Kutt</div><div id='out'>Out</div><div id='studios'>Studios</div></a></li>
+		<li><a href='#'>Portraits</a></li>
+		<li><a href='#'>Landscapes</a></li>
+		<li id="middle"><a href='#'>Digital</a></li>
+		<li><a href='#'>Videos</a></li>
+		<li><a href='#'>Contact</a></li>
+		<li><a href='#'><div id='billy'>Billy</div><div id='boyd'>Boyd</div><div id='cape'>Cape</div></a></li>
+	</ul>
+</div>

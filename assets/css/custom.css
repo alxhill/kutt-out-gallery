@@ -1,3 +1,5 @@
+/* @override http://localhost:8888/gallery/assets/css/custom.css */
+
 input {
 	display: block;
 	margin-bottom: 5px;
@@ -17,4 +19,67 @@ div.photo_container {
 div.photo_container a img {
 	padding: 5px;
 	border: 1px solid #000;
+	background-color: white;
+}
+
+a img {
+	border: none;
+}
+
+body {
+	background-color: #c2c2c2;
+}
+
+/* Nav bar */
+ 
+div#nav ul {
+	padding-right: 10px;
+}
+
+div#nav ul li {
+	list-style: none;
+	line-height: 48px;
+	list-style-position: right;
+	text-align: right;
+	font-family: "Times New Roman";
+	font-size: 40px;
+	font-weight: bold;
+	font-style: italic;
+	text-transform: lowercase;
+	letter-spacing: -2px;
+}
+
+div#nav ul li#middle {
+	margin-bottom: 100px;
+}
+
+div#nav ul li:first-child {
+	padding-top: 25px;
+	font-size: 80px;
+	line-height: 8px;
+}
+
+div#nav ul li:last-child {
+	padding-top: 15px;
+	line-height: 20px;
+	font-size: 80px;
+}
+
+div#nav ul li a {
+	color: white;
+	text-decoration: none;
+}
+
+div#nav ul li a:hover {
+	text-shadow: #000 4px 4px 0;
+}
+
+div#out {
+	font-size: 100px;
+	padding-top: 5px;
+}
+
+div#studios {
+	padding-top: 6px;
+	font-size: 50px;
 }
