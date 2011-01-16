@@ -1,4 +1,4 @@
-<div class="span-16 last">
+<div class="span-16 last gallery">
 <?php
 foreach ($image_data as $pic) { ?>
 <div class='photo_container'>

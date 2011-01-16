@@ -1,5 +1,5 @@
 
-<div class="span-24 last">
+<div class="span-16 last">
 <h1>Select a photo:</h1>
 <?=form_open_multipart('gallery/upload'); ?>
 <div id="titleform">
@@ -9,7 +9,6 @@
 <div id="uploadform">
 <label>Select photo:</label><br>
 <input type="file" name="photo" id="photo"><br>
-<p>Please do not upload a file that has full stops (.) in the file name.</p>
 </div>
 <input type="submit" name="submit" value="Upload">
 </form>

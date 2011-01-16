@@ -95,7 +95,8 @@ class Gallery extends CI_Controller {
 			foreach ($all as &$imgdata)
 			{
 				$explode = explode('.', $imgdata['file']);
-				$imgdata['file_thumb'] = $explode[0] . '_thumb' . '.' . $explode[1];
+				$ext = array_pop($explode);
+				$imgdata['file_thumb'] = implode('.', $explode) . '_thumb.' . $ext;
 			}
 			unset($imgdata);
 			$data = array('image_data' => $all, 'title' => 'Gallery', 'template' => 'show_gallery');
