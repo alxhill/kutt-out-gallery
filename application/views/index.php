@@ -6,7 +6,7 @@
 </head>
 <body>
 <div id='homepagewrapper'>
-<a id='homepagelink' href='/gallery/portraits'><h1 id='homepageh1'>Kutt Out Studios</h1></a>
+<a id='homepagelink' href='/gallery/gallery/home'><h1 id='homepageh1'>Kutt Out Studios</h1></a>
 <div>
 </body>
 </html>
