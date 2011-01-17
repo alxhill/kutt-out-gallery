@@ -22,6 +22,11 @@ class Gallery extends CI_Controller {
 		}
 	}
 	
+	function index()
+	{
+		$this->load->view('home');
+	}
+	
 	function add_photo()
 	{
 		if ($this->_login_check())
@@ -82,7 +87,7 @@ class Gallery extends CI_Controller {
 		
 	} // END OF UPLOAD
 	
-	function index()
+	function portraits()
 	{
 		$all = $this->gallery_model->get_all_images();
 		if ( ! $all)
@@ -102,5 +107,5 @@ class Gallery extends CI_Controller {
 			$data = array('image_data' => $all, 'title' => 'Gallery', 'template' => 'show_gallery');
 			$this->load->view('gallery/superview', $data);
 		}
-	} // END OF INDEX
+	} // END OF PORTRAITS
 }

@@ -1,5 +1,6 @@
-<div class="span-16 last content">
-<h1>Select a photo:</h1>
+<div class="span-16 last">
+<div class='content'>
+<h1>Upload a photo:</h1>
 <?=form_open_multipart('gallery/upload'); ?>
 <div id="titleform">
 <label>Title:</label><br>
@@ -9,6 +10,7 @@
 <label>Select photo:</label><br>
 <input type="file" name="photo" id="photo"><br>
 </div>
-<input type="submit" name="submit" value="Upload">
+<input type="submit" name="submit" id="submit" value="Upload">
 </form>
+</div>
 </div>

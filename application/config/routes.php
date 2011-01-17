@@ -34,6 +34,11 @@
 
 $route['default_controller'] = "gallery";
 
+$route['login'] = "login/index";
+
+$route['upload'] = 'gallery/add_photo';
+
+$route['portraits'] = 'gallery/portraits';
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
