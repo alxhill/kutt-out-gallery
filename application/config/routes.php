@@ -34,6 +34,8 @@
 
 $route['default_controller'] = "gallery";
 
+$route['home'] = 'gallery/home';
+
 $route['login'] = "login/index";
 
 $route['upload'] = 'gallery/add_photo';

@@ -1,8 +1,11 @@
 /* @override http://localhost:8888/gallery/assets/css/custom.css */
 
 @font-face {
-	font-family: Reboard;
-	src: url("REBOARD.ttf") format("truetype");
+	font-family: 'Reboard';
+	src: url('reboard-webfont.eot');
+	src: local('☺'), url('reboard-webfont.woff') format('woff'), url('reboard-webfont.ttf') format('truetype'), url('reboard-webfont.svg#webfontDL6sIqhh') format('svg');
+	font-weight: normal;
+	font-style: normal;
 }
 
 input {
@@ -16,15 +19,59 @@ input {
 
 /* Home page */
 
+/* Home page */
+
 div.phrase {
 	font-size: 60px;
-	line-height: 20px;
+	line-height: 30px;
 	color: white;
 	position: relative;
-	top: 65px;
+	top: 30px;
+	left: 25px;
 	font-style: italic;
 	font-weight: bold;
 	text-shadow: #000 5px 5px 2px;
+}
+
+img#home {
+	margin-top: -250px;
+	padding-left: 15px;
+}
+
+/* The words */
+
+div#just {
+	font-size: 70px;
+	padding-left: 20px;
+}
+
+div#want {
+	padding-top: 10px;
+	padding-left: 25px;
+	font-size: 50px;
+	display: inline;
+	letter-spacing: -3px;
+}
+
+div#to {
+	display: inline;
+	font-size: 50px;
+	letter-spacing: -3px;
+}
+
+div#capture {
+	font-size: 90px;
+}
+
+div#the {
+	padding-top: 20px;
+	padding-left: 100px;
+	font-size: 40px;
+}
+
+div#moment {
+	font-size: 70px;
+	padding-top: 20px;
 }
 
 /* Index page */
