@@ -24,7 +24,7 @@ class Login extends CI_Controller {
 		{
 			$this->session->set_userdata('logged_in', TRUE);
 			$this->session->set_flashdata('success', 'You have successfully logged in!');
-			redirect('gallery/add_photo');
+			redirect('upload');
 		}
 		else
 		{

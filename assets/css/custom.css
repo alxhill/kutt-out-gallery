@@ -1,23 +1,88 @@
+/* @override http://localhost:8888/gallery/assets/css/custom.css */
+
+@font-face {
+	font-family: Reboard;
+	src: url("REBOARD.ttf") format("truetype");
+}
+
 input {
 	display: block;
 	margin-bottom: 5px;
-}
-
-.center {
-	width: 350px;
-	margin-left: auto;
-	margin-right: auto;
 }
 
 .container {
 	margin-top: 30px;
 }
 
+/* Index page */
+
+div#homepagewrapper {
+	position: relative;
+	width: 900px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+a#homepagelink {
+	text-decoration: none;
+	color: #c8c8c8;
+}
+
+h1#homepageh1 {
+	font-family: Reboard;
+	font-size: 120px;
+	text-shadow: #454545 5px 5px 0;
+}
+
+/* Login form */
+
+form.loginform label {
+	font-size: 20px;
+}
+
+/* Add photo style */
+
+div.content {
+	padding-left: 20px;
+	padding-top: 20px;
+	font-family: "Times New Roman";
+}
+
+div.content h1 {
+	font-weight: bold;
+	font-style: italic;
+	letter-spacing: -2px;
+	font-size: 50px;
+}
+
+div#titleform {
+	padding-bottom: 15px;
+}
+
+div#titleform label, div#uploadform label {
+	font-size: 25px;
+	font-style: italic;
+}
+
+div#titleform input#title {
+	width: 163px;
+}
+
+div#uploadform label {
+	font-size: 25px;
+	line-height: 40px;
+}
+
+input#submit {
+	margin-top: 10px;
+}
+
 /* Header style  */
 
 div.title {
-	margin: 20px;
+	margin: 10px;
 	padding-bottom: 20px;
+	height: 30px;
 }
 
 div.heading, div.description {
@@ -60,11 +125,11 @@ div.content {
 
 div.photo_container {
 	display: inline-table;
-	margin: 10px;
+	margin: 5px;
 }
 
 div.photo_container a img {
-	padding: 5px;
+	padding:5px;
 	border: 1px solid #000;
 	background-color: white;
 }
@@ -122,7 +187,7 @@ div#nav ul li a {
 }
 
 div#nav ul li a:hover {
-	text-shadow: #000 4px 4px 0;
+	text-shadow: #454545 4px 4px 0;
 }
 
 div#out {
