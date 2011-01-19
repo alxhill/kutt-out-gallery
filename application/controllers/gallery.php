@@ -132,20 +132,38 @@ class Gallery extends CI_Controller {
 	
 	function ajax_delete()
 	{
-		$photo_id = $this->input->post('id');
-		$image = $this->gallery_model->delete_image($photo_id);
-		if (!$image == FALSE)
+		if (IS_AJAX)
 		{
-			echo 'Image with ID ' . $photo_id . ' ("'. $image[0]['title'] .'") has been deleted.';
+			$photo_id = $this->input->post('id');
+			$image = $this->gallery_model->delete_image($photo_id);
+			if (!$image == FALSE)
+			{
+				echo 'Image with ID ' . $photo_id . ' ("'. $image[0]['title'] .'") has been deleted.';
+			}
+			else
+			{
+				echo "An error has occurred - the image was not deleted.";
+			}
 		}
 		else
 		{
-			echo "An error has occurred - the image was not deleted.";
+			redirect('home');
 		}
 
 	}
 	
-	function delete_test($photo_id)
+	function ajax_update()
 	{
+		if (IS_AJAX)
+		{
+			$photo_id = $this->input->post('id');
+			$photo_title = $this->input->post('title');
+			$this->gallery_model->change_title($photo_id,$photo_title);
+		}
+		else
+		{
+			redirect('home');
+		}
 	}
+
 }

@@ -6,23 +6,63 @@
 <!--[if lt IE 8]><link rel="stylesheet" href="'/gallery/assets/css/ie.css" type="text/css" media="screen, projection"><![endif]-->
 <link rel="stylesheet" href="/gallery/assets/css/custom.css" type="text/css" media="screen" />
 <script type="text/javascript" src="/gallery/assets/js/jquery.min.js"></script>
+<script type="text/javascript" src="/gallery/assets/js/jquery.editableText.js"></script>
 <script type="text/javascript" src="/gallery/assets/js/slimbox2.js"></script>
 <script type='text/javascript'>
 $(document).ready(function(){
+	$('a.revert_link').hide(0);
+	
+	// Manages deleting and removing elements.
 	$('a.delete_link').click(function(){
 		var sure = confirm('Are you sure you want to delete this image?');
 		if(sure==true){
 			var photo_id = $(this).attr('id');
 			$.post('/gallery/gallery/ajax_delete', { id: photo_id }, function(data){
-				$('div#action').html(data);
+				$('span#action').html(data);
 				$('tr#pic_id_' + photo_id).hide('slow');
-				$('div#action').addClass('notice').fadeIn();
+				$('span#action').addClass('notice');
 			});
 		}
 	});
+	
+	// Manage clicking the edit link and making the titke for the relevant element editable, then saving that content.
+	$('a.edit_link').click(function(){
+		var p_id = $(this).attr('id');
+		var title = $('td#title_' + p_id + '.editable');
+		var edit_link = $('a.edit_link#' + p_id);
+		if (edit_link.html() == "Edit")
+		{
+			original = title.html();
+			title.attr('contenteditable','true');
+			title.css('border','1px solid #cdcdcd');
+			edit_link.html('Save');
+
+			//$('a.delete_link#delete_' + id).hide(0, function() {
+			//	$('a.revert_link#revert_' + id).show(0);
+			//});
+		}
+		else if (edit_link.html() == 'Save')
+		{
+			title.attr('contenteditable','false');
+			title.css('border','none');
+			edit_link.html('Edit');
+			$.post('/gallery/gallery/ajax_update', { id: p_id, title: title.html() });
+			
+			//$('a.delete_link#delete_' + id).show(0, function() {
+			//	$('a.revert_link#revert_' + id).hide(0);
+			//});
+		}
+	});
+	
+	/*$('a.revert_link').click(function(){
+		var id = $(this).attr('id');
+		var title = $('td#title_' + id + '.editable');
+		title.html(original);
+		title.attr('contenteditable','false');
+	});*/
+	
 });
 </script>
-<script type="text/javascript" src="/gallery/assets/js/lightbox.js"></script>
 <title>Kutt Out Studios // <?=$title?></title>
 </head>
 <body>
