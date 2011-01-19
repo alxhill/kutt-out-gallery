@@ -25,11 +25,17 @@ class Gallery_model extends CI_Model {
 	function delete_image($id)
 	{
 		$image = $this->db->get_where('photos', array('id' => $id));
-		// There should be code here to delete the images from the server. This will be added later.
-		$this->db->delete('photos', array('id' => $id));
-		$image_arr = $image->result_array();
-		return $image_arr;
-		//return array('id' => $image_arr['id'], 'title' => $image_arr['title']);
+		if ($image->num_rows() === 0)
+		{
+			return FALSE;
+		}
+		else
+		{
+			// There should be code here to delete the images from the server. This will be added later.
+			$this->db->delete('photos', array('id' => $id));
+			$image_arr = $image->result_array();
+			return $image_arr;
+		}
 	}
 	
 	function change_title($id, $title)

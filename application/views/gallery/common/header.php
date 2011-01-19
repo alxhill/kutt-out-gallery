@@ -2,13 +2,11 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="/gallery/assets/css/screen.css" media="screen, projection" >
-<link rel="stylesheet" href="/gallery/assets/css/lightbox.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="/gallery/assets/css/slimbox2.css" type="text/css" media="screen" />
 <!--[if lt IE 8]><link rel="stylesheet" href="'/gallery/assets/css/ie.css" type="text/css" media="screen, projection"><![endif]-->
 <link rel="stylesheet" href="/gallery/assets/css/custom.css" type="text/css" media="screen" />
-<script type="text/javascript" src="/gallery/assets/js/prototype.js"></script>
-<script type="text/javascript" src="/gallery/assets/js/scriptaculous.js?load=effects,builder"></script>
-<script type="text/javascript" src="/gallery/assets/js/lightbox.js"></script>
 <script type="text/javascript" src="/gallery/assets/js/jquery.min.js"></script>
+<script type="text/javascript" src="/gallery/assets/js/slimbox2.js"></script>
 <script type='text/javascript'>
 $(document).ready(function(){
 	$('a.delete_link').click(function(){
@@ -18,11 +16,13 @@ $(document).ready(function(){
 			$.post('/gallery/gallery/ajax_delete', { id: photo_id }, function(data){
 				$('div#action').html(data);
 				$('tr#pic_id_' + photo_id).hide('slow');
+				$('div#action').addClass('notice').fadeIn();
 			});
 		}
 	});
 });
 </script>
+<script type="text/javascript" src="/gallery/assets/js/lightbox.js"></script>
 <title>Kutt Out Studios // <?=$title?></title>
 </head>
 <body>

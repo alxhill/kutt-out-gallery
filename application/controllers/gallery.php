@@ -134,8 +134,18 @@ class Gallery extends CI_Controller {
 	{
 		$photo_id = $this->input->post('id');
 		$image = $this->gallery_model->delete_image($photo_id);
-		echo 'Image with ID ' . $photo_id . ' ("'. $image[0]['title'] .'") has been deleted.';
-		//print_r($image);
+		if (!$image == FALSE)
+		{
+			echo 'Image with ID ' . $photo_id . ' ("'. $image[0]['title'] .'") has been deleted.';
+		}
+		else
+		{
+			echo "An error has occurred - the image was not deleted.";
+		}
+
 	}
 	
+	function delete_test($photo_id)
+	{
+	}
 }
