@@ -8,7 +8,21 @@
 <script type="text/javascript" src="/gallery/assets/js/prototype.js"></script>
 <script type="text/javascript" src="/gallery/assets/js/scriptaculous.js?load=effects,builder"></script>
 <script type="text/javascript" src="/gallery/assets/js/lightbox.js"></script>
-
+<script type="text/javascript" src="/gallery/assets/js/jquery.min.js"></script>
+<script type='text/javascript'>
+$(document).ready(function(){
+	$('a.delete_link').click(function(){
+		var sure = confirm('Are you sure you want to delete this image?');
+		if(sure==true){
+			var photo_id = $(this).attr('id');
+			$.post('/gallery/gallery/ajax_delete', { id: photo_id }, function(data){
+				$('div#action').html(data);
+				$('tr#pic_id_' + photo_id).hide('slow');
+			});
+		}
+	});
+});
+</script>
 <title>Kutt Out Studios // <?=$title?></title>
 </head>
 <body>

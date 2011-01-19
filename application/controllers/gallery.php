@@ -14,7 +14,8 @@ class Gallery extends CI_Controller {
 		$logged_in = $this->session->userdata('logged_in');
 		if ($logged_in)
 		{
-			return TRUE;
+			$return = array(TRUE, $this->session->userdata('user'));
+			return $return;
 		}
 		else
 		{
@@ -36,7 +37,14 @@ class Gallery extends CI_Controller {
 	{
 		if ($this->_login_check())
 		{
-			$this->load->view('gallery/superview', array('title' => 'Upload a new image', 'template' => 'upload'));
+			if ($this->session->flashdata('login'))
+			{
+				$this->load->view('gallery/superview', array('title' => 'Upload a new image', 'template' => 'upload', 'class' => 'success', 'message' => $this->session->flashdata('login')));
+			}
+			else
+			{
+				$this->load->view('gallery/superview', array('title' => 'Upload a new image', 'template' => 'upload' ));
+			}
 		}
 		else
 		{
@@ -102,15 +110,32 @@ class Gallery extends CI_Controller {
 		}
 		else
 		{
-			foreach ($all as &$imgdata)
-			{
-				$explode = explode('.', $imgdata['file']);
-				$ext = array_pop($explode);
-				$imgdata['file_thumb'] = implode('.', $explode) . '_thumb.' . $ext;
-			}
-			unset($imgdata);
 			$data = array('image_data' => $all, 'title' => 'Gallery', 'template' => 'show_gallery');
 			$this->load->view('gallery/superview', $data);
 		}
 	} // END OF PORTRAITS
+	
+	function admin()
+	{
+		if ($this->_login_check())
+		{
+			$images = $this->gallery_model->get_all_images();
+			$user = $this->session->userdata('user');
+			$data = array('image_data' => $images, 'user' => $user, 'title' => 'Admin control panel', 'template' => 'admin');
+			$this->load->view('gallery/superview', $data);
+		}
+		else
+		{
+			$this->load->view('login/superview', array('title' => 'Log in', 'template' => 'login_form', 'class' => 'error', 'message' => 'You must be logged in to view this page.'));
+		}
+	} // END OF ADMIN
+	
+	function ajax_delete()
+	{
+		$photo_id = $this->input->post('id');
+		$image = $this->gallery_model->delete_image($photo_id);
+		echo 'Image with ID ' . $photo_id . ' ("'. $image[0]['title'] .'") has been deleted.';
+		//print_r($image);
+	}
+	
 }

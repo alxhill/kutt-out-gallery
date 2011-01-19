@@ -1,4 +1,4 @@
 Kutt Out Gallery
 ===============
 
-This is a simple gallery system for kutt-out.co.uk. Currently rudimentary, more features/functionality coming soon.
+This is a gallery system for kutt-out.co.uk. Currently supports uploading images, one user login (no user db yet), and all within an updated version of the kutt-out.co.uk design.

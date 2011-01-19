@@ -17,7 +17,40 @@ input {
 	margin-top: 30px;
 }
 
-/* Home page */
+.hidden {
+	display: none;
+}
+
+/* Admin page */
+
+div.content h2{
+	line-height: 20px;
+	font-weight: bold;
+	font-style: italic;
+	margin-top: -15px;
+}
+
+p#user {
+	font-size: 15px;
+	letter-spacing: -1pt;
+}
+
+p#user span#username {
+	font-weight: bold;
+}
+
+table.photos tbody tr {
+	font-size:15px;
+}
+
+td.image_id {
+	font-size: 20px;
+	text-align: center;
+}
+
+td.image_title {
+	font-weight: bold;
+}
 
 /* Home page */
 
