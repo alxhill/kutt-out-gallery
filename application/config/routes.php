@@ -40,6 +40,8 @@ $route['login'] = "login/index";
 
 $route['upload'] = 'gallery/add_photo';
 
+$route['admin'] = 'gallery/admin';
+
 $route['portraits'] = 'gallery/portraits';
 
 /* End of file routes.php */

@@ -6,7 +6,6 @@
 <!--[if lt IE 8]><link rel="stylesheet" href="'/gallery/assets/css/ie.css" type="text/css" media="screen, projection"><![endif]-->
 <link rel="stylesheet" href="/gallery/assets/css/custom.css" type="text/css" media="screen" />
 <script type="text/javascript" src="/gallery/assets/js/jquery.min.js"></script>
-<script type="text/javascript" src="/gallery/assets/js/jquery.editableText.js"></script>
 <script type="text/javascript" src="/gallery/assets/js/slimbox2.js"></script>
 <script type='text/javascript'>
 $(document).ready(function(){
@@ -66,6 +65,7 @@ $(document).ready(function(){
 <title>Kutt Out Studios // <?=$title?></title>
 </head>
 <body>
+<a id='logout_link' href='/gallery/gallery/logout/' ><?=$logged_in ? "Logout" : ""; ?></a>
 <div class="container">
 <?=isset($message) ? show_messages($class,$message) : null ?>
 <div class='span-8' id='nav'>

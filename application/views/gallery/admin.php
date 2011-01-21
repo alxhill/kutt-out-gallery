@@ -11,12 +11,12 @@
 		<th>Title</th>
 		<th>Edit/Delete?</th>
 	</tr>
-<?php foreach ($image_data as $pic) { ?>
+<?php foreach (array_reverse($image_data) as $pic) { ?>
 	<tr id='pic_id_<?=$pic['id']?>'>
 		<td class='image_id'><?=$pic['id']?></td>
 		<td><img src='<?=$pic['file_thumb']?>' alt='<?=$pic['title']?>' title='<?=$pic['title']?>'></td>
 		<td class='image_title editable' id='title_<?=$pic['id']?>'><?=$pic['title']?></td>
-		<td class='edit_delete'><a class='edit_link' id='<?=$pic['id']?>' href='javascript: void(0)'>Edit</a>/<a class='delete_link' id='<?=$pic['id']?>' href='javascript: void(0)'>Delete</a><a class='revert_link' id='revert_<?=$pic['id']?>' href='javascript: void(0)' >Revert</a></td>
+		<td class='edit_delete'><a class='edit_link' id='<?=$pic['id']?>' href='javascript:void(0)'>Edit</a>/<a class='delete_link' id='<?=$pic['id']?>' href='javascript: void(0)'>Delete</a><a class='revert_link' id='revert_<?=$pic['id']?>' href='javascript:void(0)' >Revert</a></td>
 	</tr>
 <?php } ?>
 </table>
