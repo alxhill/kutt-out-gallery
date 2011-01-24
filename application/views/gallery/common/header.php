@@ -1,13 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="/gallery/assets/css/screen.css" media="screen, projection" >
 <link rel="stylesheet" href="/gallery/assets/css/slimbox2.css" type="text/css" media="screen" />
-<link rel="stylesheet" href="/gallery/assets/css/jquery-ui.css" type="text/css" media="screen" />
 <!--[if lt IE 8]><link rel="stylesheet" href="'/gallery/assets/css/ie.css" type="text/css" media="screen, projection"><![endif]-->
 <link rel="stylesheet" href="/gallery/assets/css/custom.css" type="text/css" media="screen" />
 <script type="text/javascript" src="/gallery/assets/js/jquery.min.js"></script>
-<script type="text/javascript" src="/gallery/assets/js/jquery-ui.js"></script>
 <script type="text/javascript" src="/gallery/assets/js/slimbox2.js"></script>
 <script type='text/javascript'>
 $(document).ready(function(){

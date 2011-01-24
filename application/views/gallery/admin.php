@@ -1,4 +1,4 @@
-<div class='span-16 last'>
+<div class='span-16 last' id='main'>
 <div class='content'>
 <h1>Admin control panel</h1>
 <h2>Upload, update and delete images from this panel</h2>

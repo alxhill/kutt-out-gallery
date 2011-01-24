@@ -1,5 +1,5 @@
-<div class="span-16 last">
-<div class="content">
+<div id='main'>
+<div class='content'>
 <div class='title'>
 <div class='span-12 heading'><h1>Portraits</h1></div>
 <div class='span-12 last description'><p>A selection of either studio, live music or documentary photographs of the human form.</p></div>

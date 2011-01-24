@@ -1,4 +1,4 @@
-<div class="span-16 last">
+<div class="span-16 last" id='main'>
 <div class='content'>
 <h1>Upload a photo:</h1>
 <?=form_open_multipart('gallery/upload'); ?>

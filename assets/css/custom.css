@@ -8,19 +8,6 @@
 	font-style: normal;
 }
 
-input {
-	display: block;
-	margin-bottom: 5px;
-}
-
-.container {
-	margin-top: 30px;
-}
-
-.hidden {
-	display: none;
-}
-
 /* Admin page */
 
 div.content h2{
@@ -50,6 +37,11 @@ td.image_id {
 
 td.image_title {
 	font-weight: bold;
+}
+
+input {
+	display: block;
+	margin-bottom: 5px;
 }
 
 /* Home page */
@@ -209,13 +201,6 @@ div.heading h1, div.description p{
 
 /* Gallery style */
 
-div.content {
-	margin-left: -10px;
-	width: 450px;
-	background-color: #f1f0ee;
-	padding-bottom: 0px;
-}
-
 div.photo_container {
 	display: inline-table;
 	margin: 5px;
@@ -293,31 +278,35 @@ div#studios {
 	font-size: 50px;
 }
 
-/* Columns
+/* Columns */
 
 div.container {
 	width: 900px;
 }
 
-div#nav {
+#nav {
 	float: left;
 	width: 300px;
-} */
+}
 
+#main {
+	width: 600px;
+	float: right;
+}
 
+.container {
+	margin-top: 20px;
+}
 
+div.content {
+	/*margin-left: -10px;*/
+	width: 450px;
+	background-color: #f1f0ee;
+	/*padding-bottom: 0px;*/
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#nav, #main {
+	margin-bottom: 5000px;
+	padding-bottom: -5000px;
+	/* This is meant to create equal height colums - it doesn't work */
+}
