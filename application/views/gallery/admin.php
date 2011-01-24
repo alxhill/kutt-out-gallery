@@ -4,7 +4,7 @@
 <h2>Upload, update and delete images from this panel</h2>
 <p id='user'>Logged in as user: <span id='username'><?=$user?></span></p>
 <span id='action'></span>
-<h2>Upload an image</h2>
+<h2 id='upload_title'>Upload an image</h2>
 <?=form_open_multipart('gallery/upload'); ?>
 <div id="titleform">
 <label>Title:</label><br>
@@ -16,7 +16,7 @@
 </div>
 <input type="submit" name="submit" id="submit" value="Upload">
 </form>
-<h2>Edit and delete images</h2>
+<h2 id='edit_title'>Edit and delete images</h2>
 <div>
 <table class='photos'>
 	<tr>
