@@ -4,21 +4,34 @@
 <h2>Upload, update and delete images from this panel</h2>
 <p id='user'>Logged in as user: <span id='username'><?=$user?></span></p>
 <span id='action'></span>
+<h2>Upload an image</h2>
+<?=form_open_multipart('gallery/upload'); ?>
+<div id="titleform">
+<label>Title:</label><br>
+<input type="text" name="title" id="title">
+</div>
+<div id="uploadform">
+<label>Select photo:</label><br>
+<input type="file" name="photo" id="photo"><br>
+</div>
+<input type="submit" name="submit" id="submit" value="Upload">
+</form>
+<h2>Edit and delete images</h2>
+<div>
 <table class='photos'>
 	<tr>
-		<th>Image ID</th>
 		<th>Thumbnail</th>
 		<th>Title</th>
-		<th>Edit/Delete?</th>
+		<th>Modify</th>
 	</tr>
 <?php foreach (array_reverse($image_data) as $pic) { ?>
 	<tr id='pic_id_<?=$pic['id']?>'>
-		<td class='image_id'><?=$pic['id']?></td>
-		<td><img src='<?=$pic['file_thumb']?>' alt='<?=$pic['title']?>' title='<?=$pic['title']?>'></td>
+		<td><img src='<?=$pic['file_thumb']?>' alt='<?=$pic['title']?>' title='<?=$pic['title']?>' class-'admin_thumb'></td>
 		<td class='image_title editable' id='title_<?=$pic['id']?>'><?=$pic['title']?></td>
 		<td class='edit_delete'><a class='edit_link' id='<?=$pic['id']?>' href='javascript:void(0)'>Edit</a>/<a class='delete_link' id='<?=$pic['id']?>' href='javascript: void(0)'>Delete</a><a class='revert_link' id='revert_<?=$pic['id']?>' href='javascript:void(0)' >Revert</a></td>
 	</tr>
 <?php } ?>
 </table>
+</div>
 </div>
 </div>

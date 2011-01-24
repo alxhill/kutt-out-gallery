@@ -3,9 +3,11 @@
 <head>
 <link rel="stylesheet" type="text/css" href="/gallery/assets/css/screen.css" media="screen, projection" >
 <link rel="stylesheet" href="/gallery/assets/css/slimbox2.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="/gallery/assets/css/jquery-ui.css" type="text/css" media="screen" />
 <!--[if lt IE 8]><link rel="stylesheet" href="'/gallery/assets/css/ie.css" type="text/css" media="screen, projection"><![endif]-->
 <link rel="stylesheet" href="/gallery/assets/css/custom.css" type="text/css" media="screen" />
 <script type="text/javascript" src="/gallery/assets/js/jquery.min.js"></script>
+<script type="text/javascript" src="/gallery/assets/js/jquery-ui.js"></script>
 <script type="text/javascript" src="/gallery/assets/js/slimbox2.js"></script>
 <script type='text/javascript'>
 $(document).ready(function(){
@@ -24,7 +26,7 @@ $(document).ready(function(){
 		}
 	});
 	
-	// Manage clicking the edit link and making the titke for the relevant element editable, then saving that content.
+	// Manage clicking the edit link and making the title for the relevant element editable, then saving that content.
 	$('a.edit_link').click(function(){
 		var p_id = $(this).attr('id');
 		var title = $('td#title_' + p_id + '.editable');
@@ -35,10 +37,6 @@ $(document).ready(function(){
 			title.attr('contenteditable','true');
 			title.css('border','1px solid #cdcdcd');
 			edit_link.html('Save');
-
-			//$('a.delete_link#delete_' + id).hide(0, function() {
-			//	$('a.revert_link#revert_' + id).show(0);
-			//});
 		}
 		else if (edit_link.html() == 'Save')
 		{
@@ -46,26 +44,17 @@ $(document).ready(function(){
 			title.css('border','none');
 			edit_link.html('Edit');
 			$.post('/gallery/gallery/ajax_update', { id: p_id, title: title.html() });
-			
-			//$('a.delete_link#delete_' + id).show(0, function() {
-			//	$('a.revert_link#revert_' + id).hide(0);
-			//});
 		}
 	});
-	
-	/*$('a.revert_link').click(function(){
-		var id = $(this).attr('id');
-		var title = $('td#title_' + id + '.editable');
-		title.html(original);
-		title.attr('contenteditable','false');
-	});*/
-	
 });
 </script>
 <title>Kutt Out Studios // <?=$title?></title>
 </head>
 <body>
-<a id='logout_link' href='/gallery/gallery/logout/' ><?=$logged_in ? "Logout" : ""; ?></a>
+<?php if ($logged_in) { ?>
+<a id='logout_link' href='/gallery/gallery/logout/' >Logout</a> - 
+<a id='admin_link'href='/gallery/gallery/admin' >Admin</a>
+<?php } ?>
 <div class="container">
 <?=isset($message) ? show_messages($class,$message) : null ?>
 <div class='span-8' id='nav'>

@@ -27,7 +27,7 @@ div.content h2{
 	line-height: 20px;
 	font-weight: bold;
 	font-style: italic;
-	margin-top: -15px;
+	margin-top: 15px;
 }
 
 p#user {
@@ -213,7 +213,7 @@ div.content {
 	margin-left: -10px;
 	width: 450px;
 	background-color: #f1f0ee;
-	padding-bottom: 330px;
+	padding-bottom: 0px;
 }
 
 div.photo_container {
@@ -292,3 +292,32 @@ div#studios {
 	padding-top: 6px;
 	font-size: 50px;
 }
+
+/* Columns
+
+div.container {
+	width: 900px;
+}
+
+div#nav {
+	float: left;
+	width: 300px;
+} */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
