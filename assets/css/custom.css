@@ -8,6 +8,32 @@
 	font-style: normal;
 }
 
+/* Firefox fixes */
+@-moz-document url-prefix()
+{
+
+#kutt {
+	padding-bottom: 25px;
+}
+
+#out {
+	padding-bottom: 30px;
+}
+
+#studios {
+	padding-bottom: 10px;
+}
+
+img#home {
+	margin-top: -220px;
+}
+
+#billy, #boyd, #cape {
+	padding-bottom: 15px;
+}
+
+}
+
 /* Admin page */
 
 #admin_link, #logout_link {
@@ -28,14 +54,14 @@ tbody tr:nth-child(even) td {
 	background: #e5ecf9; 
 }
 
-div.content h2 {
+.content h2 {
 	line-height: 20px;
 	font-weight: bold;
 	font-style: italic;
 	margin-top: 15px;
 }
 
-div.content h1 {
+.content h1 {
 	margin-top: 0px;
 	margin-bottom: -13px;
 }
@@ -78,7 +104,7 @@ input {
 
 /* Home page */
 
-div.phrase {
+.phrase {
 	font-size: 60px;
 	line-height: 30px;
 	color: white;
@@ -97,12 +123,12 @@ img#home {
 
 /* The words */
 
-div#just {
+#just {
 	font-size: 70px;
 	padding-left: 20px;
 }
 
-div#want {
+#want {
 	padding-top: 10px;
 	padding-left: 25px;
 	font-size: 50px;
@@ -110,30 +136,30 @@ div#want {
 	letter-spacing: -3px;
 }
 
-div#to {
+#to {
 	display: inline;
 	font-size: 50px;
 	letter-spacing: -3px;
 }
 
-div#capture {
+#capture {
 	font-size: 90px;
 }
 
-div#the {
+#the {
 	padding-top: 20px;
 	padding-left: 100px;
 	font-size: 40px;
 }
 
-div#moment {
+#moment {
 	font-size: 70px;
 	padding-top: 20px;
 }
 
 /* Index page */
 
-div#homepagewrapper {
+#homepagewrapper {
 	position: relative;
 	width: 900px;
 	margin-left: auto;
@@ -159,33 +185,33 @@ form.loginform label {
 
 /* Add photo style */
 
-div.content {
+.content {
 	padding-left: 20px;
 	padding-top: 20px;
 	font-family: "Times New Roman";
 }
 
-div.content h1 {
+.content h1 {
 	font-weight: bold;
 	font-style: italic;
 	letter-spacing: -2px;
 	font-size: 50px;
 }
 
-div#titleform {
+#titleform {
 	padding-bottom: 15px;
 }
 
-div#titleform label, div#uploadform label {
+#titleform label, #uploadform label {
 	font-size: 25px;
 	font-style: italic;
 }
 
-div#titleform input#title {
+#titleform input#title {
 	width: 163px;
 }
 
-div#uploadform label {
+#uploadform label {
 	font-size: 25px;
 	line-height: 40px;
 }
@@ -196,20 +222,20 @@ input#submit {
 
 /* Header style  */
 
-div.title {
+.title {
 	margin: 10px;
 	padding-bottom: 20px;
 	height: 30px;
 }
 
-div.heading, div.description {
+.heading, .description {
 	font-family: "Times New Roman";
 	display: block;
 	color: #454545;
 
 }
 
-div.heading {
+.heading {
 	font-size: 17px;
 	width: 170px;
 	letter-spacing: -3px;
@@ -217,14 +243,14 @@ div.heading {
 	height: 3px;
 }
 
-div.description {
+.description {
 	padding-top: 8px;
 	font-size: 15px;
 	width: 230px;
 	line-height: 12px;
 }
 
-div.heading h1, div.description p{
+.heading h1, .description p{
 	color: #454545;
 	display: inline;
 	font-style: italic;
@@ -233,12 +259,12 @@ div.heading h1, div.description p{
 
 /* Gallery style */
 
-div.photo_container {
+.photo_container {
 	display: inline-table;
 	margin: 5px;
 }
 
-div.photo_container a img {
+.photo_container a img {
 	padding:5px;
 	border: 1px solid #000;
 	background-color: white;
@@ -252,21 +278,21 @@ body {
 	background-color: #c2c2c2;
 }
 
-div.description {
+.description {
 	margin-left:180px;
 }
 
 /* Nav bar */
 
-div#nav {
+#nav {
 	padding-right: -10px;
 }
 
-div#nav ul {
+#nav ul {
 	padding-right: 4px;
 }
 
-div#nav ul li {
+#nav ul li {
 	list-style: none;
 	line-height: 48px;
 	list-style-position: right;
@@ -279,44 +305,44 @@ div#nav ul li {
 	letter-spacing: -2px;
 }
 
-div#nav ul li#middle {
+#nav ul li#middle {
 	margin-bottom: 100px;
 }
 
-div#nav ul li:first-child {
+#nav ul li:first-child {
 	padding-top: 25px;
 	font-size: 80px;
 	line-height: 8px;
 }
 
-div#nav ul li:last-child {
+#nav ul li:last-child {
 	padding-top: 15px;
 	line-height: 20px;
 	font-size: 80px;
 }
 
-div#nav ul li a {
+#nav ul li a {
 	color: white;
 	text-decoration: none;
 }
 
-div#nav ul li a:hover {
+#nav ul li a:hover {
 	text-shadow: #454545 4px 4px 0;
 }
 
-div#out {
+#out {
 	font-size: 100px;
 	padding-top: 5px;
 }
 
-div#studios {
+#studios {
 	padding-top: 6px;
 	font-size: 50px;
 }
 
 /* Columns */
 
-div.container {
+.container {
 	width: 900px;
 }
 
@@ -343,7 +369,5 @@ div.container {
 	padding-bottom: 25px;
 	margin-bottom: 10px;
 }
-
-
 
 
