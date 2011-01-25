@@ -1,6 +1,6 @@
-<div class='span-16 last'>
+<div id='main'>
 <div class='content'>
-<h1>Log in:</h1>
+<h1 id='login'>Log in:</h1>
 <?=form_open('login/submit',array('class' => 'loginform')); ?>
 <label>User name:</label><br>
 <input type='text' name='username' size='50'>

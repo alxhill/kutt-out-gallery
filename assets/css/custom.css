@@ -8,11 +8,10 @@
 	font-style: normal;
 }
 
-/* Firefox fixes */
-@-moz-document url-prefix()
-{
+/* @group Firefox fixes */
 
-#kutt {
+@-moz-document url-prefix() {
+	#kutt {
 	padding-bottom: 25px;
 }
 
@@ -25,7 +24,7 @@
 }
 
 img#home {
-	margin-top: -220px;
+	margin-top: -220px !important;
 }
 
 #billy, #boyd, #cape {
@@ -34,7 +33,10 @@ img#home {
 
 }
 
-/* Admin page */
+/* @end */
+
+
+/* @group Admin page */
 
 #admin_link, #logout_link {
 	font-family: 'Helvetica Neue';
@@ -50,8 +52,8 @@ label {
 	font-weight: bold;
 }
 
-tbody tr:nth-child(even) td { 
-	background: #e5ecf9; 
+tbody tr:nth-child(even) td {
+	background: #e5ecf9;
 }
 
 .content h2 {
@@ -61,9 +63,11 @@ tbody tr:nth-child(even) td {
 	margin-top: 15px;
 }
 
-.content h1 {
+.content h1#admin {
 	margin-top: 0px;
 	margin-bottom: -13px;
+	font-size: 50px;
+	font-style: italic;
 }
 
 p#user {
@@ -80,7 +84,7 @@ table.photos {
 }
 
 table.photos tbody tr {
-	font-size:15px;
+	font-size: 15px;
 }
 
 td.edit_delete {
@@ -102,7 +106,10 @@ input {
 	margin-bottom: 5px;
 }
 
-/* Home page */
+/* @end */
+
+ 
+/* @group Home page */
 
 .phrase {
 	font-size: 60px;
@@ -121,7 +128,9 @@ img#home {
 	padding-left: 15px;
 }
 
-/* The words */
+/* @end */
+
+/* @group Homepage words */
 
 #just {
 	font-size: 70px;
@@ -157,7 +166,9 @@ img#home {
 	padding-top: 20px;
 }
 
-/* Index page */
+/* @end */
+
+/* @group Index page */
 
 #homepagewrapper {
 	position: relative;
@@ -177,13 +188,17 @@ h1#homepageh1 {
 	text-shadow: #454545 5px 5px 0;
 }
 
-/* Login form */
+/* @end */
+
+/* @group Login form */
 
 form.loginform label {
 	font-size: 20px;
 }
 
-/* Add photo style */
+/* @end */
+
+/* @group Add photo style */
 
 .content {
 	padding-left: 20px;
@@ -191,11 +206,12 @@ form.loginform label {
 	font-family: "Times New Roman";
 }
 
-.content h1 {
+.content h1#login {
 	font-weight: bold;
 	font-style: italic;
 	letter-spacing: -2px;
 	font-size: 50px;
+	margin-top: 0px;
 }
 
 #titleform {
@@ -220,7 +236,9 @@ input#submit {
 	margin-top: 10px;
 }
 
-/* Header style  */
+/* @end */
+
+/* @group Header style  */
 
 .title {
 	margin: 10px;
@@ -232,7 +250,6 @@ input#submit {
 	font-family: "Times New Roman";
 	display: block;
 	color: #454545;
-
 }
 
 .heading {
@@ -250,14 +267,20 @@ input#submit {
 	line-height: 12px;
 }
 
-.heading h1, .description p{
+.heading h1, .description p {
 	color: #454545;
 	display: inline;
 	font-style: italic;
 	font-weight: bold;
 }
 
-/* Gallery style */
+/* @end */
+
+/* @group Gallery style */
+
+.title h1 {
+	font-size: 50px;
+}
 
 .photo_container {
 	display: inline-table;
@@ -265,7 +288,7 @@ input#submit {
 }
 
 .photo_container a img {
-	padding:5px;
+	padding: 5px;
 	border: 1px solid #000;
 	background-color: white;
 }
@@ -279,10 +302,12 @@ body {
 }
 
 .description {
-	margin-left:180px;
+	margin-left: 180px;
 }
 
-/* Nav bar */
+/* @end */
+
+/* @group Nav bar */
 
 #nav {
 	padding-right: -10px;
@@ -340,11 +365,9 @@ body {
 	font-size: 50px;
 }
 
-/* Columns */
+/* @end */
 
-.container {
-	width: 900px;
-}
+/* @group Columns */
 
 #nav {
 	float: left;
@@ -352,22 +375,103 @@ body {
 }
 
 #main {
-	width: 600px;
+	width: 470px;
+	height: 620px;
+	background-color: #f1f0ee;
 	float: right;
 }
 
-.container {
-	margin-top: 20px;
-	margin-left: auto;
-	margin-right: auto;
-}
-
 .content {
-	/*margin-left: -10px;*/
 	width: 450px;
 	background-color: #f1f0ee;
 	padding-bottom: 25px;
 	margin-bottom: 10px;
 }
 
+.container {
+	width: 770px;
+	margin-top: 20px;
+	margin-left: auto;
+	margin-right: auto;
+}
 
+/* @end */
+
+/* @group Messages (blueprint) */
+.error, .alert, .notice, .success, .info {
+	padding: 0.8em;
+	margin-bottom: 1em;
+	border: 2px solid #ddd;
+	font-family: 'Helvetica Neue';
+	font-size: 15px;
+	text-align: center;
+	font-weight: 300;
+}
+
+.error, .alert {
+	background: #fbe3e4;
+	color: #8a1f11;
+	border-color: #fbc2c4;
+}
+
+.notice {
+	background: #fff6bf;
+	color: #514721;
+	border-color: #ffd324;
+}
+
+.success {
+	background: #e6efc2;
+	color: #264409;
+	border-color: #c6d880;
+}
+
+.info {
+	background: #d5edf8;
+	color: #205791;
+	border-color: #92cae4;
+}
+
+.error a, .alert a {
+	color: #8a1f11;
+}
+
+.notice a {
+	color: #514721;
+}
+
+.success a {
+	color: #264409;
+}
+
+.info a {
+	color: #205791;
+}
+
+/* @end */
+
+/* @group Form input fields */
+input[type=text], input[type=password],
+input.text, input.title,
+textarea {
+  background-color:#fff;
+  border:1px solid #bbb;
+}
+input[type=text]:focus, input[type=password]:focus,
+input.text:focus, input.title:focus,
+textarea:focus {
+  border-color:#666;
+}
+select { background-color:#fff; border-width:1px; border-style:solid; }
+
+input[type=text], input[type=password],
+input.text, input.title,
+textarea, select {
+  margin:0.5em 0;
+}
+
+input.text,
+input.title   { width: 300px; padding:5px; }
+input.title   { font-size:1.5em; }
+textarea      { width: 390px; height: 250px; padding:5px; }
+/* @end */

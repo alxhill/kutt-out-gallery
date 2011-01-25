@@ -1,6 +1,6 @@
-<div class='span-16 last' id='main'>
+<div id='main'>
 <div class='content'>
-<h1>Admin control panel</h1>
+<h1 id='admin'>Admin control panel</h1>
 <h2>Upload, update and delete images from this panel</h2>
 <p id='user'>Logged in as user: <span id='username'><?=$user?></span></p>
 <span id='action'></span>
