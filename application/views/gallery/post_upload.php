@@ -1,4 +1,4 @@
 <div class="content" id='main'>
 <h1>Image:</h1>
-<img alt="image" src="<?=$link ?>" width='430px'>
+<img alt="image" src="<?=$link ?>" width='400px'>
 </div>

@@ -50,7 +50,7 @@ $(document).ready(function(){
 <body>
 <?php if ($logged_in) { ?>
 <a id='logout_link' href='/gallery/gallery/logout/' >Logout</a> - 
-<a id='admin_link'href='/gallery/gallery/admin' >Admin</a>
+<a id='admin_link'href='/gallery/admin' >Admin</a>
 <?php } ?>
 <div class="container">
 <?=isset($message) ? show_messages($class,$message) : null ?>
