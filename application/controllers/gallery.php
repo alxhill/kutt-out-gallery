@@ -93,7 +93,7 @@ class Gallery extends CI_Controller {
 			$config_img = array(
 								'source_image' => 'assets/upload/' . $upload_data['file_name'],
 								'create_thumb' => TRUE,
-								'thumb_marker' => '_thum',
+								'thumb_marker' => '_thumb',
 								'maintain_ratio' => TRUE,
 								'width' => 100,
 								'height' => 60,
@@ -106,11 +106,12 @@ class Gallery extends CI_Controller {
 			
 			$this->load->helper('neatr');
 			
-			$thumb_loc = 'assets/upload/' . $upload_data['raw_name'] . '_thum' . $upload_data['file_ext'];
+			$thumb_loc = 'assets/upload/' . $upload_data['raw_name'] . '_thumb' . $upload_data['file_ext'];
 			$img_size = getimagesize($thumb_loc);
 			neat_r($img_size);
 			// Crop the image if necessary
-			if ($img_size[1] > $img_size[0]) {
+			if ($img_size[1] > $img_size[0])
+			{
 				$center_crop = $img_size[1]/2 + 30;
 				$this->image_lib->clear();
 				$config_img2 = array(
@@ -123,12 +124,12 @@ class Gallery extends CI_Controller {
 					'x-axis' => 0
 					);
 				neat_r($config_img2);
-			$this->image_lib->initialize($config_img2);
+				$this->image_lib->initialize($config_img2);
 			
-			if ( ! $this->image_lib->crop()) {
-				print_r($this->image_lib->display_errors());
-			}
-			
+				if ( ! $this->image_lib->crop())
+				{
+					print_r($this->image_lib->display_errors());
+				}
 			}
 			$title = $this->input->post('title');
 			$this->gallery_model->add_image($link,$title);

@@ -291,6 +291,7 @@ input#submit {
 	padding: 5px;
 	border: 1px solid #000;
 	background-color: white;
+	height: 60px;
 }
 
 a img {
@@ -310,7 +311,7 @@ body {
 /* @group Nav bar */
 
 #nav {
-	padding-right: -10px;
+	margin-right: -10px;
 }
 
 #nav ul {
@@ -375,7 +376,7 @@ body {
 }
 
 #main {
-	width: 470px;
+	width: 450px;
 	height: 620px;
 	background-color: #f1f0ee;
 	float: right;
