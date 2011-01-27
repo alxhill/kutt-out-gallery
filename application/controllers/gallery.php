@@ -89,48 +89,12 @@ class Gallery extends CI_Controller {
 			$upload_data = $this->upload->data();
 			$link = site_url("assets/upload/" . $upload_data['file_name']);
 			
-			// create a thumbnail for the image
-			$config_img = array(
-								'source_image' => 'assets/upload/' . $upload_data['file_name'],
-								'create_thumb' => TRUE,
-								'thumb_marker' => '_thumb',
-								'maintain_ratio' => TRUE,
-								'width' => 100,
-								'height' => 60,
-								'master_dim' => 'width'
-								);
-			$this->load->library('image_lib', $config_img);
-			if ( ! $this->image_lib->resize()) {
-				print_r($this->image_lib->display_errors());
-			}
-			
-			$this->load->helper('neatr');
-			
+			$normal_loc = 'assets/upload/' . $upload_data['file_name'];
 			$thumb_loc = 'assets/upload/' . $upload_data['raw_name'] . '_thumb' . $upload_data['file_ext'];
-			$img_size = getimagesize($thumb_loc);
-			neat_r($img_size);
-			// Crop the image if necessary
-			if ($img_size[1] > $img_size[0])
-			{
-				$center_crop = $img_size[1]/2 + 30;
-				$this->image_lib->clear();
-				$config_img2 = array(
-					'source_image' => $thumb_loc,
-					'create_thumb' => TRUE,
-					'thumb_marker' => 'b',
-					'height' => 60,
-					'width' => 100,
-					'y-axis' => 150,
-					'x-axis' => 0
-					);
-				neat_r($config_img2);
-				$this->image_lib->initialize($config_img2);
 			
-				if ( ! $this->image_lib->crop())
-				{
-					print_r($this->image_lib->display_errors());
-				}
-			}
+			$this->load->library('zebra');
+			$this->zebra->setup($normal_loc,$thumb_loc, array('preserve_aspect_ratio'=>true));
+			$this->zebra->resize(120, 80, ZEBRA_IMAGE_CROP_CENTER);
 			$title = $this->input->post('title');
 			$this->gallery_model->add_image($link,$title);
 			$success = array(

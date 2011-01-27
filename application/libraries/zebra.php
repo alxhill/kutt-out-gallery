@@ -1,17 +1,18 @@
 <?php
+
+// So first we include the zebra class
+require 'ZI/ZI.php';
+
 class Zebra 
-{
-    // So first we include the zebra class
-    require 'ZI/Zebra_image.php';
-    
+{    
     // Now we're going to define a class variable to hold our zebra
-    private var $zebra;
+    private $zebra;
     
     // Constructor
-    public function __contruct()
+    function __contruct()
     {
         // We don't really have to do much here. Just set up our private zebra
-          $this->zebra = new Zebra_Image();
+		$this->zebra = new Zebra_Image();
     }
     
     // We need a function to reset too.
@@ -23,6 +24,7 @@ class Zebra
     // Now we create a setup function
     public function setup($source, $target, $options = array())
     {
+			$this->init();
             // indicate a source image (a GIF, PNG or JPEG file)
             $this->zebra->source_path = $source;
 
