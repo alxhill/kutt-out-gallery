@@ -94,7 +94,7 @@ class Gallery extends CI_Controller {
 			
 			$this->load->library('zebra');
 			$this->zebra->setup($normal_loc,$thumb_loc, array('preserve_aspect_ratio'=>true));
-			$this->zebra->resize(120, 80, ZEBRA_IMAGE_CROP_CENTER);
+			$this->zebra->resize(120, 80, 3);
 			$title = $this->input->post('title');
 			$this->gallery_model->add_image($link,$title);
 			$success = array(

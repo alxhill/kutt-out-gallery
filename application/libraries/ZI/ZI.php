@@ -9,7 +9,7 @@ define('ZEBRA_IMAGE_CROP_TOPLEFT', 2);
 define('ZEBRA_IMAGE_CROP_CENTER', 3);
 
 /**
- *  A lightweight image manipulation library that provides methods for performing several types of image manipulationoperations.
+ *  A lightweight image manipulation library that provides methods for performing several types of image manipulation operations.
  *
  *  With it you can <b>rescale</b>, <b>flip</b>, <b>rotate</b> or <b>crop</b> images.
  *
