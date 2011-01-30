@@ -106,6 +106,16 @@ input {
 	margin-bottom: 5px;
 }
 
+a.link_content {
+	font-family: 'Helvetica Neue';
+	font-size: 13px;
+	color: #848484;
+}
+
+a.link_content:hover {
+	color: #4d4d4d;
+}
+
 /* @end */
 
  
@@ -344,6 +354,7 @@ body {
 #nav ul li:last-child {
 	padding-top: 15px;
 	line-height: 20px;
+	letter-spacing: -5px;
 	font-size: 80px;
 }
 
@@ -385,7 +396,7 @@ body {
 .content {
 	width: 450px;
 	background-color: #f1f0ee;
-	padding-bottom: 25px;
+	padding-bottom: 10px;
 	margin-bottom: 10px;
 }
 

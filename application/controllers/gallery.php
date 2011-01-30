@@ -81,7 +81,8 @@ class Gallery extends CI_Controller {
 		
 		if ( ! $this->upload->do_upload("photo"))
 		{
-			$errors = array('message' => $this->upload->display_errors(), 'class' => 'error', 'template' => 'admin', 'title' => 'Upload failed', 'logged_in' => $this->_login_check());
+			$errors = array('message' => $this->upload->display_errors(), 'class' => 'error', 'title' => 'Upload failed', 'logged_in' => $this->_login_check());
+			$errors['template'] = $this->_login_check() ? 'admin' : 'upload';
 			$this->load->view('gallery/superview',$errors);
 		}
 		else
