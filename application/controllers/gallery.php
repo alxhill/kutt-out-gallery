@@ -81,22 +81,23 @@ class Gallery extends CI_Controller {
 		
 		if ( ! $this->upload->do_upload("photo"))
 		{
-			$errors = array('message' => $this->upload->display_errors(), 'class' => 'error', 'template' => 'upload', 'title' => 'Upload failed', 'logged_in' => $this->_login_check());
+			$errors = array('message' => $this->upload->display_errors(), 'class' => 'error', 'template' => 'admin', 'title' => 'Upload failed', 'logged_in' => $this->_login_check());
 			$this->load->view('gallery/superview',$errors);
 		}
 		else
 		{
 			$upload_data = $this->upload->data();
-			$link = site_url("assets/upload/" . $upload_data['file_name']);
 			
 			$normal_loc = 'assets/upload/' . $upload_data['file_name'];
 			$thumb_loc = 'assets/upload/' . $upload_data['raw_name'] . '_thumb' . $upload_data['file_ext'];
+			$link = site_url("assets/upload/" . $upload_data['file_name']);
 			
+			//resize and crop the image with the zebra library
 			$this->load->library('zebra');
-			$this->zebra->setup($normal_loc,$thumb_loc, array('preserve_aspect_ratio'=>true));
+			$this->zebra->setup($normal_loc,$thumb_loc, array('preserve_aspect_ratio'=>true,'enable_smaller_images'=>true));
 			$this->zebra->resize(120, 80, 3);
-			$title = $this->input->post('title');
-			$this->gallery_model->add_image($link,$title);
+			
+			$this->gallery_model->add_image($upload_data['file_name'],$this->input->post('title'));
 			$success = array(
 							 'message' => 'Image successfully uploaded!',
 							 'class' => 'success',

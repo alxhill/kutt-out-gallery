@@ -7,12 +7,28 @@ class Gallery_model extends CI_Model {
 		$this->load->helper('file');
 	}
 	
-	function add_image($link, $title)
+	function add_image($file_name, $title)
 	{
-		$explode = explode('.',$link);
-		$ext = array_pop($explode);
-		$thumb = implode('.',$explode) . '_thumb.' . $ext;
-		$data = array('file' => $link, 'title' => $title, 'file_thumb' => $thumb);
+		//code to work out the name of the thumb
+		$name_explode = explode('.', $file_name);
+		$ext = array_pop($name_explode);
+		$thumb_name = implode('.', $name_explode) . '_thumb.' . $ext;
+		
+		//create the file names
+		$data['file_name'] = $file_name;
+		$data['file_thumb_name'] = $thumb_name;
+		
+		//create the file paths
+		$data['file_path'] = 'assets/upload/' . $file_name;
+		$data['file_thumb_path'] = 'assets/upload/' . $thumb_name;
+		
+		//create the file links
+		$data['file_link'] = site_url("assets/upload/" . $file_name);
+		$data['file_thumb_link'] = site_url("assets/upload/" . $thumb_name);
+		
+		//add in the title
+		$data['title'] = $title;
+		
 		$this->db->insert('photos', $data);
 	}
 	
@@ -31,10 +47,11 @@ class Gallery_model extends CI_Model {
 		}
 		else
 		{
-			// There should be code here to delete the images from the server. This will be added later.
+			$image_array = $image->result_array();
+			unlink($image_array[0]['file_path']);
+			unlink($image_array[0]['file_thumb_path']);
 			$this->db->delete('photos', array('id' => $id));
-			$image_arr = $image->result_array();
-			return $image_arr;
+			return $image_array;
 		}
 	}
 	
