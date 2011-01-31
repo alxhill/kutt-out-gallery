@@ -49,7 +49,7 @@ $(document).ready(function(){
 </head>
 <body>
 <?php if ($logged_in) { ?>
-<a id='logout_link' href='/gallery/gallery/logout/' >Logout</a> - 
+<a id='logout_link' href='/gallery/login/logout/' >Logout</a> - 
 <a id='admin_link'href='/gallery/admin' >Admin</a>
 <?php } ?>
 <div class="container">

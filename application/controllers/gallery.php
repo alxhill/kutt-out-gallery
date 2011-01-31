@@ -32,56 +32,79 @@ class Gallery extends CI_Controller {
 	{
 		if ($this->session->flashdata('logout'))
 		{
-			$this->load->view('gallery/superview', array('title' => 'Kutt Out Studio', 'template' => 'home', 'class' => 'success', 'message' => 'You have successfully logged out.', 'logged_in' => $this->_login_check()));
+			$this->load->view('gallery/superview', array(
+														'title' => 'Kutt Out Studio',
+														'template' => 'home',
+														'class' => 'success',
+														'message' => 'You have successfully logged out.',
+														'logged_in' => $this->_login_check()
+														));
 		}
 		else
 		{
-			$this->load->view('gallery/superview', array('title' => 'Kutt Out Studio', 'template' => 'home', 'logged_in' => $this->_login_check()));
+			$this->load->view('gallery/superview', array(
+														'title' => 'Kutt Out Studio',
+														'template' => 'home',
+														'logged_in' => $this->_login_check()
+														));
 		}
 	}
-	
-	function logout()
-	{
-		if ($this->_login_check())
-		{
-			$this->session->unset_userdata('logged_in');
-			$this->session->unset_userdata('user');
-			$this->session->set_flashdata('logout');
-			redirect('home');
-		}
-	}
-	
+		
 	function add_photo()
 	{
 		if ($this->_login_check())
 		{
 			if ($this->session->flashdata('login'))
 			{
-				$this->load->view('gallery/superview', array('title' => 'Upload a new image', 'template' => 'upload', 'class' => 'success', 'message' => $this->session->flashdata('login'), 'logged_in' => $this->_login_check()));
+				$this->load->view('gallery/superview', array(
+															'title' => 'Upload a new image',
+															'template' => 'upload',
+															'class' => 'success',
+															'message' => $this->session->flashdata('login'),
+															'logged_in' => $this->_login_check()
+															));
 			}
 			else
 			{
-				$this->load->view('gallery/superview', array('title' => 'Upload a new image', 'template' => 'upload', 'logged_in' => $this->_login_check()));
+				$this->load->view('gallery/superview', array(
+															'title' => 'Upload a new image',
+															'template' => 'upload',
+															'logged_in' => $this->_login_check()
+															));
 			}
 		}
 		else
 		{
-			$this->load->view('login/superview', array('title' => 'Log in', 'template' => 'login_form', 'class' => 'error', 'message' => 'You must be logged in to view this page.', 'logged_in' => $this->_login_check()));
+			$this->load->view('login/superview', array(
+													'title' => 'Log in',
+													'template' => 'login_form',
+													'class' => 'error',
+													'message' => 'You must be logged in to view this page.',
+													'logged_in' => $this->_login_check()
+													));
 		}
 	}
 
 	function upload()
 	{
-		$config = array('upload_path' => './assets/upload/',
+		$config = array(
+						'upload_path' => './assets/upload/',
 						'allowed_types' => 'gif|jpeg|jpg|png',
 						'max_size' => '20000',
 						'max_width' => '1024',
-						'max_height' => '800');
+						'max_height' => '800'
+						);
 		$this->load->library('upload', $config);
 		
 		if ( ! $this->upload->do_upload("photo"))
 		{
-			$errors = array('message' => $this->upload->display_errors(), 'class' => 'error', 'title' => 'Upload failed', 'logged_in' => $this->_login_check());
+			$errors = array(
+							'message' => $this->upload->display_errors(),
+							'class' => 'error',
+							'title' => 'Upload failed',
+							'logged_in' => $this->_login_check()
+							);
+			
 			$errors['template'] = $this->_login_check() ? 'upload' : 'home';
 			$this->load->view('gallery/superview',$errors);
 		}
@@ -118,12 +141,23 @@ class Gallery extends CI_Controller {
 		$all = $this->gallery_model->get_all_images();
 		if ( ! $all)
 		{
-			$data = array('class' => 'notice','message' => 'There are no photos to display', 'template' => 'login_form', 'title' => 'No images to display', 'logged_in' => $this->_login_check());
+			$data = array(
+						'class' => 'notice',
+						'message' => 'There are no photos to display',
+						'template' => 'login_form',
+						'title' => 'No images to display',
+						'logged_in' => $this->_login_check()
+						);
 			$this->load->view('login/superview', $data);
 		}
 		else
 		{
-			$data = array('image_data' => $all, 'title' => 'Gallery', 'template' => 'show_gallery', 'logged_in' => $this->_login_check());
+			$data = array(
+						'image_data' => $all,
+						'title' => 'Gallery',
+						'template' => 'show_gallery',
+						'logged_in' => $this->_login_check()
+						);
 			$this->load->view('gallery/superview', $data);
 		}
 	} // END OF PORTRAITS
@@ -134,7 +168,13 @@ class Gallery extends CI_Controller {
 		{
 			$images = $this->gallery_model->get_all_images();
 			$user = $this->session->userdata('user');
-			$data = array('image_data' => $images, 'user' => $user, 'title' => 'Admin control panel', 'template' => 'admin', 'logged_in' => $this->_login_check());
+			$data = array(
+						'image_data' => $images,
+						'user' => $user,
+						'title' => 'Admin control panel',
+						'template' => 'admin',
+						'logged_in' => $this->_login_check()
+						);
 			if ($this->session->flashdata('login'))
 			{
 				$data['class'] = 'success';
@@ -144,7 +184,13 @@ class Gallery extends CI_Controller {
 		}
 		else
 		{
-			$this->load->view('login/superview', array('title' => 'Log in', 'template' => 'login_form', 'class' => 'error', 'message' => 'You must be logged in to view this page.', 'logged_in' => $this->_login_check()));
+			$this->load->view('login/superview', array(
+													'title' => 'Log in',
+													'template' => 'login_form',
+													'class' => 'error',
+													'message' => 'You must be logged in to view this page.',
+													'logged_in' => $this->_login_check()
+													));
 		}
 	} // END OF ADMIN
 	
