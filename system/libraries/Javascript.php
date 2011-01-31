@@ -2,11 +2,11 @@
 /**
  * CodeIgniter
  *
- * An open source application development framework for PHP 4.3.2 or newer
+ * An open source application development framework for PHP 5.1.6 or newer
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2010, EllisLab, Inc.
+ * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc.
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -28,7 +28,7 @@ class CI_Javascript {
 
 	var $_javascript_location = 'js';
 
-	function CI_Javascript($params = array())
+	public function __construct($params = array())
 	{
 		$defaults = array('js_library_driver' => 'jquery', 'autoload' => TRUE);
 

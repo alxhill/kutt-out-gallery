@@ -136,9 +136,11 @@ class Gallery extends CI_Controller {
 		
 	} // END OF UPLOAD
 	
-	function portraits()
+	// =====[Update this! Change it to a generic gallery function that works based on IDs that get mapped to the relevant gallery. Update the model to support this also.]=====
+	
+	function show_gallery($gallery_id)
 	{
-		$all = $this->gallery_model->get_all_images();
+		$all = $this->gallery_model->get_all_images($gallery_id);
 		if ( ! $all)
 		{
 			$data = array(
@@ -146,8 +148,7 @@ class Gallery extends CI_Controller {
 						'message' => 'There are no photos to display',
 						'template' => 'login_form',
 						'title' => 'No images to display',
-						'logged_in' => $this->_login_check()
-						);
+						'logged_in' => $this->_login_check());
 			$this->load->view('login/superview', $data);
 		}
 		else

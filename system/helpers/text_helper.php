@@ -2,11 +2,11 @@
 /**
  * CodeIgniter
  *
- * An open source application development framework for PHP 4.3.2 or newer
+ * An open source application development framework for PHP 5.1.6 or newer
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2010, EllisLab, Inc.
+ * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc.
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -364,30 +364,21 @@ if ( ! function_exists('highlight_phrase'))
  */
 if ( ! function_exists('convert_accented_characters'))
 {
-	function convert_accented_characters($match)
+	function convert_accented_characters($str)
 	{
 		if ( ! file_exists(APPPATH.'config/foreign_chars'.EXT))
 		{
-			return $match;
+			return $str;
 		}
 
 		include APPPATH.'config/foreign_chars'.EXT;
 
 		if ( ! isset($foreign_characters))
 		{
-			return $match;
+			return $str;
 		}
 
-		$ord = ord($match['1']);
-
-		if (isset($foreign_characters[$ord]))
-		{
-			return $foreign_characters[$ord];
-		}
-		else
-		{
-			return $match['1'];
-		}
+		return preg_replace(array_keys($foreign_characters), array_values($foreign_characters), $str);
 	}
 }
 

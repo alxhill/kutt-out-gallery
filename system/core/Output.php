@@ -2,11 +2,11 @@
 /**
  * CodeIgniter
  *
- * An open source application development framework for PHP 4.3.2 or newer
+ * An open source application development framework for PHP 5.1.6 or newer
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2010, EllisLab, Inc.
+ * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc.
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -37,7 +37,7 @@ class CI_Output {
 	var $_zlib_oc			= FALSE;
 	var $_profiler_sections = array();
 
-	function CI_Output()
+	function __construct()
 	{
 		$this->_zlib_oc = @ini_get('zlib.output_compression');
 
@@ -214,7 +214,7 @@ class CI_Output {
 		global $BM, $CFG;
 
 		// Grab the super object if we can.
-		if (function_exists('get_instance'))
+		if (class_exists('CI_Controller'))
 		{
 			$CI =& get_instance();
 		}
@@ -347,7 +347,7 @@ class CI_Output {
 		$CI =& get_instance();
 		$path = $CI->config->item('cache_path');
 
-		$cache_path = ($path == '') ? BASEPATH.'cache/' : $path;
+		$cache_path = ($path == '') ? APPPATH.'cache/' : $path;
 
 		if ( ! is_dir($cache_path) OR ! is_really_writable($cache_path))
 		{
@@ -395,7 +395,7 @@ class CI_Output {
 	 */
 	function _display_cache(&$CFG, &$URI)
 	{
-		$cache_path = ($CFG->item('cache_path') == '') ? BASEPATH.'cache/' : $CFG->item('cache_path');
+		$cache_path = ($CFG->item('cache_path') == '') ? APPPATH.'cache/' : $CFG->item('cache_path');
 
 		// Build the file path.  The file name is an MD5 hash of the full URI
 		$uri =	$CFG->item('base_url').

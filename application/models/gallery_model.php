@@ -32,9 +32,9 @@ class Gallery_model extends CI_Model {
 		$this->db->insert('photos', $data);
 	}
 	
-	function get_all_images()
+	function get_all_images($g_id)
 	{
-		$query = $this->db->get('photos');
+		$query = $this->db->get_where('photos', array('gallery_id' => $g_id));
 		return $query->result_array();
 	}
 	
@@ -60,6 +60,12 @@ class Gallery_model extends CI_Model {
 		$title = array('title' => $title);
 		$this->db->where('id', $id);
 		$this->db->update('photos', $title);
+	}
+	
+	function get_all_galleries()
+	{
+		$return = $this->db->get('galleries');
+		return $return->result_array();
 	}
 
 }

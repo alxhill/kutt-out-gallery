@@ -2,11 +2,11 @@
 /**
  * CodeIgniter
  *
- * An open source application development framework for PHP 4.3.2 or newer
+ * An open source application development framework for PHP 5.1.6 or newer
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2010, EllisLab, Inc.
+ * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc.
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -34,7 +34,6 @@ class CI_Loader {
 	var $_ci_library_paths	= array();
 	var $_ci_model_paths	= array();
 	var $_ci_helper_paths	= array();
-	var $_ci_is_instance	= FALSE; // Whether we should use $this or $CI =& get_instance()
 	var $_base_classes		= array(); // Set by the controller class
 	var $_ci_cached_vars	= array();
 	var $_ci_classes		= array();
@@ -51,7 +50,7 @@ class CI_Loader {
 	 *
 	 * @access	public
 	 */
-	function CI_Loader()
+	function __construct()
 	{
 		$this->_ci_view_path = APPPATH.'views/';
 		$this->_ci_ob_level  = ob_get_level();
@@ -82,12 +81,12 @@ class CI_Loader {
 		{
 			foreach($library as $read)
 			{
-				$this->library($read);	
+				$this->library($read);
 			}
-			
+
 			return;
 		}
-		
+
 		if ($library == '' OR isset($this->_base_classes[$library]))
 		{
 			return FALSE;
@@ -109,8 +108,6 @@ class CI_Loader {
 		{
 			$this->_ci_load_class($library, $params, $object_name);
 		}
-
-		$this->_ci_assign_to_models();
 	}
 
 	// --------------------------------------------------------------------
@@ -182,7 +179,9 @@ class CI_Loader {
 			if ($db_conn !== FALSE AND ! class_exists('CI_DB'))
 			{
 				if ($db_conn === TRUE)
+				{
 					$db_conn = '';
+				}
 
 				$CI->load->database($db_conn, FALSE, TRUE);
 			}
@@ -197,7 +196,6 @@ class CI_Loader {
 			$model = ucfirst($model);
 
 			$CI->$name = new $model();
-			$CI->$name->_assign_libraries();
 
 			$this->_ci_models[] = $name;
 			return;
@@ -242,9 +240,6 @@ class CI_Loader {
 
 		// Load the DB class
 		$CI->db =& DB($params, $active_record);
-
-		// Assign the DB object to any existing models
-		$this->_ci_assign_to_models();
 	}
 
 	// --------------------------------------------------------------------
@@ -272,9 +267,7 @@ class CI_Loader {
 		require_once(BASEPATH.'database/drivers/'.$CI->db->dbdriver.'/'.$CI->db->dbdriver.'_utility'.EXT);
 		$class = 'CI_DB_'.$CI->db->dbdriver.'_utility';
 
-		$CI->dbutil =& instantiate_class(new $class());
-
-		$CI->load->_ci_assign_to_models();
+		$CI->dbutil = new $class();
 	}
 
 	// --------------------------------------------------------------------
@@ -299,8 +292,6 @@ class CI_Loader {
 		$class = 'CI_DB_'.$CI->db->dbdriver.'_forge';
 
 		$CI->dbforge = new $class();
-
-		$CI->load->_ci_assign_to_models();
 	}
 
 	// --------------------------------------------------------------------
@@ -536,7 +527,7 @@ class CI_Loader {
 	function add_package_path($path)
 	{
 		$path = rtrim($path, '/').'/';
-		
+
 		array_unshift($this->_ci_library_paths, $path);
 		array_unshift($this->_ci_model_paths, $path);
 		array_unshift($this->_ci_helper_paths, $path);
@@ -544,6 +535,22 @@ class CI_Loader {
 		// Add config file path
 		$config =& $this->_ci_get_component('config');
 		array_unshift($config->_config_paths, $path);
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * Get Package Paths
+	 *
+	 * Return a list of all package paths, by default it will ignore BASEPATH.
+	 *
+	 * @access	public
+	 * @param	string
+	 * @return	void
+	 */
+	function get_package_paths($include_base = FALSE)
+	{
+		return $include_base === TRUE ? $this->_ci_library_paths : $this->_ci_model_paths;
 	}
 
 	// --------------------------------------------------------------------
@@ -572,7 +579,7 @@ class CI_Loader {
 		else
 		{
 			$path = rtrim($path, '/').'/';
-			
+
 			foreach (array('_ci_library_paths', '_ci_model_paths', '_ci_helper_paths') as $var)
 			{
 				if (($key = array_search($path, $this->{$var})) !== FALSE)
@@ -635,17 +642,13 @@ class CI_Loader {
 
 		// This allows anything loaded using $this->load (views, files, etc.)
 		// to become accessible from within the Controller and Model functions.
-		// Only needed when running PHP 5
 
-		if ($this->_ci_is_instance())
+		$_ci_CI =& get_instance();
+		foreach (get_object_vars($_ci_CI) as $_ci_key => $_ci_var)
 		{
-			$_ci_CI =& get_instance();
-			foreach (get_object_vars($_ci_CI) as $_ci_key => $_ci_var)
+			if ( ! isset($this->$_ci_key))
 			{
-				if ( ! isset($this->$_ci_key))
-				{
-					$this->$_ci_key =& $_ci_CI->$_ci_key;
-				}
+				$this->$_ci_key =& $_ci_CI->$_ci_key;
 			}
 		}
 
@@ -716,9 +719,7 @@ class CI_Loader {
 		}
 		else
 		{
-			// PHP 4 requires that we use a global
-			global $OUT;
-			$OUT->append_output(ob_get_contents());
+			$_ci_CI->output->append_output(ob_get_contents());
 			@ob_end_clean();
 		}
 	}
@@ -869,15 +870,28 @@ class CI_Loader {
 		// Is there an associated config file for this class?  Note: these should always be lowercase
 		if ($config === NULL)
 		{
-			// We test for both uppercase and lowercase, for servers that
-			// are case-sensitive with regard to file names
-			if (file_exists(APPPATH.'config/'.strtolower($class).EXT))
+			// Fetch the config paths containing any package paths
+			$config_component = $this->_ci_get_component('config');
+
+			if (is_array($config_component->_config_paths))
 			{
-				include_once(APPPATH.'config/'.strtolower($class).EXT);
-			}
-			elseif (file_exists(APPPATH.'config/'.ucfirst(strtolower($class)).EXT))
-			{
-				include_once(APPPATH.'config/'.ucfirst(strtolower($class)).EXT);
+				// Break on the first found file, thus package files
+				// are not overridden by default paths
+				foreach ($config_component->_config_paths as $path)
+				{
+					// We test for both uppercase and lowercase, for servers that
+					// are case-sensitive with regard to file names
+					if (file_exists($path .'config/'.strtolower($class).EXT))
+					{
+						include_once($path .'config/'.strtolower($class).EXT);
+						break;
+					}
+					elseif (file_exists($path .'config/'.ucfirst(strtolower($class)).EXT))
+					{
+						include_once($path .'config/'.ucfirst(strtolower($class)).EXT);
+						break;
+					}
+				}
 			}
 		}
 
@@ -957,6 +971,15 @@ class CI_Loader {
 			return FALSE;
 		}
 
+		// Autoload packages
+		if (isset($autoload['packages']))
+		{
+			foreach ($autoload['packages'] as $package_path)
+			{
+				$this->add_package_path($package_path);
+			}
+		}
+
 		// Load any custom config file
 		if (count($autoload['config']) > 0)
 		{
@@ -1005,33 +1028,6 @@ class CI_Loader {
 		{
 			$this->model($autoload['model']);
 		}
-
-	}
-
-	// --------------------------------------------------------------------
-
-	/**
-	 * Assign to Models
-	 *
-	 * Makes sure that anything loaded by the loader class (libraries, etc.)
-	 * will be available to models, if any exist.
-	 *
-	 * @access	private
-	 * @param	object
-	 * @return	array
-	 */
-	function _ci_assign_to_models()
-	{
-		if (count($this->_ci_models) == 0)
-		{
-			return;
-		}
-
-		foreach($this->_ci_models as $model)
-		{
-			$model = $this->_ci_get_component($model);
-			$model->_assign_libraries();
-		}
 	}
 
 	// --------------------------------------------------------------------
@@ -1053,26 +1049,6 @@ class CI_Loader {
 	// --------------------------------------------------------------------
 
 	/**
-	 * Determines whether we should use the CI instance or $this
-	 * @PHP4
-	 *
-	 * @access	private
-	 * @return	bool
-	 */
-	function _ci_is_instance()
-	{
-		if (is_php('5.0.0') == TRUE)
-		{
-			return TRUE;
-		}
-
-		global $CI;
-		return (is_object($CI)) ? TRUE : FALSE;
-	}
-
-	// --------------------------------------------------------------------
-
-	/**
 	 * Get a reference to a specific library or model
 	 *
 	 * @access	private
@@ -1080,15 +1056,8 @@ class CI_Loader {
 	 */
 	function &_ci_get_component($component)
 	{
-		if ($this->_ci_is_instance())
-		{
-			$CI =& get_instance();
-			return $CI->$component;
-		}
-		else
-		{
-			return $this->$component;
-		}
+		$CI =& get_instance();
+		return $CI->$component;
 	}
 
 	// --------------------------------------------------------------------

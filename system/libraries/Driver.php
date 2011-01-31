@@ -2,11 +2,11 @@
 /**
  * CodeIgniter
  *
- * An open source application development framework for PHP 4.3.2 or newer
+ * An open source application development framework for PHP 5.1.6 or newer
  *
  * @package		CodeIgniter
  * @author		EllisLab Dev Team
- * @copyright	Copyright (c) 2006 - 2010, EllisLab, Inc.
+ * @copyright	Copyright (c) 2006 - 2011, EllisLab, Inc.
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -119,11 +119,10 @@ class CI_Driver {
 	 *
 	 * Decorates the child with the parent driver lib's methods and properties
 	 *
-	 * @access	public
 	 * @param	object
 	 * @return	void
 	 */
-	function decorate($parent)
+	public function decorate($parent)
 	{
 		$this->parent = $parent;
 
@@ -191,11 +190,10 @@ class CI_Driver {
 	 *
 	 * Handles reading of the parent driver library's properties
 	 *
-	 * @access	public
 	 * @param	string
 	 * @return	mixed
 	 */
-	function __get($var)
+	public function __get($var)
 	{
 		if (in_array($var, $this->properties))
 		{
@@ -210,12 +208,11 @@ class CI_Driver {
 	 *
 	 * Handles writing to the parent driver library's properties
 	 *
-	 * @access	public
 	 * @param	string
 	 * @param	array
 	 * @return	mixed
 	 */
-	function __set($var, $val)
+	public function __set($var, $val)
 	{
 		if (in_array($var, $this->properties))
 		{

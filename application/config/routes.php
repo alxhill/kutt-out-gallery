@@ -42,7 +42,7 @@ $route['upload'] = 'gallery/add_photo';
 
 $route['admin'] = 'gallery/admin';
 
-$route['portraits'] = 'gallery/portraits';
+$route['portraits'] = 'gallery/show_gallery/1';
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

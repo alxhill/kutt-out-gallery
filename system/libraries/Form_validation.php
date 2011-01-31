@@ -2,11 +2,11 @@
 /**
  * CodeIgniter
  *
- * An open source application development framework for PHP 4.3.2 or newer
+ * An open source application development framework for PHP 5.1.6 or newer
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2010, EllisLab, Inc.
+ * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc.
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -39,9 +39,8 @@ class CI_Form_validation {
 
 	/**
 	 * Constructor
-	 *
 	 */
-	function CI_Form_validation($rules = array())
+	public function __construct($rules = array())
 	{
 		$this->CI =& get_instance();
 
@@ -78,7 +77,7 @@ class CI_Form_validation {
 		// No reason to set rules if we have no POST data
 		if (count($_POST) == 0)
 		{
-			return;
+			return $this;
 		}
 
 		// If an array was passed via the first parameter instead of indidual string
@@ -99,13 +98,13 @@ class CI_Form_validation {
 				// Here we go!
 				$this->set_rules($row['field'], $label, $row['rules']);
 			}
-			return;
+			return $this;
 		}
 
 		// No fields? Nothing to do...
 		if ( ! is_string($field) OR  ! is_string($rules) OR $field == '')
 		{
-			return;
+			return $this;
 		}
 
 		// If the field label wasn't passed we use the field name
@@ -147,6 +146,8 @@ class CI_Form_validation {
 											'postdata'			=> NULL,
 											'error'				=> ''
 											);
+
+		return $this;
 	}
 
 	// --------------------------------------------------------------------
@@ -170,6 +171,8 @@ class CI_Form_validation {
 		}
 
 		$this->_error_messages = array_merge($this->_error_messages, $lang);
+
+		return $this;
 	}
 
 	// --------------------------------------------------------------------
@@ -188,6 +191,8 @@ class CI_Form_validation {
 	{
 		$this->_error_prefix = $prefix;
 		$this->_error_suffix = $suffix;
+
+		return $this;
 	}
 
 	// --------------------------------------------------------------------
@@ -571,7 +576,7 @@ class CI_Form_validation {
 			// Strip the parameter (if exists) from the rule
 			// Rules can contain a parameter: max_length[5]
 			$param = FALSE;
-			if (preg_match("/(.*?)\[(.*?)\]/", $rule, $match))
+			if (preg_match("/(.*?)\[(.*)\]/", $rule, $match))
 			{
 				$rule	= $match[1];
 				$param	= $match[2];
@@ -723,6 +728,13 @@ class CI_Form_validation {
 		if ( ! isset($this->_field_data[$field]))
 		{
 			return $default;
+		}
+
+		// If the data is an array output them one at a time.
+		//     E.g: form_input('name[]', set_value('name[]');
+		if (is_array($this->_field_data[$field]['postdata']))
+		{
+			return array_shift($this->_field_data[$field]['postdata']);
 		}
 
 		return $this->_field_data[$field]['postdata'];
@@ -879,6 +891,26 @@ class CI_Form_validation {
 		{
 			return ( ! empty($str));
 		}
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * Performs a Regular Expression match test.
+	 *
+	 * @access	public
+	 * @param	string
+	 * @param	regex
+	 * @return	bool
+	 */
+	function regex_match($str, $regex)
+	{
+		if ( ! preg_match($regex, $str))
+		{
+			return FALSE;
+		}
+
+		return  TRUE;
 	}
 
 	// --------------------------------------------------------------------

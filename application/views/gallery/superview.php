@@ -2,6 +2,8 @@
 
 $this->load->view('gallery/common/header');
 
+$this->load->view('gallery/common/nav');
+
 $this->load->view('gallery/' . $template);
 
 $this->load->view('gallery/common/footer');

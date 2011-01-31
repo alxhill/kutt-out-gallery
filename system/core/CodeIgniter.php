@@ -2,11 +2,11 @@
 /**
  * CodeIgniter
  *
- * An open source application development framework for PHP 4.3.2 or newer
+ * An open source application development framework for PHP 5.1.6 or newer
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2010, EllisLab, Inc.
+ * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc.
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -40,13 +40,6 @@
  * ------------------------------------------------------
  */
 	require(BASEPATH.'core/Common'.EXT);
-
-/*
- * ------------------------------------------------------
- *  Load the compatibility override functions
- * ------------------------------------------------------
- */
-	require(BASEPATH.'core/Compat'.EXT);
 
 /*
  * ------------------------------------------------------
@@ -136,17 +129,17 @@
 
 /*
  * ------------------------------------------------------
- *  Instantiate the Unicode class
+ *  Instantiate the UTF-8 class
  * ------------------------------------------------------
  *
- * Note: Order here is rather important as the Unicode
+ * Note: Order here is rather important as the UTF-8
  * class needs to be used very early on, but it cannot
  * properly determine if UTf-8 can be supported until
  * after the Config class is instantiated.
  *
  */
 
-	$UNI =& load_class('Unicode', 'core');
+	$UNI =& load_class('Utf8', 'core');
 
 /*
  * ------------------------------------------------------
@@ -208,25 +201,15 @@
  *  Load the app controller and local controller
  * ------------------------------------------------------
  *
- *  Note: Due to the poor object handling in PHP 4 we'll
- *  conditionally load different versions of the base
- *  class.  Retaining PHP 4 compatibility requires a bit of a hack.
- *  @PHP4
- *
  */
-	if (is_php('5.0.0') == TRUE)
-	{
-		require(BASEPATH.'core/Base5'.EXT);
-	}
-	else
-	{
-		// The Loader class needs to be included first when running PHP 4.x
-		load_class('Loader', 'core');
-		require(BASEPATH.'core/Base4'.EXT);
-	}
-
 	// Load the base controller class
 	require BASEPATH.'core/Controller'.EXT;
+
+	function &get_instance()
+	{
+		return CI_Controller::get_instance();
+	}
+
 
 	if (file_exists(APPPATH.'core/'.$CFG->config['subclass_prefix'].'Controller'.EXT))
 	{
@@ -238,7 +221,7 @@
 	// If this include fails it means that the default controller in the Routes.php file is not resolving to something valid.
 	if ( ! file_exists(APPPATH.'controllers/'.$RTR->fetch_directory().$RTR->fetch_class().EXT))
 	{
-		show_error('Unable to load your default controller.  Please make sure the controller specified in your Routes.php file is valid.');
+		show_error('Unable to load your default controller. Please make sure the controller specified in your Routes.php file is valid.');
 	}
 
 	include(APPPATH.'controllers/'.$RTR->fetch_directory().$RTR->fetch_class().EXT);
@@ -259,7 +242,6 @@
 	$method = $RTR->fetch_method();
 
 	if ( ! class_exists($class)
-		OR $method == 'controller'
 		OR strncmp($method, '_', 1) == 0
 		OR in_array(strtolower($method), array_map('strtolower', get_class_methods('CI_Controller')))
 		)
