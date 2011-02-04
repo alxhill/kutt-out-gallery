@@ -215,9 +215,11 @@ class Gallery extends CI_Controller {
 		}
 		else
 		{
-			$this->load->view('gallery/superview', array(
+			$this->load->view('login/superview', array(
 														'title' => 'Home',
-														'template' => 'home',
+														'template' => 'login_form',
+														'class' => 'error',
+														'message' => 'You must be logged in to access this page',
 														'galleries' => $galleries,
 														'logged_in' => $this->_login_check()
 														));
