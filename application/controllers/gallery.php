@@ -4,11 +4,12 @@ class Gallery extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->helper(array('form','url','notification'));
+		$this->load->helper(array('form','url','notification', 'neatr'));
 		$this->load->library('session');
 		$this->load->model('gallery_model');
 	}
 	
+	// Private function to do as described - check if the logged_in cookie is set.
 	function _login_check()
 	{
 		$logged_in = $this->session->userdata('logged_in');
@@ -23,11 +24,13 @@ class Gallery extends CI_Controller {
 		}
 	}
 	
+	// Load the index view.
 	function index()
 	{
 		$this->load->view('index');
 	}
 	
+	// Load the home view
 	function home()
 	{
 		if ($this->session->flashdata('logout'))
@@ -49,7 +52,8 @@ class Gallery extends CI_Controller {
 														));
 		}
 	}
-		
+	
+	// Load the upload view if the user is logged in, otherwise prompt them to do so.
 	function add_photo()
 	{
 		if ($this->_login_check())
@@ -84,7 +88,8 @@ class Gallery extends CI_Controller {
 													));
 		}
 	}
-
+	
+	// Perform the uploading, resizing and storing of images from the upload form.
 	function upload()
 	{
 		$config = array(
@@ -136,8 +141,7 @@ class Gallery extends CI_Controller {
 		
 	} // END OF UPLOAD
 	
-	// =====[Update this! Change it to a generic gallery function that works based on IDs that get mapped to the relevant gallery. Update the model to support this also.]=====
-	
+	// Get and show a gallery as specified byt the ID in the URL
 	function show_gallery($gallery_id)
 	{
 		$all = $this->gallery_model->get_all_images($gallery_id);
@@ -148,7 +152,8 @@ class Gallery extends CI_Controller {
 						'message' => 'There are no photos to display',
 						'template' => 'login_form',
 						'title' => 'No images to display',
-						'logged_in' => $this->_login_check());
+						'logged_in' => $this->_login_check()
+						);
 			$this->load->view('login/superview', $data);
 		}
 		else
@@ -163,17 +168,18 @@ class Gallery extends CI_Controller {
 		}
 	} // END OF PORTRAITS
 	
-	function admin()
+	// Show the edit page for the specified 
+	function edit($g_id)
 	{
 		if ($this->_login_check())
 		{
-			$images = $this->gallery_model->get_all_images();
+			$images = $this->gallery_model->get_all_images($g_id);
 			$user = $this->session->userdata('user');
 			$data = array(
 						'image_data' => $images,
 						'user' => $user,
 						'title' => 'Admin control panel',
-						'template' => 'admin',
+						'template' => 'edit',
 						'logged_in' => $this->_login_check()
 						);
 			if ($this->session->flashdata('login'))
@@ -192,6 +198,29 @@ class Gallery extends CI_Controller {
 													'message' => 'You must be logged in to view this page.',
 													'logged_in' => $this->_login_check()
 													));
+		}
+	} // END OF EDIT
+	
+	function admin()
+	{
+		$galleries = $this->gallery_model->get_all_galleries();
+		if ($this->_login_check())
+		{
+			$this->load->view('gallery/superview', array(
+														'title' => 'Galleries',
+														'template' => 'admin',
+														'galleries' => $galleries,
+														'logged_in' => $this->_login_check()
+														));
+		}
+		else
+		{
+			$this->load->view('gallery/superview', array(
+														'title' => 'Home',
+														'template' => 'home',
+														'galleries' => $galleries,
+														'logged_in' => $this->_login_check()
+														));
 		}
 	} // END OF ADMIN
 	

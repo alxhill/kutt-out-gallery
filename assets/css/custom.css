@@ -10,8 +10,11 @@
 
 /* @group Firefox fixes */
 
-@-moz-document url-prefix() {
-	#kutt {
+
+/*
+
+TEST CODE - fixes
+#kutt {
 	padding-bottom: 25px;
 }
 
@@ -24,15 +27,14 @@
 }
 
 img#home {
-	margin-top: -220px !important;
+	margin-top: -250px !important;
 }
 
 #billy, #boyd, #cape {
 	padding-bottom: 15px;
 }
 
-}
-
+*/
 /* @end */
 
 
@@ -134,7 +136,7 @@ a.link_content:hover {
 }
 
 img#home {
-	margin-top: -250px;
+	margin-top: -220px;
 	padding-left: 15px;
 }
 
@@ -346,14 +348,13 @@ body {
 }
 
 #nav ul li:first-child {
-	padding-top: 25px;
 	font-size: 80px;
-	line-height: 8px;
+	line-height: 35px;
 }
 
 #nav ul li:last-child {
 	padding-top: 15px;
-	line-height: 20px;
+	line-height: 35px;
 	letter-spacing: -5px;
 	font-size: 80px;
 }

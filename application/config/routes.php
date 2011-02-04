@@ -44,5 +44,7 @@ $route['admin'] = 'gallery/admin';
 
 $route['portraits'] = 'gallery/show_gallery/1';
 
+$route['portraits/edit'] = 'gallery/edit/1';
+
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

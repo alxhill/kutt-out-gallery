@@ -43,6 +43,11 @@ $(document).ready(function(){
 			$.post('/gallery/gallery/ajax_update', { id: p_id, title: title.html() });
 		}
 	});
+	
+	$('div.success').delay(2000).slideUp(300);
+	$('div.error').delay(2000).slideUp(300);
+	$('div.notice').delay(2000).slideUp(300);
+	
 });
 </script>
 <title>Kutt Out Studios // <?=$title?></title>

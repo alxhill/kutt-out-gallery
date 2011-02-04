@@ -26,7 +26,7 @@ class Login extends CI_Controller {
 			$this->session->set_userdata('logged_in', TRUE);
 			$this->session->set_userdata('user', 'boydcape');
 			$this->session->set_flashdata('login', 'You have successfully logged in!');
-			redirect('admin');
+			redirect('portraits/edit');
 		}
 		else
 		{
