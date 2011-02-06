@@ -126,7 +126,7 @@ class Gallery extends CI_Controller {
 			$this->zebra->setup($normal_loc,$thumb_loc, array('preserve_aspect_ratio'=>true,'enable_smaller_images'=>true));
 			$this->zebra->resize(120, 80, 3);
 			
-			$this->gallery_model->add_image($upload_data['file_name'],$this->input->post('title'));
+			$this->gallery_model->add_image($upload_data['file_name'],$this->input->post('title'),$this->input->post('g_id'));
 			$success = array(
 							 'message' => 'Image successfully uploaded!',
 							 'class' => 'success',
@@ -141,7 +141,7 @@ class Gallery extends CI_Controller {
 		
 	} // END OF UPLOAD
 	
-	// Get and show a gallery as specified byt the ID in the URL
+	// Get and show a gallery as specified by the ID in the URL
 	function show_gallery($gallery_id)
 	{
 		$all = $this->gallery_model->get_all_images($gallery_id);
@@ -180,6 +180,7 @@ class Gallery extends CI_Controller {
 						'user' => $user,
 						'title' => 'Admin control panel',
 						'template' => 'edit',
+						'g_id' => $g_id,
 						'logged_in' => $this->_login_check()
 						);
 			if ($this->session->flashdata('login'))

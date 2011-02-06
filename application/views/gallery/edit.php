@@ -14,6 +14,7 @@
 <label>Select photo:</label><br>
 <input type="file" name="photo" id="photo"><br>
 </div>
+<input type='hidden' name='g_id' value='<?=$g_id?>'>
 <input type="submit" name="submit" id="submit" value="Upload">
 </form>
 <h2 id='edit_title'>Edit and delete images</h2>

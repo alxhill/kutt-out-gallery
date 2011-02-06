@@ -7,7 +7,7 @@ class Gallery_model extends CI_Model {
 		$this->load->helper('file');
 	}
 	
-	function add_image($file_name, $title)
+	function add_image($file_name, $title, $g_id)
 	{
 		//code to work out the name of the thumb
 		$name_explode = explode('.', $file_name);
@@ -26,8 +26,9 @@ class Gallery_model extends CI_Model {
 		$data['file_link'] = site_url("assets/upload/" . $file_name);
 		$data['file_thumb_link'] = site_url("assets/upload/" . $thumb_name);
 		
-		//add in the title
+		//add in the title & gallery id
 		$data['title'] = $title;
+		$data['gallery_id'] = $g_id;
 		
 		$this->db->insert('photos', $data);
 	}
