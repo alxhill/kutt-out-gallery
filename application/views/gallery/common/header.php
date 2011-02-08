@@ -54,8 +54,10 @@ $(document).ready(function(){
 </head>
 <body>
 <?php if ($logged_in) { ?>
-<a id='logout_link' href='/gallery/login/logout/' >Logout</a> - 
-<a id='admin_link'href='/gallery/admin' >Admin</a>
+<div id='logged_in_link'>
+<a class='l_link' href='/gallery/login/logout/' >Logout</a> - 
+<a class='l_link' href='/gallery/admin' >Admin</a>
+</div>
 <?php } ?>
 <div class="container">
 <?=isset($message) ? show_messages($class,$message) : null ?>

@@ -43,7 +43,7 @@ class Login extends CI_Controller {
 		{
 			$this->session->unset_userdata('logged_in');
 			$this->session->unset_userdata('user');
-			$this->session->set_flashdata('logout');
+			$this->session->set_flashdata('logout',TRUE);
 			redirect('home');
 		}
 	}

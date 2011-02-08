@@ -127,6 +127,7 @@ class Gallery extends CI_Controller {
 			$this->zebra->resize(120, 80, 3);
 			
 			$this->gallery_model->add_image($upload_data['file_name'],$this->input->post('title'),$this->input->post('g_id'));
+			
 			$success = array(
 							 'message' => 'Image successfully uploaded!',
 							 'class' => 'success',
@@ -202,6 +203,7 @@ class Gallery extends CI_Controller {
 		}
 	} // END OF EDIT
 	
+	// Show the admin page poplated by all the galleries in the database
 	function admin()
 	{
 		$galleries = $this->gallery_model->get_all_galleries();
@@ -216,14 +218,15 @@ class Gallery extends CI_Controller {
 		}
 		else
 		{
-			$this->load->view('login/superview', array(
-														'title' => 'Home',
-														'template' => 'login_form',
-														'class' => 'error',
-														'message' => 'You must be logged in to access this page',
-														'galleries' => $galleries,
-														'logged_in' => $this->_login_check()
-														));
+			$data = array(
+						 'title' => 'Home',
+						 'template' => 'login_form',
+						 'class' => 'error',
+						 'message' => 'You must be logged in to access this page',
+						 'galleries' => $galleries,
+						 'logged_in' => $this->_login_check()
+						 );
+			$this->load->view('login/superview', $data);
 		}
 	} // END OF ADMIN
 	

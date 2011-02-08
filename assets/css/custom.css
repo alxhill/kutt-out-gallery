@@ -12,16 +12,6 @@
 
 /* @group Edit page */
 
-#admin_link, #logout_link {
-	font-family: 'Helvetica Neue';
-	font-size: 13px;
-	color: white;
-}
-
-#admin_link:hover, #logout_link:hover {
-	color: grey;
-}
-
 label {
 	font-weight: bold;
 }
@@ -118,6 +108,21 @@ li.gallery a {
 
 li.gallery a:hover {
 	text-shadow: #454545 2px 2px 0;
+}
+
+#logged_in_link {
+	position:fixed;
+	margin-top: -15px;
+}
+
+.l_link {
+	font-family: 'Helvetica Neue';
+	font-size: 13px;
+	color: white;
+}
+
+.l_link:hover {
+	color: grey;
 }
 
 /* @end */
@@ -325,6 +330,7 @@ body {
 
 #nav {
 	margin-right: -10px;
+	position: fixed;
 }
 
 #nav ul {
