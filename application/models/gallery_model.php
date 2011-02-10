@@ -39,6 +39,13 @@ class Gallery_model extends CI_Model {
 		return $query->result_array();
 	}
 	
+	function get_gallery_info($g_id)
+	{
+		$query = $this->db->get_where('galleries', array('id' => $g_id));
+		$result = $query->result_array();
+		return $result;
+	}
+	
 	function delete_image($id)
 	{
 		$image = $this->db->get_where('photos', array('id' => $id));

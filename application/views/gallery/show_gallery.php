@@ -1,8 +1,8 @@
 <div id='main'>
 <div class='content'>
 <div class='title'>
-<div class='span-12 heading'><h1>Portraits</h1></div>
-<div class='span-12 last description'><p>A selection of either studio, live music or documentary photographs of the human form.</p></div>
+<div class='span-12 heading'><h1><?=$gallery_info['name'] ?></h1></div>
+<div class='span-12 last description'><p><?=$gallery_info['description']?></p></div>
 </div>
 <?php
 foreach ($image_data as $pic) { ?>

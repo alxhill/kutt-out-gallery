@@ -146,6 +146,7 @@ class Gallery extends CI_Controller {
 	function show_gallery($gallery_id)
 	{
 		$all = $this->gallery_model->get_all_images($gallery_id);
+		$gallery_info = $this->gallery_model->get_gallery_info($gallery_id);
 		if ( ! $all)
 		{
 			$data = array(
@@ -163,6 +164,7 @@ class Gallery extends CI_Controller {
 						'image_data' => $all,
 						'title' => 'Gallery',
 						'template' => 'show_gallery',
+						'gallery_info' => $gallery_info[0],
 						'logged_in' => $this->_login_check()
 						);
 			$this->load->view('gallery/superview', $data);
