@@ -7,6 +7,8 @@ class Gallery_model extends CI_Model {
 		$this->load->helper('file');
 	}
 	
+	/* ===[PHOTO FUNCTIONS]=== */
+	
 	function add_image($file_name, $title, $g_id)
 	{
 		//code to work out the name of the thumb
@@ -39,13 +41,6 @@ class Gallery_model extends CI_Model {
 		return $query->result_array();
 	}
 	
-	function get_gallery_info($g_id)
-	{
-		$query = $this->db->get_where('galleries', array('id' => $g_id));
-		$result = $query->result_array();
-		return $result;
-	}
-	
 	function delete_image($id)
 	{
 		$image = $this->db->get_where('photos', array('id' => $id));
@@ -70,10 +65,25 @@ class Gallery_model extends CI_Model {
 		$this->db->update('photos', $title);
 	}
 	
+	/* ===[GALLERY FUNCTIONS]=== */
+	
+	function get_gallery_info($g_name)
+	{
+		$query = $this->db->get_where('galleries', array('name' => $g_name));
+		$result = $query->result_array();
+		return $result;
+	}
+		
 	function get_all_galleries()
 	{
 		$return = $this->db->get('galleries');
 		return $return->result_array();
+	}
+	
+	function create_gallery($g_name,$g_desc)
+	{
+		$insert = array('name' => $g_name, 'description' => $g_desc);
+		$this->db->insert('galleries', $insert);
 	}
 
 }

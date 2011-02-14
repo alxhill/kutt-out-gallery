@@ -1,7 +1,7 @@
 Kutt Out Gallery
 ===============
 
-This is a gallery system for kutt-out.co.uk. Currently supports uploading, editing and deleting images, one user login, and all within an updated version of the kutt-out.co.uk design.
+This is a gallery system for kutt-out.co.uk. Currently supports uploading, editing and deleting images, one user login, multiple galleries, and all within an updated version of the kutt-out.co.uk design.
 
 To do:
 ------

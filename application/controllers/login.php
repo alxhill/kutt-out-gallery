@@ -24,14 +24,18 @@ class Login extends CI_Controller {
 		if (($user == 'boydcape') && ($pass == 'kutt-0ut'))
 		{
 			$this->session->set_userdata('logged_in', TRUE);
-			$this->session->set_userdata('user', 'boydcape');
+			$this->session->set_userdata('user', $user);
 			$this->session->set_flashdata('login', 'You have successfully logged in!');
-			redirect('portraits/edit');
+			redirect('admin');
 		}
 		else
 		{
 			$this->session->set_userdata('logged_in', FALSE);
-			$data = array('title' => 'Log in', 'template' => 'login_form', 'class' => 'error', 'message' => 'Log in details are incorrect. Please try again.', 'logged_in' => $this->session->userdata('logged_in'));
+			$data = array('title' => 'Log in',
+						  'template' => 'login_form',
+						  'class' => 'error',
+						  'message' => 'Log in details are incorrect. Please try again.',
+						  'logged_in' => $this->session->userdata('logged_in'));
 			$this->load->view('login/superview', $data);
 		}
 		

@@ -296,8 +296,14 @@ input#submit {
 
 /* @group Gallery style */
 
-.title h1 {
+.heading h1 {
 	font-size: 50px;
+	text-transform: capitalize;
+}
+
+.title .description {
+	padding-left: 40px;
+	width: 220px;
 }
 
 .photo_container {

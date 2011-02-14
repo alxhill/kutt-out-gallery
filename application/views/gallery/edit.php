@@ -3,7 +3,7 @@
 <h1 id='admin'>Admin control panel</h1>
 <h2>Upload, update and delete images from this panel</h2>
 <p id='user'>Logged in as user: <span id='username'><?=$user?></span></p>
-<span id='action'></span>
+<div id='action'></div>
 <h2 id='upload_title'>Upload an image</h2>
 <?=form_open_multipart('gallery/upload'); ?>
 <div id="titleform">

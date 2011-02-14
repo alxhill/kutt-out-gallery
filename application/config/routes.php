@@ -42,13 +42,13 @@ $route['upload'] = 'gallery/add_photo';
 
 $route['admin'] = 'gallery/admin';
 
-$route['portraits'] = 'gallery/show_gallery/1';
+$route['(:any)/edit'] = 'gallery/edit/$1';
 
-$route['portraits/edit'] = 'gallery/edit/1';
+$route['(:any)'] = 'gallery/show_gallery/$1';
 
-$route['landscapes'] = 'gallery/show_gallery/2';
+/*$route['landscapes'] = 'gallery/show_gallery/landscapes';
 
-$route['landscapes/edit'] = 'gallery/edit/2';
+$route['landscapes/edit'] = 'gallery/edit/landscapes';*/
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

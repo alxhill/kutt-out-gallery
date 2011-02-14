@@ -9,6 +9,12 @@ class Gallery extends CI_Controller {
 		$this->load->model('gallery_model');
 	}
 	
+	/*						   *
+	 * 			 			   *
+	 * ===[OTHER FUNCTIONS]=== *
+	 *						   *
+	 *						   */
+	
 	// Private function to do as described - check if the logged_in cookie is set.
 	function _login_check()
 	{
@@ -52,6 +58,12 @@ class Gallery extends CI_Controller {
 														));
 		}
 	}
+	
+	/*						   *
+	 * 			 			   *
+	 * ===[PHOTO FUNCTIONS]=== *
+	 *						   *
+	 *						   */
 	
 	// Load the upload view if the user is logged in, otherwise prompt them to do so.
 	function add_photo()
@@ -142,11 +154,45 @@ class Gallery extends CI_Controller {
 		
 	} // END OF UPLOAD
 	
-	// Get and show a gallery as specified by the ID in the URL
-	function show_gallery($gallery_id)
+	/*							 *
+	 * 			 				 *
+	 * ===[GALLERY FUNCTIONS]=== *
+	 *							 *
+	 *						  	 */
+	
+	function new_gallery()
 	{
-		$all = $this->gallery_model->get_all_images($gallery_id);
-		$gallery_info = $this->gallery_model->get_gallery_info($gallery_id);
+		if ($this->_login_check())
+		{
+			$g_title = $this->input->post('title');
+			$g_desc = $this->input->post('description');
+			$success = $this->gallery_model->create_gallery($g_title,$g_desc);
+			if ($success)
+			{
+				$this->session->set_flashdata('message',TRUE);
+				redirect('gallery/admin');
+			}
+			else
+			{
+				$this->session->set_flashdata('message',FALSE);
+				redirect('gallery/admin');
+			}
+		}
+		else
+		{
+			$this->load->view('gallery/superview', array('template' => 'home', 'title' => 'Home', 'message' => 'You must be <a href="gallery/login">logged in</a> to view this page.', 'class' => 'error'));
+		}
+	}
+	
+	// Get and show a gallery as specified by the ID in the URL
+	function show_gallery($g_name)
+	{
+		$gallery_info = $this->gallery_model->get_gallery_info($g_name);
+		if (!$gallery_info)
+		{
+			
+		}
+		$all = $this->gallery_model->get_all_images($gallery_info[0]['id']);
 		if ( ! $all)
 		{
 			$data = array(
@@ -171,19 +217,20 @@ class Gallery extends CI_Controller {
 		}
 	} // END OF PORTRAITS
 	
-	// Show the edit page for the specified 
-	function edit($g_id)
+	// Show the edit page for the specified gallery ID
+	function edit($g_name)
 	{
 		if ($this->_login_check())
 		{
-			$images = $this->gallery_model->get_all_images($g_id);
+			$g_info = $this->gallery_model->get_gallery_info($g_name);
+			$images = $this->gallery_model->get_all_images($g_info[0]['id']);
 			$user = $this->session->userdata('user');
 			$data = array(
 						'image_data' => $images,
 						'user' => $user,
 						'title' => 'Admin control panel',
 						'template' => 'edit',
-						'g_id' => $g_id,
+						'g_id' => $g_info[0]['id'],
 						'logged_in' => $this->_login_check()
 						);
 			if ($this->session->flashdata('login'))
@@ -209,6 +256,16 @@ class Gallery extends CI_Controller {
 	function admin()
 	{
 		$galleries = $this->gallery_model->get_all_galleries();
+		if ($this->session->flashdata('message'))
+		{
+			$data['class'] = 'success';
+			$data['message'] = 'You have successfully added a new gallery.';
+		}
+		else
+		{
+			$data['class'] = 'error';
+			$data['message'] = 'There was an error performing your request. Please try again.';
+		}
 		if ($this->_login_check())
 		{
 			$this->load->view('gallery/superview', array(
@@ -232,6 +289,11 @@ class Gallery extends CI_Controller {
 		}
 	} // END OF ADMIN
 	
+	/*						  *
+	 * 						  *
+	 * ===[AJAX FUNCTIONS]=== *
+	 *						  *
+	 *						  */
 	function ajax_delete()
 	{
 		if (IS_AJAX)

@@ -16,9 +16,9 @@ $(document).ready(function(){
 		if(sure==true){
 			var photo_id = $(this).attr('id');
 			$.post('/gallery/gallery/ajax_delete', { id: photo_id }, function(data){
-				$('span#action').html(data);
+				$('div#action').html('<p>' + data + '</p>');
 				$('tr#pic_id_' + photo_id).hide('slow');
-				$('span#action').addClass('notice');
+				$('div#action').addClass('notice');
 			});
 		}
 	});
