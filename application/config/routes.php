@@ -38,6 +38,8 @@ $route['home'] = 'gallery/home';
 
 $route['login'] = 'login/index';
 
+$route['login/submit'] = 'login/submit';
+
 $route['upload'] = 'gallery/add_photo';
 
 $route['admin'] = 'gallery/admin';
