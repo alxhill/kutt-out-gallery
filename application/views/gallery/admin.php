@@ -5,7 +5,10 @@
 <? if ($galleries) { ?>
 	<ul id='galleries_list'>
 	<? foreach ($galleries as $gallery) { ?>
-		<li class='gallery' id='gallery_<?=$gallery['id']?>'><a href='/gallery/<?=$gallery['name'] ?>/edit'><h3><?=$gallery['name']?></h3></a></li>
+		<li class='gallery' id='gallery_<?=$gallery['id']?>'>
+			<a href='<?=$gallery['name'] ?>/edit'><h3><?=$gallery['name']?></h3></a>
+			<div class='gallery_links'><a href='<?=$gallery['name']?>/show'>View</a> | <a href='<?=$gallery['name']?>/edit'>Edit</a></div>
+		</li>
 		
 	<? } ?>
 	</ul>

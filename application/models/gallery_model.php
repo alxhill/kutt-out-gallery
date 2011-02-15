@@ -85,5 +85,16 @@ class Gallery_model extends CI_Model {
 		$insert = array('name' => $g_name, 'description' => $g_desc);
 		$this->db->insert('galleries', $insert);
 	}
-
+	
+	function update_gallery($g_id,$g_new_name,$g_new_description = null)
+	{
+		$this->db->where('id', $g_id);
+		$data['name'] = $g_new_name;
+		if ($g_new_description)
+		{
+			$data['description'] = $g_new_description;
+		}
+		$this->db->update('galleries',$data);
+	}
+	
 }

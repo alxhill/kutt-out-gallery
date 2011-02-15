@@ -42,11 +42,13 @@ $route['login/submit'] = 'login/submit';
 
 $route['upload'] = 'gallery/add_photo';
 
+$route['gallery/upload'] = 'gallery/upload';
+
 $route['admin'] = 'gallery/admin';
 
 $route['(:any)/edit'] = 'gallery/edit/$1';
 
-$route['(:any)'] = 'gallery/show_gallery/$1';
+$route['(:any)/show'] = 'gallery/show_gallery/$1';
 
 /*$route['landscapes'] = 'gallery/show_gallery/landscapes';
 
