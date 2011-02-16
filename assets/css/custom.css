@@ -452,6 +452,10 @@ body {
 	font-size: 15px;
 	text-align: center;
 	font-weight: 300;
+	position: fixed;
+	bottom: 2%;
+	right: 2%;
+	width: 300px;
 }
 
 .error, .alert {
