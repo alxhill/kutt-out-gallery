@@ -73,7 +73,14 @@ class Gallery_model extends CI_Model {
 		$result = $query->result_array();
 		return $result;
 	}
-		
+	
+	function get_gallery_name($g_id)
+	{
+		$query = $this->db->get_where('galleries', array('id' => $g_id));
+		$result = $query->result_array();
+		return $result[0]['name'];
+	}
+	
 	function get_all_galleries()
 	{
 		$return = $this->db->get('galleries');

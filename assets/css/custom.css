@@ -80,6 +80,23 @@ a.link_content:hover {
 	color: #4d4d4d;
 }
 
+#upload {
+	float: left;
+	margin-right: -15px;
+}
+
+#edit_gallery {
+	float: right;
+	width: 190px;
+	padding-bottom: 6em;
+	padding-left: 1.8em;
+	border-left: 1px dashed #787878;
+}
+
+#edit_upload {
+	padding-bottom: 16pc;
+}
+
 /* @end */
 
 /* @group Admin page */

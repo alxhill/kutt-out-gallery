@@ -113,17 +113,12 @@ class Gallery extends CI_Controller {
 						);
 		$this->load->library('upload', $config);
 		
+		$g_name = $this->gallery_model->get_gallery_name($this->input->post('g_id'));
+		
 		if ( ! $this->upload->do_upload("photo"))
 		{
-			$errors = array(
-							'message' => $this->upload->display_errors(),
-							'class' => 'error',
-							'title' => 'Upload failed',
-							'logged_in' => $this->_login_check()
-							);
-			
-			$errors['template'] = $this->_login_check() ? 'upload' : 'home';
-			$this->load->view('gallery/superview',$errors);
+			$this->session->set_flashdata('upload_error',$this->upload->display_errors());
+			redirect($g_name.'/edit');
 		}
 		else
 		{
@@ -159,7 +154,7 @@ class Gallery extends CI_Controller {
 	 * ===[GALLERY FUNCTIONS]=== *
 	 *							 *
 	 *						  	 */
-	
+	// Non public function to create a new gallery
 	function new_gallery()
 	{
 		if ($this->_login_check())
@@ -190,30 +185,40 @@ class Gallery extends CI_Controller {
 		$gallery_info = $this->gallery_model->get_gallery_info($g_name);
 		if (!$gallery_info)
 		{
-			
-		}
-		$all = $this->gallery_model->get_all_images($gallery_info[0]['id']);
-		if ( ! $all)
-		{
 			$data = array(
 						'class' => 'notice',
-						'message' => 'There are no photos to display',
-						'template' => 'login_form',
-						'title' => 'No images to display',
-						'logged_in' => $this->_login_check()
+						'message' => "No gallery with the name \"{$g_name}\" could be found.",
+						'title' => 'No gallery found',
+						'logged_in' => $this->_login_check(),
+						'template' => 'login_form'
 						);
-			$this->load->view('login/superview', $data);
+			$this->load->view('login/superview',$data);
 		}
 		else
 		{
-			$data = array(
-						'image_data' => $all,
-						'title' => 'Gallery',
-						'template' => 'show_gallery',
-						'gallery_info' => $gallery_info[0],
-						'logged_in' => $this->_login_check()
-						);
-			$this->load->view('gallery/superview', $data);
+			$all = $this->gallery_model->get_all_images($gallery_info[0]['id']);
+			if ( ! $all)
+			{
+				$data = array(
+							'class' => 'notice',
+							'message' => 'There are no photos to display',
+							'template' => 'login_form',
+							'title' => 'No images to display',
+							'logged_in' => $this->_login_check()
+							);
+				$this->load->view('login/superview', $data);
+			}
+			else
+			{
+				$data = array(
+							'image_data' => $all,
+							'title' => $g_name,
+							'template' => 'show_gallery',
+							'gallery_info' => $gallery_info[0],
+							'logged_in' => $this->_login_check()
+							);
+				$this->load->view('gallery/superview', $data);
+			}
 		}
 	} // END OF PORTRAITS
 	
@@ -237,6 +242,11 @@ class Gallery extends CI_Controller {
 			{
 				$data['class'] = 'success';
 				$data['message'] = $this->session->flashdata('login');
+			}
+			else if ($this->session->flashdata('upload_error'))
+			{
+				$data['class'] = 'error';
+				$data['message'] = $this->session->flashdata('upload_error');
 			}
 			$this->load->view('gallery/superview', $data);
 		}

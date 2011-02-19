@@ -15,6 +15,7 @@ window.onload=test();
 <!--[if lt IE 8]><link rel="stylesheet" href="'/gallery/assets/css/ie.css" type="text/css" media="screen, projection"><![endif]-->
 <link rel="stylesheet" href="/gallery/assets/css/custom.css" type="text/css" media="screen" />
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
+<script type="text/javascript" src="/gallery/assets/js/jquery.min.js"></script>
 <script type="text/javascript" src="/gallery/assets/js/slimbox2.js"></script>
 <script type='text/javascript'>
 $(document).ready(function(){
