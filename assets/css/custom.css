@@ -56,6 +56,16 @@ td.edit_delete {
 	text-align: center;
 }
 
+.edit_delete a {
+	text-decoration: none;
+	color: #0087ff;
+}
+
+.edit_delete a:hover {
+	color: #0b48ac;
+	border-bottom: 1px solid #0b48ac;
+}
+
 td.image_id {
 	font-size: 20px;
 	text-align: center;
@@ -82,19 +92,29 @@ a.link_content:hover {
 
 #upload {
 	float: left;
-	margin-right: -15px;
+	margin-right: -20px;
 }
 
 #edit_gallery {
 	float: right;
-	width: 190px;
-	padding-bottom: 6em;
+	width: 200px;
+	padding-bottom: 1em;
 	padding-left: 1.8em;
 	border-left: 1px dashed #787878;
 }
 
 #edit_upload {
 	padding-bottom: 16pc;
+}
+
+input[type=text], input[type=password] {
+	width: 80%;
+}
+
+textarea.g_desc_area {
+	height: 80px;
+	width: 80%;
+	
 }
 
 /* @end */
@@ -115,11 +135,12 @@ ul#galleries_list {
 	text-align: center;
 }
 
-li.gallery a {
+li.gallery h3 a {
 	text-decoration: none;
+	color: black;
 }
 
-li.gallery a h3 {
+li.gallery h3 {
 	font-size: 40px;
 	font-style: italic;
 	font-weight: bold;
@@ -128,7 +149,7 @@ li.gallery a h3 {
 	margin-top: 10px;
 }
 
-li.gallery a h3:hover {
+li.gallery h3 a:hover {
 	text-shadow: #454545 2px 2px 0;
 }
 
@@ -141,10 +162,12 @@ li.gallery a h3:hover {
 	font-family: 'Helvetica Neue';
 	font-size: 14px;
 	color: #0087ff;
+	text-decoration: none;
 }
 
 .gallery_links a:hover {
 	color: #0b48ac;
+	border-bottom: 1px solid #0b48ac;
 }
 
 .l_link {
@@ -155,6 +178,10 @@ li.gallery a h3:hover {
 
 .l_link:hover {
 	color: grey;
+}
+
+#new_gallery form input[type=text] {
+	width: 50%;
 }
 
 /* @end */
@@ -268,18 +295,9 @@ form.loginform label {
 	padding-bottom: 15px;
 }
 
-#titleform label, #uploadform label {
+label {
 	font-size: 25px;
 	font-style: italic;
-}
-
-#titleform input#title {
-	width: 163px;
-}
-
-#uploadform label {
-	font-size: 25px;
-	line-height: 40px;
 }
 
 input#submit {

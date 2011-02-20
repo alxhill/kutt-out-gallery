@@ -7,7 +7,7 @@ class Login extends CI_Controller {
 	function __construct() {
 		parent::__construct();
 		$this->load->helper(array('form','url','notification'));
-		$this->load->library('session', 'sessionlogin');
+		$this->load->library('session');
 		$this->load->model('login_model');
 	}
 	
@@ -25,7 +25,7 @@ class Login extends CI_Controller {
 		{
 			$this->session->set_userdata('logged_in', TRUE);
 			$this->session->set_userdata('user', $user);
-			$this->session->set_flashdata('login', 'You have successfully logged in!');
+			$this->session->set_flashdata('success', 'You have successfully logged in!');
 			redirect('admin');
 		}
 		else

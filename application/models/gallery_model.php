@@ -4,7 +4,7 @@ class Gallery_model extends CI_Model {
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->helper('file');
+		$this->load->helper('file', 'neatr');
 	}
 	
 	/* ===[PHOTO FUNCTIONS]=== */
@@ -67,11 +67,24 @@ class Gallery_model extends CI_Model {
 	
 	/* ===[GALLERY FUNCTIONS]=== */
 	
-	function get_gallery_info($g_name)
+	function get_gallery_info($g_val)
 	{
-		$query = $this->db->get_where('galleries', array('name' => $g_name));
-		$result = $query->result_array();
-		return $result;
+		if (is_string($g_val))
+		{
+			$query = $this->db->get_where('galleries', array('name' => $g_val));
+			$result = $query->result_array();
+			return $result;
+		}
+		else if (is_int($g_val))
+		{
+			$query = $this->db->get_where('galleries', array('id' => $g_val));
+			$result = $query->result_array();
+			return $result;
+		}
+		else
+		{
+			return FALSE;
+		}
 	}
 	
 	function get_gallery_name($g_id)
@@ -104,4 +117,19 @@ class Gallery_model extends CI_Model {
 		$this->db->update('galleries',$data);
 	}
 	
+	function delete_gallery($g_id)
+	{
+		$gallery = $this->db->get_where('galleries', array('id' => $g_id));
+		if ($gallery->num_rows() === 0)
+		{
+			return FALSE;
+		}
+		else
+		{
+			$g_array = $gallery->result_array();
+			$this->db->delete('galleries', array('id' => $g_id));
+			return $g_array;
+		}
+	}
+
 }

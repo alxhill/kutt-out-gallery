@@ -21,8 +21,7 @@ class Gallery extends CI_Controller {
 		$logged_in = $this->session->userdata('logged_in');
 		if ($logged_in)
 		{
-			$return = array(TRUE, $this->session->userdata('user'));
-			return $return;
+			return array(TRUE, $this->session->userdata('user'));
 		}
 		else
 		{
@@ -117,7 +116,7 @@ class Gallery extends CI_Controller {
 		
 		if ( ! $this->upload->do_upload("photo"))
 		{
-			$this->session->set_flashdata('upload_error',$this->upload->display_errors());
+			$this->session->set_flashdata('error',$this->upload->display_errors());
 			redirect($g_name.'/edit');
 		}
 		else
@@ -154,7 +153,7 @@ class Gallery extends CI_Controller {
 	 * ===[GALLERY FUNCTIONS]=== *
 	 *							 *
 	 *						  	 */
-	// Non public function to create a new gallery
+	// Non visible function to create a new gallery
 	function new_gallery()
 	{
 		if ($this->_login_check())
@@ -164,20 +163,39 @@ class Gallery extends CI_Controller {
 			$success = $this->gallery_model->create_gallery($g_title,$g_desc);
 			if ($success)
 			{
-				$this->session->set_flashdata('message',TRUE);
-				redirect('gallery/admin');
+				$this->session->set_flashdata('success','You have successfully created  new gallery.');
 			}
-			else
-			{
-				$this->session->set_flashdata('message',FALSE);
-				redirect('gallery/admin');
-			}
+			redirect('admin');
 		}
 		else
 		{
 			$this->load->view('gallery/superview', array('template' => 'home', 'title' => 'Home', 'message' => 'You must be <a href="gallery/login">logged in</a> to view this page.', 'class' => 'error'));
 		}
 	}
+	
+	// Non visible function to update a gallery
+	function update_gallery()
+	{
+		if ($this->_login_check())
+		{
+			$id = $this->input->post('g_id');
+			$description = $this->input->post('g_description');
+			$name = $this->input->post('g_name');
+			if ($this->gallery_model->update_gallery($id, $name, $description))
+			{
+				$this->session->set_flashdata('success','Gallery updated successfully');
+			}
+			else
+			{
+				$this->session->set_flashdata('error','There was a problem performing you request. Please try again.');
+			}
+			redirect('admin');
+		}
+		else
+		{
+			redirect('home');
+		}
+	} 
 	
 	// Get and show a gallery as specified by the ID in the URL
 	function show_gallery($g_name)
@@ -235,18 +253,18 @@ class Gallery extends CI_Controller {
 						'user' => $user,
 						'title' => 'Admin control panel',
 						'template' => 'edit',
-						'g_id' => $g_info[0]['id'],
+						'g_info' => $g_info[0],
 						'logged_in' => $this->_login_check()
 						);
-			if ($this->session->flashdata('login'))
+			if ($this->session->flashdata('success'))
 			{
 				$data['class'] = 'success';
-				$data['message'] = $this->session->flashdata('login');
+				$data['message'] = $this->session->flashdata('success');
 			}
-			else if ($this->session->flashdata('upload_error'))
+			else if ($this->session->flashdata('error'))
 			{
 				$data['class'] = 'error';
-				$data['message'] = $this->session->flashdata('upload_error');
+				$data['message'] = $this->session->flashdata('error');
 			}
 			$this->load->view('gallery/superview', $data);
 		}
@@ -266,15 +284,15 @@ class Gallery extends CI_Controller {
 	function admin()
 	{
 		$galleries = $this->gallery_model->get_all_galleries();
-		if ($this->session->flashdata('message'))
+		if ($this->session->flashdata('success'))
 		{
 			$data['class'] = 'success';
-			$data['message'] = 'You have successfully added a new gallery.';
+			$data['message'] = $this->session->flashdata('success');
 		}
-		else
+		else if ($this->session->flashdata('error'))
 		{
 			$data['class'] = 'error';
-			$data['message'] = 'There was an error performing your request. Please try again.';
+			$data['message'] = $this->session->flashdata('error');
 		}
 		if ($this->_login_check())
 		{
@@ -306,11 +324,11 @@ class Gallery extends CI_Controller {
 	 *						  */
 	function ajax_delete()
 	{
-		if (IS_AJAX)
+		if (IS_AJAX && $this->_login_check())
 		{
 			$photo_id = $this->input->post('id');
 			$image = $this->gallery_model->delete_image($photo_id);
-			if (!$image == FALSE)
+			if ($image)
 			{
 				echo 'Image with ID ' . $photo_id . ' ("'. $image[0]['title'] .'") has been deleted.';
 			}
@@ -321,14 +339,14 @@ class Gallery extends CI_Controller {
 		}
 		else
 		{
-			redirect('home');
+			echo "This page is not available.";
 		}
 
 	}
 	
 	function ajax_update()
 	{
-		if (IS_AJAX)
+		if (IS_AJAX && $this->_login_check())
 		{
 			$photo_id = $this->input->post('id');
 			$photo_title = $this->input->post('title');
@@ -336,8 +354,24 @@ class Gallery extends CI_Controller {
 		}
 		else
 		{
-			redirect('home');
+			echo "This page is not available";
+		}
+	}	
+	
+	function ajax_gallery_delete()
+	{
+		if (IS_AJAX && $this->_login_check())
+		{
+			$g_id = $this->input->post('id');
+			$gallery = $this->gallery_model->delete_gallery($g_id);
+			if ($g_id)
+			{
+				echo 'The gallery "' . $gallery[0]['name'] . '" was deleted successfully.';
+			}
+			else
+			{
+				echo 'An error has occurred - the gallery has not been deleted.';
+			}
 		}
 	}
-	
 }

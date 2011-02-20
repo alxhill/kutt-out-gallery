@@ -1,5 +1,6 @@
 <div id='main'>
 <div class='content'>
+
 <h1 id='admin'>Admin control panel</h1>
 <h2>Upload, update and delete images from this panel</h2>
 <p id='user'>Logged in as user: <span id='username'><?=$user?></span></p>
@@ -17,19 +18,20 @@
 <label>Select photo:</label><br>
 <input type="file" name="photo" id="photo" /><br>
 </div>
-<input type='hidden' name='g_id' value='<?=$g_id?>' />
+<input type='hidden' name='g_id' value='<?=$g_info['id']?>' />
 <input type="submit" name="submit" id="submit" value="Upload" />
 </form>
 </div>
 
 <div id='edit_gallery'>
 <h2 id='edit_title'>Edit gallery</h2>
-<?=form_open('gallery/edit_gallery')?>
+<?=form_open('gallery/update_gallery')?>
 <label>Title:</label>
-<input type='text' id='gallery_title' name='gallery_title' />
-<label>Select photo:</label>
-<input type='text' id='gallery_description' name='gallery_description' />
-<input type='hidden' name='g_id' value='<?=$g_id?>' />
+<input type='text' id='g_name' name='g_name' value='<?=$g_info['name']?>'/><br>
+<label>Description:</label>
+<!--<input type='text' id='g_description' name='g_description' value='<?=$g_info['description']?>'/><br>-->
+<textarea name='g_description' class='g_desc_area'><?=$g_info['description']?></textarea>
+<input type='hidden' name='g_id' value='<?=$g_info['id']?>' />
 <input type='submit' value='Update' />
 </form>
 </div>
