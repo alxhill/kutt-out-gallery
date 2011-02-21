@@ -79,17 +79,26 @@ class View {
 			
 			$header_data['logged_in'] = $CI->session->userdata('logged_in');
 			
-			$head = $CI->load->view('gallery/common/header', $header_data, TRUE);
-			$nav = $CI->load->view('gallery/common/nav', $nav_data, TRUE);
-			$main = $CI->load->view('gallery/' . $this->template, $view_data, TRUE);
-			$footer = $CI->load->view('gallery/common/footer','', TRUE);
+			$view['header'] = $CI->load->view('gallery/common/header', $header_data, TRUE);
+			$view['nav'] = $CI->load->view('gallery/common/nav', $nav_data, TRUE);
+			$view['main'] = $CI->load->view('gallery/' . $this->template, $view_data, TRUE);
+			$view['footer'] = $CI->load->view('gallery/common/footer','', TRUE);
+			
+			$CI->load->view('view', $view);
 			
 			$this->reset();
 			
-			echo $head.$nav.$main.$footer;
 			return TRUE;
 			
 		}
+	}
+	
+	public function reset()
+	{
+		$this->title = null;
+		$this->message = null;
+		$this->template = null;
+		$this->data = null;
 	}
 	
 	private function get_galleries()
@@ -108,11 +117,4 @@ class View {
 		
 	}
 	
-	private function reset()
-	{
-		$this->title = null;
-		$this->message = null;
-		$this->template = null;
-		$this->data = null;
-	}
 }
