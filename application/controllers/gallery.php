@@ -5,7 +5,7 @@ class Gallery extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->helper(array('form','url','notification', 'neatr'));
-		$this->load->library('session');
+		$this->load->library(array('session', 'view'));
 		$this->load->model('gallery_model');
 	}
 	
@@ -40,21 +40,14 @@ class Gallery extends CI_Controller {
 	{
 		if ($this->session->flashdata('logout'))
 		{
-			$this->load->view('gallery/superview', array(
-														'title' => 'Kutt Out Studio',
-														'template' => 'home',
-														'class' => 'success',
-														'message' => 'You have successfully logged out.',
-														'logged_in' => $this->_login_check()
-														));
+			$this->view->template('home')->message('success', 'You have successfully logged out.');
+			$this->view->load();
 		}
 		else
 		{
-			$this->load->view('gallery/superview', array(
-														'title' => 'Kutt Out Studio',
-														'template' => 'home',
-														'logged_in' => $this->_login_check()
-														));
+			$this->view->template('home');
+			$this->view->load();
+			
 		}
 	}
 	
@@ -71,32 +64,19 @@ class Gallery extends CI_Controller {
 		{
 			if ($this->session->flashdata('login'))
 			{
-				$this->load->view('gallery/superview', array(
-															'title' => 'Upload a new image',
-															'template' => 'upload',
-															'class' => 'success',
-															'message' => $this->session->flashdata('login'),
-															'logged_in' => $this->_login_check()
-															));
+				$this->view->title('Upload a new image')->message('success',$this->session->flashdata('login'))->template('upload');
+				$this->view->load();
 			}
 			else
 			{
-				$this->load->view('gallery/superview', array(
-															'title' => 'Upload a new image',
-															'template' => 'upload',
-															'logged_in' => $this->_login_check()
-															));
+				$this->view->title('Upload a new image')->template('upload');
+				$this->view->load();
 			}
 		}
 		else
 		{
-			$this->load->view('login/superview', array(
-													'title' => 'Log in',
-													'template' => 'login_form',
-													'class' => 'error',
-													'message' => 'You must be logged in to view this page.',
-													'logged_in' => $this->_login_check()
-													));
+			$this->view->template('login_form')->title('Log in')->message('error','You must be logged in to view this page');
+			$this->view->load();
 		}
 	}
 	
@@ -134,16 +114,9 @@ class Gallery extends CI_Controller {
 			
 			$this->gallery_model->add_image($upload_data['file_name'],$this->input->post('title'),$this->input->post('g_id'));
 			
-			$success = array(
-							 'message' => 'Image successfully uploaded!',
-							 'class' => 'success',
-							 'upload_data' => $this->upload->data(),
-							 'link' => $link,
-							 'template' => 'post_upload',
-							 'title' => 'Image uploaded',
-						   	 'logged_in' => $this->_login_check()
-							 );
-			$this->load->view('gallery/superview',$success);
+			$data = array('upload_data' => $this->upload->data(), 'link' => $link);
+			$this->view->template('post_upload')->title('Image uploaded')->message('success','Image uploaded successfully!')->data($data);
+			$this->view->load();
 		}
 		
 	} // END OF UPLOAD
@@ -169,7 +142,8 @@ class Gallery extends CI_Controller {
 		}
 		else
 		{
-			$this->load->view('gallery/superview', array('template' => 'home', 'title' => 'Home', 'message' => 'You must be <a href="gallery/login">logged in</a> to view this page.', 'class' => 'error'));
+			$this->view->template('home')->title('Home')->message('error','You must be <a href="gallery/login">logged in</a> to view this page.');
+			$this->view->load();
 		}
 	}
 	
@@ -203,39 +177,21 @@ class Gallery extends CI_Controller {
 		$gallery_info = $this->gallery_model->get_gallery_info($g_name);
 		if (!$gallery_info)
 		{
-			$data = array(
-						'class' => 'notice',
-						'message' => "No gallery with the name \"{$g_name}\" could be found.",
-						'title' => 'No gallery found',
-						'logged_in' => $this->_login_check(),
-						'template' => 'login_form'
-						);
-			$this->load->view('login/superview',$data);
+			$this->view->template('login_form')->title('No gallery found')->message('notice',"No gallery with the name \"{$g_name}\" could be found.");
+			$this->view->load();
 		}
 		else
 		{
 			$all = $this->gallery_model->get_all_images($gallery_info[0]['id']);
 			if ( ! $all)
-			{
-				$data = array(
-							'class' => 'notice',
-							'message' => 'There are no photos to display',
-							'template' => 'login_form',
-							'title' => 'No images to display',
-							'logged_in' => $this->_login_check()
-							);
-				$this->load->view('login/superview', $data);
+			{	
+				$this->view->template('login_form')->title('No images to display')->message('notice','There are no photos to display');
+				$this->view->load();
 			}
 			else
 			{
-				$data = array(
-							'image_data' => $all,
-							'title' => $g_name,
-							'template' => 'show_gallery',
-							'gallery_info' => $gallery_info[0],
-							'logged_in' => $this->_login_check()
-							);
-				$this->load->view('gallery/superview', $data);
+				$this->view->template('show_gallery')->title($g_name)->data(array('gallery_info' => $gallery_info[0], 'image_data' => $all));
+				$this->view->load();
 			}
 		}
 	} // END OF PORTRAITS
@@ -248,35 +204,22 @@ class Gallery extends CI_Controller {
 			$g_info = $this->gallery_model->get_gallery_info($g_name);
 			$images = $this->gallery_model->get_all_images($g_info[0]['id']);
 			$user = $this->session->userdata('user');
-			$data = array(
-						'image_data' => $images,
-						'user' => $user,
-						'title' => 'Admin control panel',
-						'template' => 'edit',
-						'g_info' => $g_info[0],
-						'logged_in' => $this->_login_check()
-						);
 			if ($this->session->flashdata('success'))
 			{
-				$data['class'] = 'success';
-				$data['message'] = $this->session->flashdata('success');
+				$this->view->message('success',$this->session->flashdata('success'));
 			}
 			else if ($this->session->flashdata('error'))
 			{
-				$data['class'] = 'error';
-				$data['message'] = $this->session->flashdata('error');
+				$this->view->message('error',$this->session->flashdata('error'));
 			}
-			$this->load->view('gallery/superview', $data);
+			$data = array('image_data' => $images, 'user' => $user, 'g_info' => $g_info[0]);
+			$this->view->template('edit')->title("Edit gallery {$g_name}")->data($data);
+			$this->view->load();
 		}
 		else
 		{
-			$this->load->view('login/superview', array(
-													'title' => 'Log in',
-													'template' => 'login_form',
-													'class' => 'error',
-													'message' => 'You must be logged in to view this page.',
-													'logged_in' => $this->_login_check()
-													));
+			$this->view->template('login_form')->title('Log in')->message('error','You must be logged in to view this page.');
+			$this->view->load();
 		}
 	} // END OF EDIT
 	
@@ -286,34 +229,21 @@ class Gallery extends CI_Controller {
 		$galleries = $this->gallery_model->get_all_galleries();
 		if ($this->session->flashdata('success'))
 		{
-			$data['class'] = 'success';
-			$data['message'] = $this->session->flashdata('success');
+			$this->view->message('success',$this->session->flashdata('success'));
 		}
 		else if ($this->session->flashdata('error'))
 		{
-			$data['class'] = 'error';
-			$data['message'] = $this->session->flashdata('error');
+			$this->view->message('success',$this->session->flashdata('success'));
 		}
 		if ($this->_login_check())
 		{
-			$this->load->view('gallery/superview', array(
-														'title' => 'Galleries',
-														'template' => 'admin',
-														'galleries' => $galleries,
-														'logged_in' => $this->_login_check()
-														));
+			$this->view->template('admin')->title('Galleries')->data(array('galleries' => $galleries));
+			$this->view->load();
 		}
 		else
 		{
-			$data = array(
-						 'title' => 'Home',
-						 'template' => 'login_form',
-						 'class' => 'error',
-						 'message' => 'You must be logged in to access this page',
-						 'galleries' => $galleries,
-						 'logged_in' => $this->_login_check()
-						 );
-			$this->load->view('login/superview', $data);
+			$this->view->title('home')->template('login_form')->message('error','You must be logged in to access this page.')->data(array('galleries' => $galleries));
+			$this->view->load();
 		}
 	} // END OF ADMIN
 	

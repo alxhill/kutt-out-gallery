@@ -5,9 +5,9 @@
 		<? foreach ($galleries as $gallery):?>
 		<li><a href='/gallery/<?=$gallery?>/show'><?=$gallery?></a>
 		<? endforeach; ?>
-		<!--><li><a href='/gallery/portraits/show'>Portraits</a></li>
+		<!--<li><a href='/gallery/portraits/show'>Portraits</a></li>
 		<li><a href='/gallery/landscapes/show'>Landscapes</a></li>
-		<li id="middle"><a href='#'>Digital</a></li>
+		<li id="middle"><a href='/gallery/digital/show'>Digital</a></li>
 		<li><a href='#'>Videos</a></li>-->
 		<li><a href='#'>Contact</a></li>
 		<li><a href='#'><div id='billy'>Billy</div><div id='boyd'>Boyd</div><div id='cape'>Cape</div></a></li>

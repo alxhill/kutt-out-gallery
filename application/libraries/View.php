@@ -14,24 +14,24 @@ class View {
 	
 	function __construct()
 	{
-		$not_this &= get_instance();
-		$not_this->load->model('gallery_model');
-		
 	}
 	
 	public function template($template)
 	{
 		$this->template = $template;
+		return $this;
 	}
 	
 	public function title($title)
 	{
 		$this->title = $title;
+		return $this;
 	}
 	
-	public function message($class,$title)
+	public function message($class,$message)
 	{
 		$this->message = array('class' => $class, 'message' => $message);
+		return $this;
 	}
 	
 	public function data($data)
@@ -39,17 +39,26 @@ class View {
 		if(is_array($data))
 		{
 			$this->data = $data;
+			return $this;
+		}
+		else
+		{
+			return FALSE;
 		}
 	}
 	
 	public function load()
 	{
-		if (!(isset($template))
+		$CI =& get_instance();
+		$CI->load->library('session');
+		
+		if (!(isset($this->template)))
 		{
 			return FALSE;
 		}
 		else
 		{
+			$view_data = null;
 			if (isset($this->data))
 			{
 				foreach ($this->data as $key=>$value)
@@ -58,7 +67,7 @@ class View {
 				}
 			}
 			
-			$view_data['title'] = (isset($this->title)) ? 'Kutt Out Studios // ' . $this->title : 'Kutt Out Studios';			
+			$header_data['title'] = (isset($this->title)) ? 'Kutt Out Studios // ' . $this->title : 'Kutt Out Studios';			
 			
 			if (isset($this->message['class']) && isset($this->message['message']))
 			{
@@ -68,23 +77,27 @@ class View {
 			
 			$nav_data['galleries'] = $this->get_galleries();
 			
-			$header_data['logged_in'] = $not_this->session->userdata('logged_in');
+			$header_data['logged_in'] = $CI->session->userdata('logged_in');
 			
-			$head = $not_this->load->view('gallery/common/header', $header_data, TRUE);
-			$nav = $not_this->load->view('gallery/common/nav', $nav_data, TRUE);
-			$main = $not_this->load->view('gallery/' . $this->template, $view_data, TRUE);
-			$footer = $not_this->load->view('gallery/common/footer','', TRUE);
+			$head = $CI->load->view('gallery/common/header', $header_data, TRUE);
+			$nav = $CI->load->view('gallery/common/nav', $nav_data, TRUE);
+			$main = $CI->load->view('gallery/' . $this->template, $view_data, TRUE);
+			$footer = $CI->load->view('gallery/common/footer','', TRUE);
 			
-			$this->reset;
+			$this->reset();
 			
 			echo $head.$nav.$main.$footer;
+			return TRUE;
 			
 		}
 	}
 	
 	private function get_galleries()
 	{
-		$galleries = $not_this->gallery_model->get_all_galleries();
+		$CI =& get_instance();
+		$CI->load->model('gallery_model');
+
+		$galleries = $CI->gallery_model->get_all_galleries();
 		
 		foreach ($galleries as $gallery)
 		{

@@ -18,7 +18,7 @@ window.onload=test();
 <script type="text/javascript" src="/gallery/assets/js/jquery.min.js"></script>
 <script type="text/javascript" src="/gallery/assets/js/slimbox2.js"></script>
 <script type='text/javascript' src='/gallery/assets/js/script.js'></script>
-<title>Kutt Out Studios // <?=$title?></title>
+<title><?=$title?></title>
 </head>
 <body onload='test();'>
 <?php if ($logged_in) { ?>
