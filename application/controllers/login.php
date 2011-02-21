@@ -7,14 +7,14 @@ class Login extends CI_Controller {
 	function __construct() {
 		parent::__construct();
 		$this->load->helper(array('form','url','notification'));
-		$this->load->library('session');
+		$this->load->library(array('session','view'));
 		$this->load->model('login_model');
 	}
 	
 	function index()
 	{
-		$data = array('title' => 'Log in', 'template' => 'login_form', 'logged_in' => $this->session->userdata('logged_in'));
-		$this->load->view('login/superview',$data);
+		$this->view->template('login_form')->title('Log in');
+		$this->view->load();
 	}
 	
 	function submit()
@@ -31,12 +31,8 @@ class Login extends CI_Controller {
 		else
 		{
 			$this->session->set_userdata('logged_in', FALSE);
-			$data = array('title' => 'Log in',
-						  'template' => 'login_form',
-						  'class' => 'error',
-						  'message' => 'Log in details are incorrect. Please try again.',
-						  'logged_in' => $this->session->userdata('logged_in'));
-			$this->load->view('login/superview', $data);
+			$this->view->template('login_form')->title('Log in')->message('error','Log in details are incorrect. Please try again.');
+			$this->view->load();
 		}
 		
 	}

@@ -12,10 +12,6 @@ class View {
 	private $message = null;
 	private $data = null;
 	
-	function __construct()
-	{
-	}
-	
 	public function template($template)
 	{
 		$this->template = $template;
@@ -33,7 +29,7 @@ class View {
 		$this->message = array('class' => $class, 'message' => $message);
 		return $this;
 	}
-	
+		
 	public function data($data)
 	{
 		if(is_array($data))
@@ -71,8 +67,8 @@ class View {
 			
 			if (isset($this->message['class']) && isset($this->message['message']))
 			{
-				$view_data['class'] = $this->message['class'];
-				$view_data['message'] = $this->message['message'];
+				$header_data['class'] = $this->message['class'];
+				$header_data['message'] = $this->message['message'];
 			}
 			
 			$nav_data['galleries'] = $this->get_galleries();
