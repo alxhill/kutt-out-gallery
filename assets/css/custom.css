@@ -406,10 +406,6 @@ body {
 	letter-spacing: -2px;
 }
 
-#nav ul li#middle {
-	margin-bottom: 100px;
-}
-
 #nav ul li:first-child {
 	font-size: 80px;
 	line-height: 35px;
@@ -444,6 +440,15 @@ body {
 #studios {
 	padding-top: 6px;
 	font-size: 50px;
+}
+
+#norm a {
+	font-size: 40px;
+}
+
+#nav_bottom {
+	position: relative;
+	top: 100px;
 }
 
 /* @end */

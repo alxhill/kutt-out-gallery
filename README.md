@@ -6,10 +6,10 @@ This is a gallery system for kutt-out.co.uk. Currently supports uploading, editi
 To do:
 ------
 
-* Create a non specific version for any views the user (well, me) wants
-* Make the navigation bar dynamically generated.
-* Add show/hide support.
-* ERROR HANDLING
-	* Error handling on db entries - dealing with form validation and returning error codes and such.
-	* JavaScript validation - do not hide elements if the server returns an error message rather than a success message.
-	* Oh and everywhere else
+* **Add show/hide support.**
+* Create a non specific version for any views
+* Video/embed link support
+* Proper gallery deletion - remove corresponding photos in the gallery as well as the corresponding files
+* Switch to using object oriented database query results
+* Error handling on db entries - dealing with form validation and returning error codes etc
+* Make the galleries in the navigation bar hide when deleted

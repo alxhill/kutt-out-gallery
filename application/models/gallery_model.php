@@ -94,8 +94,12 @@ class Gallery_model extends CI_Model {
 		return $result[0]['name'];
 	}
 	
-	function get_all_galleries()
+	function get_all_galleries($visible = FALSE)
 	{
+		if ($visible)
+		{
+			$this->db->where('visible',1);
+		}
 		$return = $this->db->get('galleries');
 		return $return->result_array();
 	}
@@ -129,7 +133,27 @@ class Gallery_model extends CI_Model {
 			$g_array = $gallery->result_array();
 			$this->db->delete('galleries', array('id' => $g_id));
 			return $g_array;
+			$g_photos = $this->db->get_where('photos', array('gallery_id' => $g_id));
+			foreach ($g_photos->result() as $row)
+			{
+				$this->delete_image($row->id);
+			}
+			return TRUE;
 		}
 	}
-
+	
+	function show_gallery($g_id)
+	{
+		$this->db->where('id', $g_id);
+		$this->db->update('galleries', array('visible' => 1));
+		return TRUE;
+	}
+	
+	function hide_gallery($g_id)
+	{
+		$this->db->where('id', $g_id);
+		$this->db->update('galleries', array('visible' => 0));
+		return TRUE;
+	}
+	
 }

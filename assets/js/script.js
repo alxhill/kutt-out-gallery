@@ -14,10 +14,19 @@ $(document).ready(function(){
 		if(sure === true){
 			var photo_id = $(this).attr('id');
 			$.post('/gallery/gallery/ajax_delete', { id: photo_id }, function(data){
-				$('div#action').html(data);
-				$('tr#pic_id_' + photo_id).hide('slow');
-				$('div#action').addClass('notice').delay(2500).fadeOut('slow');
-			});
+				if (data.code === 0)
+				{
+					$('div#action').html('The image with ID ' + data.id + ' ("' + data.title + '") was deleted successfully.');
+					$('tr#pic_id_' + photo_id).hide('slow');
+					$('div#action').addClass('notice').delay(3000).fadeOut('slow');
+				}
+				else
+				{
+					$('div#action').html(data.message).addClass('error').delay(3000).fadeOut('slow');
+				}
+			},
+			'json'
+			);
 		}
 	});
 	
@@ -38,7 +47,15 @@ $(document).ready(function(){
 			title.attr('contenteditable','false');
 			title.css('border','none');
 			edit_link.html('Edit');
-			$.post('/gallery/gallery/ajax_update', { id: p_id, title: title.html() });
+			$.post('/gallery/gallery/ajax_update', { id: p_id, title: title.html() }, function(data){
+				if (data.code === 1)
+				{
+					$('div#action').html(data.message);
+					$('div#action').addClass('error').delay(3000).fadeOut('slow');
+				}
+			},
+			'json'
+			);
 		}
 	});
 
@@ -48,10 +65,20 @@ $(document).ready(function(){
 		if(sure === true){
 			var g_id = $(this).attr('id');
 			$.post('/gallery/gallery/ajax_gallery_delete', { id: g_id }, function(data){
-				$('div#action').html(data);
-				$('li#gallery_' + g_id).fadeOut('slow');
-				$('div#action').addClass('notice').delay(3000).fadeOut('slow');
-			});
+				$('div#action').html(data.message);
+				if (data.code === 0)
+				{
+					$('li#gallery_' + g_id).fadeOut('slow');
+					$('li a.nav_link#g_' + g_id).fadeOut('slow');
+					$('#action').addClass('notice').delay(3000).fadeOut('slow');
+				}
+				else
+				{
+					$('div#action').addClass('error').delay(3000).fadeOut('slow');
+				}
+			},
+			'json'
+			);
 		}
 					
 	});

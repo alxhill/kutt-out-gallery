@@ -16,7 +16,7 @@ class Gallery extends CI_Controller {
 	 *						   */
 	
 	// Private function to do as described - check if the logged_in cookie is set.
-	function _login_check()
+	private function _login_check()
 	{
 		$logged_in = $this->session->userdata('logged_in');
 		if ($logged_in)
@@ -171,6 +171,23 @@ class Gallery extends CI_Controller {
 		}
 	} 
 	
+	function show_hide($action,$g_id)
+	{
+		if ($action == 'hide')
+		{
+			$this->gallery_model->hide_gallery($g_id);
+		}
+		else if ($action == 'show')
+		{
+			$this->gallery_model->show_gallery($g_id);
+		}
+		else
+		{
+			$this->session->set_flashdata('error','Invalid function');
+		}
+		redirect('admin');
+	}
+	
 	// Get and show a gallery as specified by the ID in the URL
 	function show_gallery($g_name)
 	{
@@ -242,7 +259,8 @@ class Gallery extends CI_Controller {
 		}
 		else
 		{
-			$this->view->title('home')->template('login_form')->message('error','You must be logged in to access this page.')->data(array('galleries' => $galleries));
+			$data = array('galleries' => $galleries);
+			$this->view->title('home')->template('login_form')->message('error','You must be logged in to access this page.')->data($data);
 			$this->view->load();
 		}
 	} // END OF ADMIN
@@ -252,56 +270,89 @@ class Gallery extends CI_Controller {
 	 * ===[AJAX FUNCTIONS]=== *
 	 *						  *
 	 *						  */
+	
 	function ajax_delete()
 	{
-		if (IS_AJAX && $this->_login_check())
+		if (IS_AJAX)
 		{
 			$photo_id = $this->input->post('id');
 			$image = $this->gallery_model->delete_image($photo_id);
+			header('Content-type: application/json');
 			if ($image)
 			{
-				echo 'Image with ID ' . $photo_id . ' ("'. $image[0]['title'] .'") has been deleted.';
+				$json = array('code' => 0, 'id' => $photo_id, 'title' => $image[0]['title']);
+				echo json_encode($json);
 			}
 			else
 			{
-				echo "An error has occurred - the image was not deleted.";
+				$json = array('code' => 1, 'message' => 'An error has occurred - the image was not deleted.');
+				echo json_encode($json);
 			}
 		}
 		else
 		{
-			echo "This page is not available.";
+			redirect('home');
 		}
 
 	}
 	
 	function ajax_update()
 	{
-		if (IS_AJAX && $this->_login_check())
+		if (IS_AJAX)
 		{
-			$photo_id = $this->input->post('id');
-			$photo_title = $this->input->post('title');
-			$this->gallery_model->change_title($photo_id,$photo_title);
+			if ($this->_login_check())
+			{
+				$photo_id = $this->input->post('id');
+				$photo_title = $this->input->post('title');
+				$this->gallery_model->change_title($photo_id,$photo_title);
+			
+				header('Content-type: application/json');
+				echo json_encode(array('code' => 0));
+			}
+			else
+			{
+				header('Content-type: application/json');
+				echo json_encode(array('code' => 1,'message'=>'You must be logged in to perform this action.'));
+			}
 		}
 		else
 		{
-			echo "This page is not available";
+			redirect('home');
 		}
+
 	}	
 	
 	function ajax_gallery_delete()
 	{
-		if (IS_AJAX && $this->_login_check())
+		if (IS_AJAX)
 		{
-			$g_id = $this->input->post('id');
-			$gallery = $this->gallery_model->delete_gallery($g_id);
-			if ($g_id)
+			if ($this->_login_check())
 			{
-				echo 'The gallery "' . $gallery[0]['name'] . '" was deleted successfully.';
+				$g_id = $this->input->post('id');
+				$gallery = $this->gallery_model->delete_gallery($g_id);
+				if ($g_id)
+				{
+					$json = array('code' => 0, 'message' => 'The gallery "' . $gallery[0]['name'] . '" was deleted successfully.');
+					header('Content-type: application/json');
+					echo json_encode($json);
+				}
+				else
+				{
+					$json = array('code' => 1, 'message' => 'An error has occurred - the gallery has not been deleted.');
+					header('Content-type: application/json');
+					echo json_encode($json);
+				}
 			}
 			else
 			{
-				echo 'An error has occurred - the gallery has not been deleted.';
+				$json = array('code' => 3, 'message' => 'You must be logged in to perform this action.');
+				header('Content-type: application/json');
+				echo json_encode($json);
 			}
+		}
+		else
+		{
+			redirect('home');
 		}
 	}
 }

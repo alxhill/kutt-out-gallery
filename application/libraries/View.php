@@ -2,11 +2,11 @@
 
 /*
 	View controller for showing views. Adds spedific data, and allows selection of a custom title, template, message and data. 
-	
 */
 
 class View {
 	
+	// Data set through the functions below.
 	private $template = null;
 	private $title = null;
 	private $message = null;
@@ -102,11 +102,11 @@ class View {
 		$CI =& get_instance();
 		$CI->load->model('gallery_model');
 
-		$galleries = $CI->gallery_model->get_all_galleries();
+		$galleries = $CI->gallery_model->get_all_galleries(TRUE);
 		
 		foreach ($galleries as $gallery)
 		{
-			$all_galleries[] = $gallery['name'];
+			$all_galleries[] = array('name' => $gallery['name'],'id' => $gallery['id']);
 		}
 		
 		return $all_galleries;
