@@ -1,21 +1,32 @@
-<?php
-class Gallery extends CI_Controller {
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+ * Main gallery controller - handles all input and output related to galleries.
+ * 
+ * @package kutt-out-gallery
+ * @author Alexander Hill
+ * @copyright Copyright (c) 2011 Alexander Hill <http://alxhill.com>
+ */
+class Gallery extends CI_Controller {
+	
+	/**
+	 * Constructer - loads all necessary libraries, models, etc.
+	 */
 	function __construct()
 	{
 		parent::__construct();
 		$this->load->helper(array('form','url','notification', 'neatr'));
 		$this->load->library(array('session', 'view'));
-		$this->load->model('gallery_model');
+		$this->load->model('gallery_model', 'gallery');
+		$this->load->model('photo_model','photo');
 	}
 	
-	/*						   *
-	 * 			 			   *
-	 * ===[OTHER FUNCTIONS]=== *
-	 *						   *
-	 *						   */
-	
-	// Private function to do as described - check if the logged_in cookie is set.
+	/**
+	 * Check if the logged_in cookie is set.
+	 * 
+	 * @access private
+	 * @return boolean 
+	 */
 	private function _login_check()
 	{
 		$logged_in = $this->session->userdata('logged_in');
@@ -29,13 +40,17 @@ class Gallery extends CI_Controller {
 		}
 	}
 	
-	// Load the index view.
+	/**
+	 * Load the index page.
+	 */	
 	function index()
 	{
 		$this->load->view('index');
 	}
 	
-	// Load the home view
+	/**
+	 * Load the home view, add a logout message if necessary.
+	 */
 	function home()
 	{
 		if ($this->session->flashdata('logout'))
@@ -51,48 +66,25 @@ class Gallery extends CI_Controller {
 		}
 	}
 	
-	/*						   *
-	 * 			 			   *
-	 * ===[PHOTO FUNCTIONS]=== *
-	 *						   *
-	 *						   */
-	
-	// Load the upload view if the user is logged in, otherwise prompt them to do so.
-	function add_photo()
-	{
-		if ($this->_login_check())
-		{
-			if ($this->session->flashdata('login'))
-			{
-				$this->view->title('Upload a new image')->message('success',$this->session->flashdata('login'))->template('upload');
-				$this->view->load();
-			}
-			else
-			{
-				$this->view->title('Upload a new image')->template('upload');
-				$this->view->load();
-			}
-		}
-		else
-		{
-			$this->view->template('login_form')->title('Log in')->message('error','You must be logged in to view this page');
-			$this->view->load();
-		}
-	}
-	
-	// Perform the uploading, resizing and storing of images from the upload form.
+	/*		    				   *
+	 * =====[PHOTO FUNCTIONS]===== *
+	 *			    			   */
+		
+	/**
+	 * Upload function, gets data from post and uploads into a folder/database.
+	 */
 	function upload()
 	{
-		$config = array(
-						'upload_path' => './assets/upload/',
-						'allowed_types' => 'gif|jpeg|jpg|png',
-						'max_size' => '20000',
-						'max_width' => '1024',
-						'max_height' => '800'
-						);
+		// Set up and load the upload library.
+		$config['upload_path'] = './assets/upload/';
+		$config['allowed_types'] = 'gif|jpeg|jpg|png';
+		$config['max_size'] = '20000';
+		$config['max_width'] = '1024';
+		$config['max_height'] = '800';
 		$this->load->library('upload', $config);
 		
-		$g_name = $this->gallery_model->get_gallery_name($this->input->post('g_id'));
+		// Get the galleries name.
+		$g_name = $this->gallery->name($this->input->post('g_id'));
 		
 		if ( ! $this->upload->do_upload("photo"))
 		{
@@ -103,37 +95,39 @@ class Gallery extends CI_Controller {
 		{
 			$upload_data = $this->upload->data();
 			
+			// Set the file location for zebra and for 
 			$normal_loc = 'assets/upload/' . $upload_data['file_name'];
 			$thumb_loc = 'assets/upload/' . $upload_data['raw_name'] . '_thumb' . $upload_data['file_ext'];
-			$link = site_url("assets/upload/" . $upload_data['file_name']);
+			$img = site_url("assets/upload/" . $upload_data['file_name']);
 			
-			//resize and crop the image with the zebra library
+			// Resize and crop the image with the zebra library
 			$this->load->library('zebra');
 			$this->zebra->setup($normal_loc,$thumb_loc, array('preserve_aspect_ratio'=>true,'enable_smaller_images'=>true));
 			$this->zebra->resize(120, 80, 3);
 			
-			$this->gallery_model->add_image($upload_data['file_name'],$this->input->post('title'),$this->input->post('g_id'));
+			$this->photo->create($upload_data['file_name'],$this->input->post('title'),$this->input->post('g_id'));
 			
-			$data = array('upload_data' => $this->upload->data(), 'link' => $link);
+			$data = array('upload_data' => $this->upload->data(), 'link' => $img, 'g_name' => $g_name);
 			$this->view->template('post_upload')->title('Image uploaded')->message('success','Image uploaded successfully!')->data($data);
 			$this->view->load();
 		}
 		
-	} // END OF UPLOAD
+	}
 	
-	/*							 *
-	 * 			 				 *
-	 * ===[GALLERY FUNCTIONS]=== *
-	 *							 *
-	 *						  	 */
-	// Non visible function to create a new gallery
+	/*							     *
+	 * =====[GALLERY FUNCTIONS]===== *
+	 *						  	     */
+	
+	/**
+	 * Creates a new gallery in the database based on post data, then redirects the user to the admin page with a success message.
+	 */
 	function new_gallery()
 	{
 		if ($this->_login_check())
 		{
 			$g_title = $this->input->post('title');
 			$g_desc = $this->input->post('description');
-			$success = $this->gallery_model->create_gallery($g_title,$g_desc);
+			$success = $this->gallery->create($g_title,$g_desc);
 			if ($success)
 			{
 				$this->session->set_flashdata('success','You have successfully created  new gallery.');
@@ -147,7 +141,9 @@ class Gallery extends CI_Controller {
 		}
 	}
 	
-	// Non visible function to update a gallery
+	/**
+	 * Updates a gallery based on post data, then redirects the user to the admin page with a message.
+	 */
 	function update_gallery()
 	{
 		if ($this->_login_check())
@@ -155,7 +151,7 @@ class Gallery extends CI_Controller {
 			$id = $this->input->post('g_id');
 			$description = $this->input->post('g_description');
 			$name = $this->input->post('g_name');
-			if ($this->gallery_model->update_gallery($id, $name, $description))
+			if ($this->gallery->update($id, $name, $description))
 			{
 				$this->session->set_flashdata('success','Gallery updated successfully');
 			}
@@ -171,15 +167,20 @@ class Gallery extends CI_Controller {
 		}
 	} 
 	
+	/**
+	 * Show or hide a gallery, then redirect to admin.
+	 * @param string $action The action to perform - show or hide
+	 * @param string $g_id The gallery ID to change.
+	 */
 	function show_hide($action,$g_id)
 	{
 		if ($action == 'hide')
 		{
-			$this->gallery_model->hide_gallery($g_id);
+			$this->gallery->hide($g_id);
 		}
 		else if ($action == 'show')
 		{
-			$this->gallery_model->show_gallery($g_id);
+			$this->gallery->show($g_id);
 		}
 		else
 		{
@@ -188,10 +189,15 @@ class Gallery extends CI_Controller {
 		redirect('admin');
 	}
 	
-	// Get and show a gallery as specified by the ID in the URL
+	/**
+	 * Get and show a gallery from its name.
+	 *
+	 * @todo Add in an error view to use for displaying errors properly.
+	 * @param string $g_name gallery name
+	 */
 	function show_gallery($g_name)
 	{
-		$gallery_info = $this->gallery_model->get_gallery_info($g_name);
+		$gallery_info = $this->gallery->info($g_name);
 		if (!$gallery_info)
 		{
 			$this->view->template('login_form')->title('No gallery found')->message('notice',"No gallery with the name \"{$g_name}\" could be found.");
@@ -199,7 +205,7 @@ class Gallery extends CI_Controller {
 		}
 		else
 		{
-			$all = $this->gallery_model->get_all_images($gallery_info[0]['id']);
+			$all = $this->photo->get($gallery_info[0]['id']);
 			if ( ! $all)
 			{	
 				$this->view->template('login_form')->title('No images to display')->message('notice','There are no photos to display');
@@ -211,15 +217,19 @@ class Gallery extends CI_Controller {
 				$this->view->load();
 			}
 		}
-	} // END OF PORTRAITS
+	}
 	
-	// Show the edit page for the specified gallery ID
+	/**
+	 * Show the edit page for the specified gallery ID.
+	 *
+	 * @param string $g_name gallery name
+	 */
 	function edit($g_name)
 	{
 		if ($this->_login_check())
 		{
-			$g_info = $this->gallery_model->get_gallery_info($g_name);
-			$images = $this->gallery_model->get_all_images($g_info[0]['id']);
+			$g_info = $this->gallery->info($g_name);
+			$images = $this->photo->get($g_info[0]['id']);
 			$user = $this->session->userdata('user');
 			if ($this->session->flashdata('success'))
 			{
@@ -238,12 +248,14 @@ class Gallery extends CI_Controller {
 			$this->view->template('login_form')->title('Log in')->message('error','You must be logged in to view this page.');
 			$this->view->load();
 		}
-	} // END OF EDIT
+	}
 	
-	// Show the admin page poplated by all the galleries in the database
+	/**
+	 * Admin function to show the admin page with the list of galleries.
+	 */
 	function admin()
 	{
-		$galleries = $this->gallery_model->get_all_galleries();
+		$galleries = $this->gallery->all();
 		if ($this->session->flashdata('success'))
 		{
 			$this->view->message('success',$this->session->flashdata('success'));
@@ -263,20 +275,21 @@ class Gallery extends CI_Controller {
 			$this->view->title('home')->template('login_form')->message('error','You must be logged in to access this page.')->data($data);
 			$this->view->load();
 		}
-	} // END OF ADMIN
+	}
 	
-	/*						  *
-	 * 						  *
-	 * ===[AJAX FUNCTIONS]=== *
-	 *						  *
-	 *						  */
+	/*						      *
+	 * =====[AJAX FUNCTIONS]===== *
+	 *						      */
 	
+	/**
+	 * Deletes a photo when called through AJAX.
+	 */
 	function ajax_delete()
 	{
 		if (IS_AJAX)
 		{
 			$photo_id = $this->input->post('id');
-			$image = $this->gallery_model->delete_image($photo_id);
+			$image = $this->photo->delete($photo_id);
 			header('Content-type: application/json');
 			if ($image)
 			{
@@ -296,6 +309,9 @@ class Gallery extends CI_Controller {
 
 	}
 	
+	/**
+	 * Updates the title of a photo when called through AJAX.
+	 */
 	function ajax_update()
 	{
 		if (IS_AJAX)
@@ -304,7 +320,7 @@ class Gallery extends CI_Controller {
 			{
 				$photo_id = $this->input->post('id');
 				$photo_title = $this->input->post('title');
-				$this->gallery_model->change_title($photo_id,$photo_title);
+				$this->photo->edit_title($photo_id,$photo_title);
 			
 				header('Content-type: application/json');
 				echo json_encode(array('code' => 0));
@@ -322,6 +338,9 @@ class Gallery extends CI_Controller {
 
 	}	
 	
+	/**
+	 * Deletes a gallery when called through AJAX.
+	 */ 
 	function ajax_gallery_delete()
 	{
 		if (IS_AJAX)
@@ -329,7 +348,7 @@ class Gallery extends CI_Controller {
 			if ($this->_login_check())
 			{
 				$g_id = $this->input->post('id');
-				$gallery = $this->gallery_model->delete_gallery($g_id);
+				$gallery = $this->gallery->delete($g_id);
 				if ($g_id)
 				{
 					$json = array('code' => 0, 'message' => 'The gallery "' . $gallery[0]['name'] . '" was deleted successfully.');

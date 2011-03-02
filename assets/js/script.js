@@ -8,6 +8,7 @@ $(document).ready(function(){
 		$('#out, #studios').css('margin-top','-10px');
 		$('img#home').css('margin-top','-250px');
 	}
+	
 	// Manages deleting and removing photos.
 	$('a.delete_link').click(function(){
 		var sure = confirm('Are you sure you want to delete this image?');
@@ -84,6 +85,5 @@ $(document).ready(function(){
 	});
 	
 	$('.success, .error, .notice').delay(3000).fadeOut('slow');
-	
 	
 });
