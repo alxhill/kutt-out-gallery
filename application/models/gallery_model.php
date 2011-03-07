@@ -78,9 +78,9 @@ class Gallery_model extends CI_Model {
 	 * @param $g_name gallery name
 	 * @param $g_desc gallery description
 	 */
-	function create($g_name,$g_desc)
+	function create($g_name,$g_desc,$type=1)
 	{
-		$insert = array('name' => $g_name, 'description' => $g_desc);
+		$insert = array('name' => $g_name, 'description' => $g_desc, 'type' => $type);
 		$this->db->insert('galleries', $insert);
 	}
 	

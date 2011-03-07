@@ -127,7 +127,9 @@ class Gallery extends CI_Controller {
 		{
 			$g_title = $this->input->post('title');
 			$g_desc = $this->input->post('description');
-			$success = $this->gallery->create($g_title,$g_desc);
+			$type = $this->input->post('type');
+			
+			$success = $this->gallery->create($g_title,$g_desc,$type);
 			if ($success)
 			{
 				$this->session->set_flashdata('success','You have successfully created  new gallery.');
@@ -198,23 +200,36 @@ class Gallery extends CI_Controller {
 	function show_gallery($g_name)
 	{
 		$gallery_info = $this->gallery->info($g_name);
+		$g_id = $gallery_info[0]['id'];
+		
 		if (!$gallery_info)
 		{
-			$this->view->template('login_form')->title('No gallery found')->message('notice',"No gallery with the name \"{$g_name}\" could be found.");
+			$this->view->template('login_form')->title('No gallery found')->message('notice','No gallery with the name "'.$g_name.'" could be found.');
 			$this->view->load();
 		}
 		else
 		{
-			$all = $this->photo->get($gallery_info[0]['id']);
+			$all = $this->photo->get($g_id);
 			if ( ! $all)
 			{	
-				$this->view->template('login_form')->title('No images to display')->message('notice','There are no photos to display');
+				$this->view->template('login_form')->title('Nothing to display')->message('notice','There is nothing to display. Please upload some content into this gallery.');
 				$this->view->load();
 			}
 			else
 			{
-				$this->view->template('show_gallery')->title($g_name)->data(array('gallery_info' => $gallery_info[0], 'image_data' => $all));
-				$this->view->load();
+				$this->view->template('show_gallery')->title($g_name);
+				$data = array('gallery_info' => $gallery_info[0], 'image_data' => $all);
+				if ($gallery_info[0]['type'] === 2)
+				{
+					$data['type'] = 'video';
+					$data['videos'] = $this->video->get($g_id);
+				}
+				else
+				{
+					$data['type'] = 'photo';
+				}
+				
+				$this->view->data($data)->load();
 			}
 		}
 	}

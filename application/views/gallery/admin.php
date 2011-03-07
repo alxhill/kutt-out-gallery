@@ -27,6 +27,11 @@
 	<?= form_open('gallery/new_gallery') ?>
 		<label>Title:</label><br>
 		<input type='text' title='title' name='title'><br>
+		<label>Type:</label><br>
+		<select name='type'>
+			<option value='1'>Photo</option>
+			<option value='2'>Video</option>
+		</select><br><br>
 		<label>Description:</label><br>
 		<textarea title='description' name='description' class='g_desc_area'></textarea><br>
 		<input type="submit" name="submit" id="submit" value="Create">

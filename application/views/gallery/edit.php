@@ -29,7 +29,6 @@
 <label>Title:</label>
 <input type='text' id='g_name' name='g_name' value='<?=$g_info['name']?>'/><br>
 <label>Description:</label>
-<!--<input type='text' id='g_description' name='g_description' value='<?=$g_info['description']?>'/><br>-->
 <textarea name='g_description' class='g_desc_area'><?=$g_info['description']?></textarea>
 <input type='hidden' name='g_id' value='<?=$g_info['id']?>' />
 <input type='submit' value='Update' />
