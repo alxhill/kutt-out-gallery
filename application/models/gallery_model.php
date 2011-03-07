@@ -1,65 +1,159 @@
-<?php
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+
+/**
+* Provides access to the galleries database, including adding, editing and updating galleries.
+*
+* @package kutt-out-gallery
+* @author Alexander Hill <http://alxhill.com>
+* @copyright Copyright (c) 2011 Alexander Hill <http://alxhill.com>
+*/
 class Gallery_model extends CI_Model {
 	
+	/**
+	* Constructor - load stuff
+	*/
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->helper('file');
+		$this->load->helper('file', 'neatr');
 	}
 	
-	function add_image($file_name, $title)
+	/**
+	 * Gets info regarding a specific gallery - name, type, visibility etc.
+	 * 
+	 * @param string or int $g_val gallery name or id
+	 * @return array of results, false on failure
+	 */
+	function info($g_val)
 	{
-		//code to work out the name of the thumb
-		$name_explode = explode('.', $file_name);
-		$ext = array_pop($name_explode);
-		$thumb_name = implode('.', $name_explode) . '_thumb.' . $ext;
-		
-		//create the file names
-		$data['file_name'] = $file_name;
-		$data['file_thumb_name'] = $thumb_name;
-		
-		//create the file paths
-		$data['file_path'] = 'assets/upload/' . $file_name;
-		$data['file_thumb_path'] = 'assets/upload/' . $thumb_name;
-		
-		//create the file links
-		$data['file_link'] = site_url("assets/upload/" . $file_name);
-		$data['file_thumb_link'] = site_url("assets/upload/" . $thumb_name);
-		
-		//add in the title
-		$data['title'] = $title;
-		
-		$this->db->insert('photos', $data);
+		if (is_string($g_val))
+		{
+			$query = $this->db->get_where('galleries', array('name' => $g_val));
+			$result = $query->result_array();
+			return $result;
+		}
+		else if (is_int($g_val))
+		{
+			$query = $this->db->get_where('galleries', array('id' => $g_val));
+			$result = $query->result_array();
+			return $result;
+		}
+		else
+		{
+			return FALSE;
+		}
 	}
 	
-	function get_all_images()
+	/**
+	 * Gets the name of a gallery from its id,
+	 * 
+	 * @param int $g_id gallery id
+	 */
+	function name($g_id)
 	{
-		$query = $this->db->get('photos');
-		return $query->result_array();
+		$query = $this->db->get_where('galleries', array('id' => $g_id));
+		$result = $query->result_array();
+		return $result[0]['name'];
 	}
 	
-	function delete_image($id)
+	/**
+	 * Get all galleries, option for getting visible galleries only.
+	 * 
+	 * @param bool $visible should it return only visible galleries, defaults to false.
+	 * @return array of results
+	 */
+	function all($visible = FALSE)
 	{
-		$image = $this->db->get_where('photos', array('id' => $id));
-		if ($image->num_rows() === 0)
+		if ($visible)
+		{
+			$this->db->where('visible',1);
+		}
+		$return = $this->db->get('galleries');
+		return $return->result_array();
+	}
+	
+	/**
+	 * Create a new gallery.
+	 * 
+	 * @param $g_name gallery name
+	 * @param $g_desc gallery description
+	 */
+	function create($g_name,$g_desc,$type=1)
+	{
+		$insert = array('name' => $g_name, 'description' => $g_desc, 'type' => $type);
+		$this->db->insert('galleries', $insert);
+	}
+	
+	/**
+	 * Updates the title for a gallery, optionally the description.
+	 * 
+	 * @param $g_id gallery id
+	 * @param $g_new_name name to change to
+	 * @param $g_new_description description to update, optional
+	 */
+	function update($g_id,$g_new_name,$g_new_description = null)
+	{
+		$this->db->where('id', $g_id);
+		$data['name'] = $g_new_name;
+		if ($g_new_description)
+		{
+			$data['description'] = $g_new_description;
+		}
+		$this->db->update('galleries',$data);
+	}
+	
+	/**
+	 * Deletes a gallery from its ID
+	 * 
+	 * @param $g_id gallery id
+	 * @return array of info for deleted gallery, false on failure
+	 */
+	function delete($g_id)
+	{
+		$gallery = $this->db->get_where('galleries', array('id' => $g_id));
+		if ($gallery->num_rows() === 0)
 		{
 			return FALSE;
 		}
 		else
 		{
-			$image_array = $image->result_array();
-			unlink($image_array[0]['file_path']);
-			unlink($image_array[0]['file_thumb_path']);
-			$this->db->delete('photos', array('id' => $id));
-			return $image_array;
+			$g_array = $gallery->result_array();
+			$this->db->delete('galleries', array('id' => $g_id));
+			
+			$g_photos = $this->db->get_where('photos', array('gallery_id' => $g_id));
+			
+			$this->load->model('photo_model','photo');
+			foreach ($g_photos->result() as $row)
+			{
+				$this->photo->delete($row->id);
+			}
+			
+			return $g_array;
 		}
 	}
 	
-	function change_title($id, $title)
+	/**
+	 * Set a gallery to 'show' status. Opposite of {@link hide()}.
+	 * 
+	 * @param $g_id gallery id
+	 */
+	function show($g_id)
 	{
-		$title = array('title' => $title);
-		$this->db->where('id', $id);
-		$this->db->update('photos', $title);
+		$this->db->where('id', $g_id);
+		$this->db->update('galleries', array('visible' => 1));
+		return TRUE;
 	}
-
+	
+	/**
+	 * Set a gallery to 'hide' status. Opposite of {@link show()}.
+	 * 
+	 * @param $g_id gallery id
+	 */
+	function hide($g_id)
+	{
+		$this->db->where('id', $g_id);
+		$this->db->update('galleries', array('visible' => 0));
+		return TRUE;
+	}
+	
 }

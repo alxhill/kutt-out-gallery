@@ -233,6 +233,21 @@ else<br />
 <code>echo $this->input->user_agent();</code>
 
 
+<h2>$this->input->request_headers()</h2>
+<p>Useful if running in a non-Apache environment where <a href="http://php.net/apache_request_headers">apache_request_headers()</a> will not be supported.  Returns an array of headers.</p>
+
+<code>$headers = $this->input->request_headers();</code>
+
+<h2>$this->input->get_request_header();</h2>
+<p>Returns a single member of the request headers array.</p>
+
+<code>$this->input->get_request_header('some-header', TRUE);</code>
+
+
+<h2>$this->input->is_ajax_request()</h2>
+<p>Checks to see if the <var>HTTP_X_REQUESTED_WITH</var> server header has been set, and returns a boolean response.</p>
+
+<code>$this->input->is_ajax_request()</code>
 
 
 </div>
@@ -247,7 +262,7 @@ Previous Topic:&nbsp;&nbsp;<a href="image_lib.html">Image Manipulation Class</a>
 <a href="../index.html">User Guide Home</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
 Next Topic:&nbsp;&nbsp;<a href="loader.html">Loader Class</a>
 </p>
-<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006-2010 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2011 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
 </div>
 
 </body>

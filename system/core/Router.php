@@ -2,11 +2,11 @@
 /**
  * CodeIgniter
  *
- * An open source application development framework for PHP 4.3.2 or newer
+ * An open source application development framework for PHP 5.1.6 or newer
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2010, EllisLab, Inc.
+ * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc.
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -41,7 +41,7 @@ class CI_Router {
 	 *
 	 * Runs the route mapping function.
 	 */
-	function CI_Router()
+	function __construct()
 	{
 		$this->config =& load_class('Config', 'core');
 		$this->uri =& load_class('URI', 'core');
@@ -144,7 +144,7 @@ class CI_Router {
 
 			$this->set_class($x[0]);
 			$this->set_method($x[1]);
-			$this->_set_request(array($x[0], $x[1]));
+			$this->_set_request($x);
 		}
 		else
 		{
@@ -270,18 +270,16 @@ class CI_Router {
 
 		// If we've gotten this far it means that the URI does not correlate to a valid
 		// controller class.  We will now see if there is an override
-		if (isset($this->routes['404_override']) AND $this->routes['404_override'] != '')
+		if (!empty($this->routes['404_override']))
 		{
-			if (strpos($this->routes['404_override'], '/') !== FALSE)
-			{
-				$x = explode('/', $this->routes['404_override']);
+			$x = explode('/', $this->routes['404_override']);
 
-				$this->set_class($x[0]);
-				$this->set_method($x[1]);
+			$this->set_class($x[0]);
+			$this->set_method(isset($x[1]) ? $x[1] : 'index');
 
-				return $x;
-			}
+			return $x;
 		}
+
 
 		// Nothing else to do at this point but show a 404
 		show_404($segments[0]);

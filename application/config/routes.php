@@ -32,17 +32,27 @@
 | would be loaded.
 */
 
-$route['default_controller'] = "gallery";
+$route['default_controller'] = 'gallery';
 
 $route['home'] = 'gallery/home';
 
-$route['login'] = "login/index";
+$route['login'] = 'login/index';
+
+$route['login/submit'] = 'login/submit';
 
 $route['upload'] = 'gallery/add_photo';
 
+$route['gallery/upload'] = 'gallery/upload';
+
 $route['admin'] = 'gallery/admin';
 
-$route['portraits'] = 'gallery/portraits';
+$route['(:any)/edit'] = 'gallery/edit/$1';
+
+$route['(:any)/show'] = 'gallery/show_gallery/$1';
+
+/*$route['landscapes'] = 'gallery/show_gallery/landscapes';
+
+$route['landscapes/edit'] = 'gallery/edit/landscapes';*/
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

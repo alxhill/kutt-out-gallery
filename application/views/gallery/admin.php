@@ -1,37 +1,41 @@
 <div id='main'>
 <div class='content'>
-<h1 id='admin'>Admin control panel</h1>
-<h2>Upload, update and delete images from this panel</h2>
-<p id='user'>Logged in as user: <span id='username'><?=$user?></span></p>
-<span id='action'></span>
-<h2 id='upload_title'>Upload an image</h2>
-<?=form_open_multipart('gallery/upload'); ?>
-<div id="titleform">
-<label>Title:</label><br>
-<input type="text" name="title" id="title">
-</div>
-<div id="uploadform">
-<label>Select photo:</label><br>
-<input type="file" name="photo" id="photo"><br>
-</div>
-<input type="submit" name="submit" id="submit" value="Upload">
-</form>
-<h2 id='edit_title'>Edit and delete images</h2>
-<div>
-<table class='photos'>
-	<tr>
-		<th>Thumbnail</th>
-		<th>Title</th>
-		<th>Modify</th>
-	</tr>
-<?php foreach (array_reverse($image_data) as $pic) { ?>
-	<tr id='pic_id_<?=$pic['id']?>'>
-		<td><img src='<?=$pic['file_thumb_link']?>' alt='<?=$pic['title']?>' title='<?=$pic['title']?>' class-'admin_thumb'></td>
-		<td class='image_title editable' id='title_<?=$pic['id']?>'><?=$pic['title']?></td>
-		<td class='edit_delete'><a class='edit_link' id='<?=$pic['id']?>' href='javascript:void(0)'>Edit</a>/<a class='delete_link' id='<?=$pic['id']?>' href='javascript: void(0)'>Delete</a><a class='revert_link' id='revert_<?=$pic['id']?>' href='javascript:void(0)' >Revert</a></td>
-	</tr>
-<?php } ?>
-</table>
+<div id='action'></div>
+<h1 id='admin_title'>Gallery manager</h1>
+<h2>Pick a gallery to edit</h2>
+<? if ($galleries) { ?>
+	<ul id='galleries_list'>
+	<? foreach ($galleries as $gallery) { ?>
+		<li class='gallery' id='gallery_<?=$gallery['id']?>'>
+			<h3><a href='<?=$gallery['name'] ?>/edit'><?=$gallery['name']?></a></h3>
+			<div class='gallery_links'>
+				<a href='<?=$gallery['name']?>/show'>View</a> | 
+				<a href='<?=$gallery['name']?>/edit'>Edit</a> | 
+				<? if ($gallery['visible'] == 0) { ?><a href='gallery/show_hide/show/<?=$gallery['id']?>'>Show</a><? } else if ($gallery['visible'] == 1){ ?><a href='gallery/show_hide/hide/<?=$gallery['id']?>'>Hide</a><? } ?> | 
+				<a class='g_delete_link' href='javascript: void(0);' id='<?=$gallery['id']?>' >Delete</a>
+			</div>
+		</li>
+		
+	<? } ?>
+	</ul>
+<? } else { ?>
+	<p id='no_galleries'>There are no galleries to display</p>
+<? } ?>
+<br>
+<h2>Create a new gallery</h2>
+<div id='new_gallery'>
+	<?= form_open('gallery/new_gallery') ?>
+		<label>Title:</label><br>
+		<input type='text' title='title' name='title'><br>
+		<label>Type:</label><br>
+		<select name='type'>
+			<option value='1'>Photo</option>
+			<option value='2'>Video</option>
+		</select><br><br>
+		<label>Description:</label><br>
+		<textarea title='description' name='description' class='g_desc_area'></textarea><br>
+		<input type="submit" name="submit" id="submit" value="Create">
+	</form>
 </div>
 </div>
 </div>

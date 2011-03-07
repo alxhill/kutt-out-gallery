@@ -2,11 +2,11 @@
 /**
  * CodeIgniter
  *
- * An open source application development framework for PHP 4.3.2 or newer
+ * An open source application development framework for PHP 5.1.6 or newer
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2010, EllisLab, Inc.
+ * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc.
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -26,24 +26,22 @@
  */
 class CI_Log {
 
-	var $log_path;
-	var $_threshold	= 1;
-	var $_date_fmt	= 'Y-m-d H:i:s';
-	var $_enabled	= TRUE;
-	var $_levels	= array('ERROR' => '1', 'DEBUG' => '2',  'INFO' => '3', 'ALL' => '4');
+	protected $_log_path;
+	protected $_threshold	= 1;
+	protected $_date_fmt	= 'Y-m-d H:i:s';
+	protected $_enabled	= TRUE;
+	protected $_levels	= array('ERROR' => '1', 'DEBUG' => '2',  'INFO' => '3', 'ALL' => '4');
 
 	/**
 	 * Constructor
-	 *
-	 * @access	public
 	 */
-	function CI_Log()
+	public function __construct()
 	{
 		$config =& get_config();
 
-		$this->log_path = ($config['log_path'] != '') ? $config['log_path'] : BASEPATH.'logs/';
+		$this->_log_path = ($config['log_path'] != '') ? $config['log_path'] : APPPATH.'logs/';
 
-		if ( ! is_dir($this->log_path) OR ! is_really_writable($this->log_path))
+		if ( ! is_dir($this->_log_path) OR ! is_really_writable($this->_log_path))
 		{
 			$this->_enabled = FALSE;
 		}
@@ -66,13 +64,12 @@ class CI_Log {
 	 *
 	 * Generally this function will be called using the global log_message() function
 	 *
-	 * @access	public
 	 * @param	string	the error level
 	 * @param	string	the error message
 	 * @param	bool	whether the error is a native PHP error
 	 * @return	bool
 	 */
-	function write_log($level = 'error', $msg, $php_error = FALSE)
+	public function write_log($level = 'error', $msg, $php_error = FALSE)
 	{
 		if ($this->_enabled === FALSE)
 		{
@@ -86,7 +83,7 @@ class CI_Log {
 			return FALSE;
 		}
 
-		$filepath = $this->log_path.'log-'.date('Y-m-d').EXT;
+		$filepath = $this->_log_path.'log-'.date('Y-m-d').EXT;
 		$message  = '';
 
 		if ( ! file_exists($filepath))
