@@ -7,20 +7,45 @@
 <div id='action'></div>
 
 <div id='edit_upload'>
-<div id='upload'>
-<h2 id='upload_title'>Upload an image</h2>
-<?=form_open_multipart('gallery/upload'); ?>
-<div id="titleform">
-<label>Title:</label><br>
-<input type="text" name="title" id="title">
+<div class='upload'>
+	<? if ($g_info['type'] == 1): ?>
+	<div class='photo_upload'>
+	<h2 id='upload_title'>Upload an image</h2>
+	<?=form_open_multipart('gallery/upload'); ?>
+		<div class="titleform">
+			<label>Title:</label><br>
+			<input type="text" name="title" id="title">
+		</div>
+		<div class="uploadform">
+			<label>Select photo:</label><br>
+			<input type="file" name="photo" id="photo" /><br>
+		</div>
+		<input type='hidden' name='g_id' value='<?=$g_info['id']?>' />
+		<input type='hidden' name='type' values='photo' />
+		<input type="submit" name="submit" id="submit" value="Upload" />
+	</form>
+	</div>
+<? elseif ($g_info['type'] ==  2): ?>
+<div class='video_upload'>
+	<?= form_open_multipart('gallery/upload'); ?>
+		<div class='titleform'>
+			<label>Vimeo URL:</label>
+			<input type='text' name='url' id='title' />
+		</div>
+		<div class="uploadform">
+			<label>Select thumbnail:</label><br>
+			<input type="file" name="photo" id="photo" /><br>
+		</div>
+		<div id='descriptionform'>
+			<label>Video Description:</label>
+			<textarea cols='2' id='video_description' name='description'></textarea>
+		</div>
+		<input type='hidden' name='g_id' value='<?=$g_info['id']?>' />
+		<input type='hidden' name='type' value='video' />
+		<input type="submit" name="submit" id="submit" value="Add Video" />
+	</form>
 </div>
-<div id="uploadform">
-<label>Select photo:</label><br>
-<input type="file" name="photo" id="photo" /><br>
-</div>
-<input type='hidden' name='g_id' value='<?=$g_info['id']?>' />
-<input type="submit" name="submit" id="submit" value="Upload" />
-</form>
+<? endif; ?>
 </div>
 
 <div id='edit_gallery'>
@@ -36,8 +61,9 @@
 </div>
 </div>
 
+<div class='table'>
+<? if ($g_info['type'] == 1) { ?>
 <h2 id='edit_title'>Edit and delete images</h2>
-<div>
 <table class='photos'>
 	<tr>
 		<th>Thumbnail</th>
@@ -46,13 +72,24 @@
 	</tr>
 <?php foreach (array_reverse($image_data) as $pic) { ?>
 	<tr id='pic_id_<?=$pic['id']?>'>
-		<td><img src='<?=$pic['file_thumb_link']?>' alt='<?=$pic['title']?>' title='<?=$pic['title']?>' class-'admin_thumb'></td>
+		<td><img src='<?=$pic['file_thumb_link']?>' alt='<?=$pic['title']?>' title='<?=$pic['title']?>' class='admin_thumb'></td>
 		<td class='image_title editable' id='title_<?=$pic['id']?>'><?=$pic['title']?></td>
 		<td class='edit_delete'><a class='edit_link' id='<?=$pic['id']?>' href='javascript:void(0)'>Edit</a>/<a class='delete_link' id='<?=$pic['id']?>' href='javascript: void(0)'>Delete</a></td>
 	</tr>
 <?php } ?>
 </table>
+<? } else if ($g_info['type'] == 2) { ?>
+<h2 id='edit_title'>Edit and delete videos</h2>
+<div>
+	<table>
+		<tr>
+			<th>Thumbnail</th>
+			<th>Title</th>
+			<th>Description</th>
+			<th>Modify</th>
+		</tr>
+	</table>
 </div>
-
+<? } ?>
 </div>
 </div>

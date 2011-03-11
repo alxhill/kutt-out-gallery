@@ -27,14 +27,14 @@ tbody tr:nth-child(even) td {
 	margin-top: 15px;
 }
 
-.content h1#admin {
+.content #admin {
 	margin-top: 0px;
 	margin-bottom: -13px;
 	font-size: 50px;
 	font-style: italic;
 }
 
-p#user {
+#user {
 	font-size: 15px;
 	letter-spacing: -1pt;
 }
@@ -90,7 +90,7 @@ a.link_content:hover {
 	color: #4d4d4d;
 }
 
-#upload {
+.upload {
 	float: left;
 	margin-right: -20px;
 }
@@ -117,18 +117,28 @@ textarea.g_desc_area {
 	
 }
 
+#video_description {
+	width: 80%;
+	height: 80px;
+	display: block;
+}
+
+.table {
+	padding-top: 15px;
+}
+
 /* @end */
 
 /* @group Admin page */
 
-h1#admin_title {
+#admin_title {
 	font-size: 40px;
 	font-style: italic;
 	letter-spacing: -2px;
 	margin-top: 0px;
 }
 
-ul#galleries_list {
+#galleries_list {
 	list-style: none;
 	padding: 0px;
 	padding-bottom: 5px;
@@ -291,7 +301,7 @@ form.loginform label {
 	margin-top: 0px;
 }
 
-#titleform {
+.titleform {
 	padding-bottom: 15px;
 }
 

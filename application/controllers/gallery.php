@@ -19,6 +19,7 @@ class Gallery extends CI_Controller {
 		$this->load->library(array('session', 'view'));
 		$this->load->model('gallery_model', 'gallery');
 		$this->load->model('photo_model','photo');
+		$this->load->model('video_model','video');
 	}
 	
 	/**
@@ -83,7 +84,7 @@ class Gallery extends CI_Controller {
 		$config['max_height'] = '800';
 		$this->load->library('upload', $config);
 		
-		// Get the galleries name.
+		// Get the gallery's name.
 		$g_name = $this->gallery->name($this->input->post('g_id'));
 		
 		if ( ! $this->upload->do_upload("photo"))
@@ -105,11 +106,19 @@ class Gallery extends CI_Controller {
 			$this->zebra->setup($normal_loc,$thumb_loc, array('preserve_aspect_ratio'=>true,'enable_smaller_images'=>true));
 			$this->zebra->resize(120, 80, 3);
 			
-			$this->photo->create($upload_data['file_name'],$this->input->post('title'),$this->input->post('g_id'));
+			// Insert the upload into the right place
+			if ($this->input->post('type') == 'video')
+			{
+				$this->video->create($upload_data['file_name'],$this->input->post('description'),$this->input->post('url'),$this->input->post('g_id'));
+			}
+			else
+			{
+				$this->photo->create($upload_data['file_name'],$this->input->post('title'),$this->input->post('g_id'));
+			}
 			
+			// Show the upload view
 			$data = array('upload_data' => $this->upload->data(), 'link' => $img, 'g_name' => $g_name);
-			$this->view->template('post_upload')->title('Image uploaded')->message('success','Image uploaded successfully!')->data($data);
-			$this->view->load();
+			$this->view->template('post_upload')->title('Image uploaded')->message('success','Image uploaded successfully!')->data($data)->load();
 		}
 		
 	}
@@ -219,7 +228,7 @@ class Gallery extends CI_Controller {
 			{
 				$this->view->template('show_gallery')->title($g_name);
 				$data = array('gallery_info' => $gallery_info[0], 'image_data' => $all);
-				if ($gallery_info[0]['type'] === 2)
+				if ($gallery_info[0]['type'] == 2)
 				{
 					$data['type'] = 'video';
 					$data['videos'] = $this->video->get($g_id);
@@ -389,4 +398,6 @@ class Gallery extends CI_Controller {
 			redirect('home');
 		}
 	}
+	
+
 }

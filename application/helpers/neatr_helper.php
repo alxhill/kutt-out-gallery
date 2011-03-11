@@ -37,3 +37,17 @@ function neat_r($arr, $return = false) {
 	if ($return == true) return $out;
 	echo $out;
 }
+
+function echo_wrap($content, $wrap = 'pre', $options = null)
+{
+	$result = '<' . $wrap . ' ';
+	if ($options)
+	{
+		foreach ($options as $key => $value)
+		{
+			$result .= $key . "='" . $value . "' ";
+		}
+	}
+	$result .= '>' . $content. '</' . $wrap . '>';
+	echo $result;
+}
