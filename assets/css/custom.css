@@ -2,7 +2,7 @@
 
 @font-face {
 	font-family: 'Reboard';
-	src:url('reboard-webfont.eot#') format('eot'),
+	src:url('reboard-webfont.eot?') format('eot'),
 		url('reboard-webfont.woff') format('woff'),
 		url('reboard-webfont.ttf') format('truetype'),
 		url('reboard-webfont.svg#webfontDL6sIqhh') format('svg');

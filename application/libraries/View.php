@@ -18,6 +18,7 @@ class View {
 	private $title = null;
 	private $message = null;
 	private $data = null;
+	public $gallery_type = null;
 	
 	/**
 	 * Add a template to the final output - templates are located in views/gallery/
@@ -108,7 +109,9 @@ class View {
 				$header_data['message'] = $this->message['message'];
 			}
 			
+			$header_data['template'] = $this->template;
 			$header_data['logged_in'] = $CI->session->userdata('logged_in');
+			$header_data['gallery_type'] = $this->gallery_type;
 			
 			$nav_data['galleries'] = $this->get_galleries();
 			

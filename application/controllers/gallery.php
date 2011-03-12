@@ -26,7 +26,7 @@ class Gallery extends CI_Controller {
 	 * Check if the logged_in cookie is set.
 	 * 
 	 * @access private
-	 * @return boolean 
+	 * @return bool
 	 */
 	private function _login_check()
 	{
@@ -232,10 +232,12 @@ class Gallery extends CI_Controller {
 				{
 					$data['type'] = 'video';
 					$data['videos'] = $this->video->get($g_id);
+					$this->view->gallery_type = 'video';
 				}
 				else
 				{
 					$data['type'] = 'photo';
+					$this->view->gallery_type = 'photo';
 				}
 				
 				$this->view->data($data)->load();
@@ -398,6 +400,4 @@ class Gallery extends CI_Controller {
 			redirect('home');
 		}
 	}
-	
-
 }

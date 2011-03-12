@@ -15,7 +15,12 @@ foreach ($image_data as $pic): ?>
 <?
 endforeach;
 elseif ($type == 'video'):
-echo $type;
+foreach ($videos as $video): ?>
+
+<? neat_r($videos) ?>
+
+<?
+endforeach;
 endif;
 ?>
 </div>
