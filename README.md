@@ -11,4 +11,4 @@ To do:
 * Switch to using object oriented database query results
 * Error handling on db entries - error codes/exceptions or something
 * Form validation
-* Add WAY better handling of the initial setup phase - at the very least when there's no galleries, better when there's no database.
+* Improve handling of the initial setup phase - at the very least when there's no galleries, better when there's no database.
