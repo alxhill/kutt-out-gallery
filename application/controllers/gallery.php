@@ -231,7 +231,7 @@ class Gallery extends CI_Controller {
 				if ($gallery_info[0]['type'] == 2)
 				{
 					$data['type'] = 'video';
-					$data['videos'] = $this->video->get($g_id);
+					$data['video_data'] = $this->video->get($g_id);
 					$this->view->gallery_type = 'video';
 				}
 				else
@@ -254,9 +254,7 @@ class Gallery extends CI_Controller {
 	{
 		if ($this->_login_check())
 		{
-			$g_info = $this->gallery->info($g_name);
-			$images = $this->photo->get($g_info[0]['id']);
-			$user = $this->session->userdata('user');
+			// Check if any flashdata is present - if so, display it as a message.
 			if ($this->session->flashdata('success'))
 			{
 				$this->view->message('success',$this->session->flashdata('success'));
@@ -265,8 +263,21 @@ class Gallery extends CI_Controller {
 			{
 				$this->view->message('error',$this->session->flashdata('error'));
 			}
-			$data = array('image_data' => $images, 'user' => $user, 'g_info' => $g_info[0]);
-			$this->view->template('edit')->title("Edit gallery {$g_name}")->data($data);
+			
+			$g_info = $this->gallery->info($g_name);
+			$data['user'] = $this->session->userdata('user');
+			$data['g_info'] = $g_info[0];
+			
+			$g_info = $this->gallery->info($g_name);
+			if ($g_info[0]['type'] == 1)
+			{
+				$data['image_data'] = $this->photo->get($g_info[0]['id']);
+			}
+			elseif ($g_info[0]['type'] == 2)
+			{
+				$data['video_data'] = $this->video->get($g_info[0]['id']);
+			}
+			$this->view->template('edit')->data($data)->title("Edit gallery {$g_name}");
 			$this->view->load();
 		}
 		else

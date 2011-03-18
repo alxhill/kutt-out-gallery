@@ -10,20 +10,20 @@ $(document).ready(function(){
 	}
 	
 	// Manages deleting and removing photos.
-	$('a.delete_link').click(function(){
+	$('.photo .delete_link').click(function(){
 		var sure = confirm('Are you sure you want to delete this image?');
 		if(sure === true){
 			var photo_id = $(this).attr('id');
 			$.post('/gallery/gallery/ajax_delete', { id: photo_id }, function(data){
 				if (data.code === 0)
 				{
-					$('div#action').html('The image with ID ' + data.id + ' ("' + data.title + '") was deleted successfully.');
+					$('#action').html('The image with ID ' + data.id + ' ("' + data.title + '") was deleted successfully.');
 					$('tr#pic_id_' + photo_id).hide('slow');
-					$('div#action').addClass('notice').delay(3000).fadeOut('slow');
+					$('#action').addClass('notice').delay(3000).fadeOut('slow');
 				}
 				else
 				{
-					$('div#action').html(data.message).addClass('error').delay(3000).fadeOut('slow');
+					$('#action').html(data.message).addClass('error').delay(3000).fadeOut('slow');
 				}
 			},
 			'json'
@@ -32,7 +32,7 @@ $(document).ready(function(){
 	});
 	
 	// Manage clicking the edit link and making the title for the relevant element editable, then saving that content.
-	$('a.edit_link').click(function(){
+	$('.photo .edit_link').click(function(){
 		var p_id = $(this).attr('id');
 		var title = $('td#title_' + p_id + '.editable');
 		var edit_link = $('a.edit_link#' + p_id);
@@ -51,8 +51,8 @@ $(document).ready(function(){
 			$.post('/gallery/gallery/ajax_update', { id: p_id, title: title.html() }, function(data){
 				if (data.code === 1)
 				{
-					$('div#action').html(data.message);
-					$('div#action').addClass('error').delay(3000).fadeOut('slow');
+					$('#action').html(data.message);
+					$('#action').addClass('error').delay(3000).fadeOut('slow');
 				}
 			},
 			'json'
@@ -75,7 +75,7 @@ $(document).ready(function(){
 				}
 				else
 				{
-					$('div#action').addClass('error').delay(3000).fadeOut('slow');
+					$('#action').addClass('error').delay(3000).fadeOut('slow');
 				}
 			},
 			'json'

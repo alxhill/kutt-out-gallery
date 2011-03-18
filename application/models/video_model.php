@@ -38,6 +38,7 @@ class Video_model extends CI_Model {
 			{
 				$data['title'] = $json->title;
 				$data['embed_code'] = $json->html;
+				$data['video_id'] = $json->video_id;
 				
 				// Add the thumbnail into the photo gallery & the id into the data array
 				$this->load->model('photo_model','photo');
@@ -65,7 +66,8 @@ class Video_model extends CI_Model {
 	 */
 	function get($g_id)
 	{
-		$result = $this->db->get_where('videos',array('gallery_id' => $g_id));
+		$this->db->join('photos','photos.id = videos.photo_id');
+		$result = $this->db->get('videos',array('gallery_id' => $g_id));
 		return $result->result_array();
 	}
 	

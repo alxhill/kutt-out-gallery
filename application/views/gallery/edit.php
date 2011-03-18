@@ -1,6 +1,5 @@
 <div id='main'>
 <div class='content'>
-
 <h1 id='admin'>Admin control panel</h1>
 <h2>Upload, update and delete images from this panel</h2>
 <p id='user'>Logged in as user: <span id='username'><?=$user?></span></p>
@@ -62,7 +61,7 @@
 </div>
 
 <div class='table'>
-<? if ($g_info['type'] == 1) { ?>
+<? if (($g_info['type'] == 1) && $image_data): ?>
 <h2 id='edit_title'>Edit and delete images</h2>
 <table class='photos'>
 	<tr>
@@ -70,26 +69,45 @@
 		<th>Title</th>
 		<th>Modify</th>
 	</tr>
-<?php foreach (array_reverse($image_data) as $pic) { ?>
+<? foreach (array_reverse($image_data) as $pic): ?>
 	<tr id='pic_id_<?=$pic['id']?>'>
 		<td><img src='<?=$pic['file_thumb_link']?>' alt='<?=$pic['title']?>' title='<?=$pic['title']?>' class='admin_thumb'></td>
 		<td class='image_title editable' id='title_<?=$pic['id']?>'><?=$pic['title']?></td>
 		<td class='edit_delete'><a class='edit_link' id='<?=$pic['id']?>' href='javascript:void(0)'>Edit</a>/<a class='delete_link' id='<?=$pic['id']?>' href='javascript: void(0)'>Delete</a></td>
 	</tr>
-<?php } ?>
+<? endforeach; ?>
 </table>
-<? } else if ($g_info['type'] == 2) { ?>
+<? elseif (($g_info['type'] == 2) && $video_data): ?>
 <h2 id='edit_title'>Edit and delete videos</h2>
 <div>
-	<table>
+	<table class='video'>
 		<tr>
 			<th>Thumbnail</th>
 			<th>Title</th>
 			<th>Description</th>
 			<th>Modify</th>
 		</tr>
+<? foreach (array_reverse($video_data) as $video): ?>
+		<tr id='vid_id_<?=$video['id']?>'>
+			<td><img src='<?=$video['file_thumb_link']?>' alt='<?=$video['title']?>' class='video_thumb' /></td>
+			<td class='video_title'><?=$video['title']?></td>
+			<td class='video_description editable' id='descrition_<?=$video['id']?>'><?=$video['description']?></td>
+			<td class='edit_delete'><a class='edit_link' id='<?=$video['id']?>' href='javascript:void;'>Edit</a>/<a class='delete_link' id='<?=$video['id']?>' href='javascript:void;'>Delete</a></td>
+		</tr>
+<? endforeach; ?>
 	</table>
 </div>
-<? } ?>
+<? else: ?>
+	<?
+	if ($g_info['type'] == 1)
+	{
+		echo_wrap('There are no photos to display.','p',array('class' => 'no_content'));
+	}
+	else if ($g_info['type'] == 2)
+	{
+		echo_wrap('There are no videos to display.','p',array('class' => 'no_content'));
+	}
+	?>
+<? endif; ?>
 </div>
 </div>
