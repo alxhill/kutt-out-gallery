@@ -79,6 +79,10 @@ class Video_model extends CI_Model {
 	 */
 	function delete($v_id)
 	{
+		$this->db->select('photo_id')->where('id',$v_id);
+		$photo_id_db = $this->db->get_where('videos');
+		$p_id = $photo_id_db->result()->row()->photo_id;
+		
 		$this->db->delete('videos',array('id',$v_id));
 	}
 	

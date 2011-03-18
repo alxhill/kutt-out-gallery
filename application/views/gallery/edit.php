@@ -90,8 +90,8 @@
 <? foreach (array_reverse($video_data) as $video): ?>
 		<tr id='vid_id_<?=$video['id']?>'>
 			<td><img src='<?=$video['file_thumb_link']?>' alt='<?=$video['title']?>' class='video_thumb' /></td>
-			<td class='video_title'><?=$video['title']?></td>
-			<td class='video_description editable' id='descrition_<?=$video['id']?>'><?=$video['description']?></td>
+			<td class='video_title editble' id='video_title_<?=$video['id']?>'><?=$video['title']?></td>
+			<td class='video_description editable' id='video_descrition_<?=$video['id']?>'><?=$video['description']?></td>
 			<td class='edit_delete'><a class='edit_link' id='<?=$video['id']?>' href='javascript:void;'>Edit</a>/<a class='delete_link' id='<?=$video['id']?>' href='javascript:void;'>Delete</a></td>
 		</tr>
 <? endforeach; ?>

@@ -134,10 +134,12 @@ class Gallery extends CI_Controller {
 	{
 		if ($this->_login_check())
 		{
+			// Get the post data
 			$g_title = $this->input->post('title');
 			$g_desc = $this->input->post('description');
 			$type = $this->input->post('type');
 			
+			// Create the gallery
 			$success = $this->gallery->create($g_title,$g_desc,$type);
 			if ($success)
 			{
@@ -159,9 +161,12 @@ class Gallery extends CI_Controller {
 	{
 		if ($this->_login_check())
 		{
+			// Get the post data
 			$id = $this->input->post('g_id');
 			$description = $this->input->post('g_description');
 			$name = $this->input->post('g_name');
+			
+			//update the gallery
 			if ($this->gallery->update($id, $name, $description))
 			{
 				$this->session->set_flashdata('success','Gallery updated successfully');
@@ -325,8 +330,24 @@ class Gallery extends CI_Controller {
 	{
 		if (IS_AJAX)
 		{
-			$photo_id = $this->input->post('id');
-			$image = $this->photo->delete($photo_id);
+			$id = $this->input->post('id');
+			$type = $this->input->post('type');
+			
+			if ($type === 'photo')
+			{
+				$this->photo->delete($id);
+			}
+			elseif ($type === 'video')
+			{
+				$this->video->delete($id);
+			}
+			else
+			{
+				$json = array('code' => 1, 'message' => 'An error has occurred - unrecognised type');
+				echo json_encode($json);
+				
+			}
+			
 			header('Content-type: application/json');
 			if ($image)
 			{
