@@ -330,35 +330,50 @@ class Gallery extends CI_Controller {
 	{
 		if (IS_AJAX)
 		{
-			$id = $this->input->post('id');
-			$type = $this->input->post('type');
+			if ($this->_login_check())
+			{
+				$id = $this->input->post('id');
+				$type = $this->input->post('type');
 			
-			if ($type === 'photo')
-			{
-				$this->photo->delete($id);
-			}
-			elseif ($type === 'video')
-			{
-				$this->video->delete($id);
+				header('Content-type: application/json');
+			
+				if ($type == 'photo')
+				{
+					$photo = $this->photo->delete($id);
+					if ($photo)
+					{
+						$json = array('code' => 0, 'id' => $id, 'title' => $photo->title);
+					}
+					else
+					{
+						$json = array('code' => 1, 'message' => 'A error deleting the photo has occurred.');
+					}
+				}
+				elseif ($type == 'video')
+				{
+					$video = $this->video->delete($id);
+					if ($video)
+					{
+						$json = array('code' => 0, 'id' => $id, 'title' => $video->title);
+					}
+					else
+					{
+						$json = array('code' => 1, 'message' => 'An error deleting the video has occurred.');
+					}
+				}
+				else
+				{
+					$json = array('code' => 1, 'message' => 'An error has occurred - unrecognised type.');				
+				}
+			
 			}
 			else
 			{
-				$json = array('code' => 1, 'message' => 'An error has occurred - unrecognised type');
-				echo json_encode($json);
-				
+				$json = array('code' => 1, 'message' => 'You must be logged in to send this request.');
 			}
 			
-			header('Content-type: application/json');
-			if ($image)
-			{
-				$json = array('code' => 0, 'id' => $photo_id, 'title' => $image[0]['title']);
-				echo json_encode($json);
-			}
-			else
-			{
-				$json = array('code' => 1, 'message' => 'An error has occurred - the image was not deleted.');
-				echo json_encode($json);
-			}
+			echo json_encode($json);
+			
 		}
 		else
 		{
@@ -374,20 +389,35 @@ class Gallery extends CI_Controller {
 	{
 		if (IS_AJAX)
 		{
+			header('Content-type: application/json');
+			
 			if ($this->_login_check())
 			{
-				$photo_id = $this->input->post('id');
-				$photo_title = $this->input->post('title');
-				$this->photo->edit_title($photo_id,$photo_title);
+				$id = $this->input->post('id');
+				$title = $this->input->post('title');
+				$type = $this->input->post('type');
+				if ($type == 'photo')
+				{
+					$this->photo->update($id,$title);
+					$json = array('code' => 0);
+				}
+				elseif ($type == 'video')
+				{
+					$this->video->update($id,$title,$this->input->post('description'));
+					$json = array('code' => 0);
+				}
+				else
+				{
+					$json = array('code' => 1, 'message' => 'Unrecognised data type.');
+				}
 			
-				header('Content-type: application/json');
-				echo json_encode(array('code' => 0));
 			}
 			else
 			{
-				header('Content-type: application/json');
-				echo json_encode(array('code' => 1,'message'=>'You must be logged in to perform this action.'));
+				$json = array('code' => 1,'message'=>'You must be logged in to perform this action.');
 			}
+			
+			echo json_encode($json);
 		}
 		else
 		{
@@ -403,29 +433,28 @@ class Gallery extends CI_Controller {
 	{
 		if (IS_AJAX)
 		{
+			header('Content-type: application/json');
+
 			if ($this->_login_check())
 			{
 				$g_id = $this->input->post('id');
 				$gallery = $this->gallery->delete($g_id);
-				if ($g_id)
+				if ($gallery)
 				{
 					$json = array('code' => 0, 'message' => 'The gallery "' . $gallery[0]['name'] . '" was deleted successfully.');
-					header('Content-type: application/json');
-					echo json_encode($json);
 				}
 				else
 				{
 					$json = array('code' => 1, 'message' => 'An error has occurred - the gallery has not been deleted.');
-					header('Content-type: application/json');
-					echo json_encode($json);
 				}
 			}
 			else
 			{
 				$json = array('code' => 3, 'message' => 'You must be logged in to perform this action.');
-				header('Content-type: application/json');
-				echo json_encode($json);
 			}
+			
+			echo json_encode($json);
+			
 		}
 		else
 		{
