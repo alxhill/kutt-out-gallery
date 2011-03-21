@@ -71,7 +71,7 @@ td.image_id {
 	text-align: center;
 }
 
-td.image_title {
+td.image_title, td.video_title {
 	font-weight: bold;
 }
 

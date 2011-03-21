@@ -33,10 +33,11 @@ $(document).ready(function(){
 	
 	// Manages deleting and hiding videos.
 	$('.video .delete_link').click(function(){
-		var sure = confirm('Are you sure you want to delete this image?');
+		var sure = confirm('Are you sure you want to delete this video?');
 		if(sure === true){
 			var video_id = $(this).attr('id');
-			$.post('/gallery/gallery/ajax_delete', { id: photo_id, type: "video" }, function(data){
+			
+			$.post('/gallery/gallery/ajax_delete', { id: video_id, type: "video" }, function(data){
 				if (data.code === 0)
 				{
 					$('#action').html('The video with ID ' + data.id + ' ("' + data.title + '") was deleted successfully.');
