@@ -12,4 +12,3 @@ To do:
 * Form validation
 * Add WAY better handling of the initial setup phase - at the very least when there's no galleries, better when there's no database
 * Create a general error page so the login form is not shown on empty/non-existent galleries
->>>>>>> video
