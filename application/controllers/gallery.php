@@ -443,8 +443,6 @@ class Gallery extends CI_Controller {
 
 			if ($this->_login_check())
 			{
-				$g_name = rawurldecode($g_name);
-				
 				$g_id = $this->input->post('id');
 				$gallery = $this->gallery->delete($g_id);
 				if ($gallery)
