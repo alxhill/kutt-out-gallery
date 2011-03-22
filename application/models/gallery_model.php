@@ -123,9 +123,9 @@ class Gallery_model extends CI_Model {
 			$g_photos = $this->db->get_where('photos', array('gallery_id' => $g_id));
 			
 			$this->load->model('photo_model','photo');
-			foreach ($g_photos->result()->id as $id)
+			foreach ($g_photos->result() as $row)
 			{
-				$this->photo->delete($id);
+				$this->photo->delete($row->id);
 			}
 			
 			return $g_array;
