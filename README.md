@@ -6,8 +6,6 @@ This is a gallery system for kutt-out.co.uk. Currently supports uploading, editi
 To do:
 ------
 
-* Vimeo support - *complete*
-* BUG FIX - spaces in gallery names.
 * Create a non specific version for any views
 * Switch to using object oriented database query results
 * Error handling on db entries - error codes or exceptions or something

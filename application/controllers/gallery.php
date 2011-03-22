@@ -96,7 +96,7 @@ class Gallery extends CI_Controller {
 		{
 			$upload_data = $this->upload->data();
 			
-			// Set the file location for zebra and for 
+			// Set the file location for zebra and for the post upload view.
 			$normal_loc = 'assets/upload/' . $upload_data['file_name'];
 			$thumb_loc = 'assets/upload/' . $upload_data['raw_name'] . '_thumb' . $upload_data['file_ext'];
 			$img = site_url("assets/upload/" . $upload_data['file_name']);
@@ -213,6 +213,9 @@ class Gallery extends CI_Controller {
 	 */
 	function show_gallery($g_name)
 	{
+		// If there's a space in the name, replace it with a normal space.
+		$g_name = rawurldecode($g_name);
+		
 		$gallery_info = $this->gallery->info($g_name);
 		$g_id = $gallery_info[0]['id'];
 		
@@ -257,6 +260,9 @@ class Gallery extends CI_Controller {
 	 */
 	function edit($g_name)
 	{
+		// If there's a space in the name, replace it with a normal space.
+		$g_name = rawurldecode($g_name);
+		
 		if ($this->_login_check())
 		{
 			// Check if any flashdata is present - if so, display it as a message.
@@ -437,6 +443,8 @@ class Gallery extends CI_Controller {
 
 			if ($this->_login_check())
 			{
+				$g_name = rawurldecode($g_name);
+				
 				$g_id = $this->input->post('id');
 				$gallery = $this->gallery->delete($g_id);
 				if ($gallery)
@@ -461,4 +469,5 @@ class Gallery extends CI_Controller {
 			redirect('home');
 		}
 	}
+	
 }

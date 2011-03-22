@@ -332,7 +332,7 @@ input#submit {
 
 .heading {
 	font-size: 17px;
-	width: 170px;
+	width: 190px;
 	letter-spacing: -3px;
 	text-align: center;
 	height: 3px;
@@ -402,7 +402,7 @@ body {
 }
 
 .video_container {
-	margin-bottom: 20px;
+	margin-top: 20px;
 	padding-right: 15px;
 	text-align: center;
 }
