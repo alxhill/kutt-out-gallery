@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="chrome=1">
-<!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>-->
+<!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
 <script>
 // Run the Chrome frame check & script
 function test() {
@@ -10,7 +10,7 @@ CFInstall.check({mode: "overlay"});
 }
 
 window.onload=test();
-</script>
+</script>-->
 <script type="text/javascript" src="/gallery/assets/js/jquery.min.js"></script>
 <!--[if lt IE 8]><link rel="stylesheet" href="'/gallery/assets/css/ie.css" type="text/css" media="screen, projection"><![endif]-->
 <link rel="stylesheet" href="/gallery/assets/css/custom.css" type="text/css" media="screen" />
@@ -20,6 +20,9 @@ window.onload=test();
 <? elseif ($gallery_type == 'video'): ?>
 <link rel="stylesheet" href="/gallery/assets/css/shadowbox.css" type="text/css" media="screen" />
 <script type='text/javascript' src='/gallery/assets/js/shadowbox.js'></script>
+<script>
+Shadowbox.init();
+</script>
 <? endif; ?>
 <script type='text/javascript' src='/gallery/assets/js/script.js'></script>
 <title><?=$title?></title>

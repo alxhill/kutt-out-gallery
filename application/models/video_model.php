@@ -9,6 +9,7 @@ class Video_model extends CI_Model {
 	 * @param string $description video description.
 	 * @param int $video_url vimeo video url
 	 * @param int $g_id gallery id
+	 * @return int of new video id
 	 */
 	function create($file_name,$description,$video_url,$g_id)
 	{
@@ -38,6 +39,7 @@ class Video_model extends CI_Model {
 			{
 				$data['title'] = $json->title;
 				$data['embed_code'] = $json->html;
+				$data['video_id'] = $json->video_id;
 				
 				// Add the thumbnail into the photo gallery & the id into the data array
 				$this->load->model('photo_model','photo');
@@ -65,7 +67,8 @@ class Video_model extends CI_Model {
 	 */
 	function get($g_id)
 	{
-		$result = $this->db->get_where('videos',array('gallery_id' => $g_id));
+		$this->db->join('videos','photos.id = videos.photo_id');
+		$result = $this->db->get_where('photos',array('videos.gallery_id' => $g_id));
 		return $result->result_array();
 	}
 	
@@ -77,7 +80,52 @@ class Video_model extends CI_Model {
 	 */
 	function delete($v_id)
 	{
-		$this->db->delete('videos',array('id',$v_id));
+		// Load the photo model
+		$this->load->model('photo_model','photo');
+		
+		// Get the right photo id
+		$this->db->select('photo_id')->where('id',$v_id);
+		$photo_id_db = $this->db->get('videos');
+		if ($photo_id_db->num_rows() <= 0)
+		{
+			return FALSE;
+			exit;
+		}
+		else
+		{
+			$p_id = $photo_id_db->row()->photo_id;
+		}
+
+		// Delete the corresponding photo
+		$this->photo->delete($p_id);
+		
+		// Get an array with the video info
+		$vid_obj = $this->db->get_where('videos',array('id' => $v_id))->row();
+		if ($vid_obj)
+		{
+			$this->db->delete('videos',array('id' => $v_id));
+			return $vid_obj;
+		}
+		else
+		{
+			return FALSE;
+		}
+		
+	}
+	
+	/**
+	 * Update the title and description of a video.
+	 * 
+	 * @param int $id video id
+	 * @param string $title title to update to
+	 * @param string $description description to update
+	 */
+	function update($id,$title, $description)
+	{
+		$update['title'] = $title;
+		$update['description'] = $description;
+		$this->db->where('id',$id);
+		$this->db->update('videos',$update);
 	}
 	
 	/**

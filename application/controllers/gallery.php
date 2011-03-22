@@ -96,7 +96,7 @@ class Gallery extends CI_Controller {
 		{
 			$upload_data = $this->upload->data();
 			
-			// Set the file location for zebra and for 
+			// Set the file location for zebra and for the post upload view.
 			$normal_loc = 'assets/upload/' . $upload_data['file_name'];
 			$thumb_loc = 'assets/upload/' . $upload_data['raw_name'] . '_thumb' . $upload_data['file_ext'];
 			$img = site_url("assets/upload/" . $upload_data['file_name']);
@@ -134,10 +134,12 @@ class Gallery extends CI_Controller {
 	{
 		if ($this->_login_check())
 		{
+			// Get the post data
 			$g_title = $this->input->post('title');
 			$g_desc = $this->input->post('description');
 			$type = $this->input->post('type');
 			
+			// Create the gallery
 			$success = $this->gallery->create($g_title,$g_desc,$type);
 			if ($success)
 			{
@@ -159,9 +161,12 @@ class Gallery extends CI_Controller {
 	{
 		if ($this->_login_check())
 		{
+			// Get the post data
 			$id = $this->input->post('g_id');
 			$description = $this->input->post('g_description');
 			$name = $this->input->post('g_name');
+			
+			//update the gallery
 			if ($this->gallery->update($id, $name, $description))
 			{
 				$this->session->set_flashdata('success','Gallery updated successfully');
@@ -208,6 +213,9 @@ class Gallery extends CI_Controller {
 	 */
 	function show_gallery($g_name)
 	{
+		// If there's a space in the name, replace it with a normal space.
+		$g_name = rawurldecode($g_name);
+		
 		$gallery_info = $this->gallery->info($g_name);
 		$g_id = $gallery_info[0]['id'];
 		
@@ -231,7 +239,7 @@ class Gallery extends CI_Controller {
 				if ($gallery_info[0]['type'] == 2)
 				{
 					$data['type'] = 'video';
-					$data['videos'] = $this->video->get($g_id);
+					$data['video_data'] = $this->video->get($g_id);
 					$this->view->gallery_type = 'video';
 				}
 				else
@@ -252,11 +260,12 @@ class Gallery extends CI_Controller {
 	 */
 	function edit($g_name)
 	{
+		// If there's a space in the name, replace it with a normal space.
+		$g_name = rawurldecode($g_name);
+		
 		if ($this->_login_check())
 		{
-			$g_info = $this->gallery->info($g_name);
-			$images = $this->photo->get($g_info[0]['id']);
-			$user = $this->session->userdata('user');
+			// Check if any flashdata is present - if so, display it as a message.
 			if ($this->session->flashdata('success'))
 			{
 				$this->view->message('success',$this->session->flashdata('success'));
@@ -265,8 +274,21 @@ class Gallery extends CI_Controller {
 			{
 				$this->view->message('error',$this->session->flashdata('error'));
 			}
-			$data = array('image_data' => $images, 'user' => $user, 'g_info' => $g_info[0]);
-			$this->view->template('edit')->title("Edit gallery {$g_name}")->data($data);
+			
+			$g_info = $this->gallery->info($g_name);
+			$data['user'] = $this->session->userdata('user');
+			$data['g_info'] = $g_info[0];
+			
+			$g_info = $this->gallery->info($g_name);
+			if ($g_info[0]['type'] == 1)
+			{
+				$data['image_data'] = $this->photo->get($g_info[0]['id']);
+			}
+			elseif ($g_info[0]['type'] == 2)
+			{
+				$data['video_data'] = $this->video->get($g_info[0]['id']);
+			}
+			$this->view->template('edit')->data($data)->title("Edit gallery {$g_name}");
 			$this->view->load();
 		}
 		else
@@ -314,19 +336,50 @@ class Gallery extends CI_Controller {
 	{
 		if (IS_AJAX)
 		{
-			$photo_id = $this->input->post('id');
-			$image = $this->photo->delete($photo_id);
-			header('Content-type: application/json');
-			if ($image)
+			if ($this->_login_check())
 			{
-				$json = array('code' => 0, 'id' => $photo_id, 'title' => $image[0]['title']);
-				echo json_encode($json);
+				$id = $this->input->post('id');
+				$type = $this->input->post('type');
+			
+				header('Content-type: application/json');
+			
+				if ($type == 'photo')
+				{
+					$photo = $this->photo->delete($id);
+					if ($photo)
+					{
+						$json = array('code' => 0, 'id' => $id, 'title' => $photo->title);
+					}
+					else
+					{
+						$json = array('code' => 1, 'message' => 'A error deleting the photo has occurred.');
+					}
+				}
+				elseif ($type == 'video')
+				{
+					$video = $this->video->delete($id);
+					if ($video)
+					{
+						$json = array('code' => 0, 'id' => $id, 'title' => $video->title);
+					}
+					else
+					{
+						$json = array('code' => 1, 'message' => 'An error deleting the video has occurred.');
+					}
+				}
+				else
+				{
+					$json = array('code' => 1, 'message' => 'An error has occurred - unrecognised type.');				
+				}
+			
 			}
 			else
 			{
-				$json = array('code' => 1, 'message' => 'An error has occurred - the image was not deleted.');
-				echo json_encode($json);
+				$json = array('code' => 1, 'message' => 'You must be logged in to send this request.');
 			}
+			
+			echo json_encode($json);
+			
 		}
 		else
 		{
@@ -342,20 +395,35 @@ class Gallery extends CI_Controller {
 	{
 		if (IS_AJAX)
 		{
+			header('Content-type: application/json');
+			
 			if ($this->_login_check())
 			{
-				$photo_id = $this->input->post('id');
-				$photo_title = $this->input->post('title');
-				$this->photo->edit_title($photo_id,$photo_title);
+				$id = $this->input->post('id');
+				$title = $this->input->post('title');
+				$type = $this->input->post('type');
+				if ($type == 'photo')
+				{
+					$this->photo->update($id,$title);
+					$json = array('code' => 0);
+				}
+				elseif ($type == 'video')
+				{
+					$this->video->update($id,$title,$this->input->post('description'));
+					$json = array('code' => 0);
+				}
+				else
+				{
+					$json = array('code' => 1, 'message' => 'Unrecognised data type.');
+				}
 			
-				header('Content-type: application/json');
-				echo json_encode(array('code' => 0));
 			}
 			else
 			{
-				header('Content-type: application/json');
-				echo json_encode(array('code' => 1,'message'=>'You must be logged in to perform this action.'));
+				$json = array('code' => 1,'message'=>'You must be logged in to perform this action.');
 			}
+			
+			echo json_encode($json);
 		}
 		else
 		{
@@ -371,33 +439,33 @@ class Gallery extends CI_Controller {
 	{
 		if (IS_AJAX)
 		{
+			header('Content-type: application/json');
+
 			if ($this->_login_check())
 			{
 				$g_id = $this->input->post('id');
 				$gallery = $this->gallery->delete($g_id);
-				if ($g_id)
+				if ($gallery)
 				{
 					$json = array('code' => 0, 'message' => 'The gallery "' . $gallery[0]['name'] . '" was deleted successfully.');
-					header('Content-type: application/json');
-					echo json_encode($json);
 				}
 				else
 				{
 					$json = array('code' => 1, 'message' => 'An error has occurred - the gallery has not been deleted.');
-					header('Content-type: application/json');
-					echo json_encode($json);
 				}
 			}
 			else
 			{
 				$json = array('code' => 3, 'message' => 'You must be logged in to perform this action.');
-				header('Content-type: application/json');
-				echo json_encode($json);
 			}
+			
+			echo json_encode($json);
+			
 		}
 		else
 		{
 			redirect('home');
 		}
 	}
+	
 }

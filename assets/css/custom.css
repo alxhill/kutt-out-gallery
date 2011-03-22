@@ -71,7 +71,7 @@ td.image_id {
 	text-align: center;
 }
 
-td.image_title {
+td.image_title, td.video_title {
 	font-weight: bold;
 }
 
@@ -285,7 +285,7 @@ form.loginform label {
 
 /* @end */
 
-/* @group Add photo style */
+/* @group Add photo */
 
 .content {
 	padding-left: 20px;
@@ -316,7 +316,7 @@ input#submit {
 
 /* @end */
 
-/* @group Header style  */
+/* @group Header */
 
 .title {
 	margin: 10px;
@@ -332,7 +332,7 @@ input#submit {
 
 .heading {
 	font-size: 17px;
-	width: 170px;
+	width: 190px;
 	letter-spacing: -3px;
 	text-align: center;
 	height: 3px;
@@ -354,7 +354,7 @@ input#submit {
 
 /* @end */
 
-/* @group Gallery style */
+/* @group Gallery */
 
 .heading h1 {
 	font-size: 50px;
@@ -388,6 +388,23 @@ body {
 
 .description {
 	margin-left: 180px;
+}
+
+/* @end */
+
+/* @group Video Gallery  */
+
+.video_container a img {
+	-moz-box-shadow: 5px 5px 0px #888;
+	-webkit-box-shadow: 5px 5px 0px #888;
+	box-shadow: 5px 5px 0px #888;
+	max-width: 430px;
+}
+
+.video_container {
+	margin-top: 20px;
+	padding-right: 15px;
+	text-align: center;
 }
 
 /* @end */

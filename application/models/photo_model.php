@@ -62,11 +62,11 @@ class Photo_model extends CI_Model {
 		}
 		else
 		{
-			$image_array = $image->result_array();
-			unlink($image_array[0]['file_path']);
-			unlink($image_array[0]['file_thumb_path']);
+			$image_obj = $image->row();
+			unlink($image_obj->file_path);
+			unlink($image_obj->file_thumb_path);
 			$this->db->delete('photos', array('id' => $id));
-			return $image_array;
+			return $image_obj;
 		}
 	}
 	
@@ -76,7 +76,7 @@ class Photo_model extends CI_Model {
 	 * @param int $id photo id
 	 * @param string $title title to change to
 	 */
-	function edit_title($id, $title)
+	function update($id, $title)
 	{
 		$title = array('title' => $title);
 		$this->db->where('id', $id);

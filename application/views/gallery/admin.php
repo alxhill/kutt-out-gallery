@@ -9,9 +9,9 @@
 		<li class='gallery' id='gallery_<?=$gallery['id']?>'>
 			<h3><a href='<?=$gallery['name'] ?>/edit'><?=$gallery['name']?></a></h3>
 			<div class='gallery_links'>
-				<a href='<?=$gallery['name']?>/show'>View</a> | 
+				<? if ($gallery['visible'] == 1): ?><a href='<?=$gallery['name']?>/show'>View</a> | <? endif; ?> 
 				<a href='<?=$gallery['name']?>/edit'>Edit</a> | 
-				<? if ($gallery['visible'] == 0) { ?><a href='gallery/show_hide/show/<?=$gallery['id']?>'>Show</a><? } else if ($gallery['visible'] == 1){ ?><a href='gallery/show_hide/hide/<?=$gallery['id']?>'>Hide</a><? } ?> | 
+				<? if ($gallery['visible'] == 0): ?><a href='gallery/show_hide/show/<?=$gallery['id']?>'>Show</a><? elseif ($gallery['visible'] == 1): ?><a href='gallery/show_hide/hide/<?=$gallery['id']?>'>Hide</a><? endif; ?> | 
 				<a class='g_delete_link' href='javascript: void(0);' id='<?=$gallery['id']?>' >Delete</a>
 			</div>
 		</li>
