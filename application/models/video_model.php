@@ -9,7 +9,7 @@ class Video_model extends CI_Model {
 	 * @param string $description video description.
 	 * @param int $video_url vimeo video url
 	 * @param int $g_id gallery id
-	 * @return int of new video id
+	 * @return int of new video id or false on failure
 	 */
 	function create($file_name,$description,$video_url,$g_id)
 	{
@@ -75,8 +75,8 @@ class Video_model extends CI_Model {
 	/**
 	 * Delete a video based on id.
 	 *
-	 * @todo delete the corresponding thumbnail photo
 	 * @param int $v_id video id
+	 * @return object of deleted photo info, false on failure
 	 */
 	function delete($v_id)
 	{
@@ -127,19 +127,6 @@ class Video_model extends CI_Model {
 		$this->db->where('id',$id);
 		$this->db->update('videos',$update);
 	}
-	
-	/**
-	 * Get the corresponding thumbnail for a video.
-	 * 
-	 * @param int $v_id video id
-	 * @return object consisting of photo and video data from db.
-	 */
-	function thumbnail($v_id)
-	{
-		$this->db->join('videos', 'videos.photo_id = photos.id');
-		$result = $this->db->get('photos');
-		return $result->row();
-	}
-	
+		
 }
 
