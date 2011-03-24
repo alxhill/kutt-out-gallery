@@ -22,20 +22,20 @@ class Gallery_model extends CI_Model {
 	 * Gets info regarding a specific gallery - name, type, visibility etc.
 	 * 
 	 * @param string or int $g_val gallery name or id
-	 * @return array of results, false on failure
+	 * @return object - row of results, false on invalid $g_val type
 	 */
 	function info($g_val)
 	{
 		if (is_string($g_val))
 		{
 			$query = $this->db->get_where('galleries', array('name' => $g_val));
-			$result = $query->result_array();
+			$result = $query->row();
 			return $result;
 		}
 		else if (is_int($g_val))
 		{
 			$query = $this->db->get_where('galleries', array('id' => $g_val));
-			$result = $query->result_array();
+			$result = $query->row();
 			return $result;
 		}
 		else
@@ -48,19 +48,20 @@ class Gallery_model extends CI_Model {
 	 * Gets the name of a gallery from its id,
 	 * 
 	 * @param int $g_id gallery id
+	 * @return string of gallery name
 	 */
 	function name($g_id)
 	{
 		$query = $this->db->get_where('galleries', array('id' => $g_id));
-		$result = $query->result_array();
-		return $result[0]['name'];
+		$result = $query->row();
+		return $result->name;
 	}
 	
 	/**
 	 * Get all galleries, option for getting visible galleries only.
 	 * 
 	 * @param bool $visible should it return only visible galleries, defaults to false.
-	 * @return array of results
+	 * @return object of results
 	 */
 	function all($visible = FALSE)
 	{
@@ -69,7 +70,7 @@ class Gallery_model extends CI_Model {
 			$this->db->where('visible',1);
 		}
 		$return = $this->db->get('galleries');
-		return $return->result_array();
+		return $return->result();
 	}
 	
 	/**
@@ -82,6 +83,7 @@ class Gallery_model extends CI_Model {
 	{
 		$insert = array('name' => $g_name, 'description' => $g_desc, 'type' => $type);
 		$this->db->insert('galleries', $insert);
+		return TRUE;
 	}
 	
 	/**
@@ -106,7 +108,7 @@ class Gallery_model extends CI_Model {
 	 * Deletes a gallery from its ID
 	 * 
 	 * @param $g_id gallery id
-	 * @return array of info for deleted gallery, false on failure
+	 * @return object of info for deleted gallery, false on failure
 	 */
 	function delete($g_id)
 	{
@@ -117,7 +119,7 @@ class Gallery_model extends CI_Model {
 		}
 		else
 		{
-			$g_array = $gallery->result_array();
+			$g_row = $gallery->row();
 			$this->db->delete('galleries', array('id' => $g_id));
 			
 			$g_photos = $this->db->get_where('photos', array('gallery_id' => $g_id));
@@ -128,7 +130,7 @@ class Gallery_model extends CI_Model {
 				$this->photo->delete($row->id);
 			}
 			
-			return $g_array;
+			return $g_row;
 		}
 	}
 	

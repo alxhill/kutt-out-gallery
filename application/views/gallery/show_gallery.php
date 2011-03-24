@@ -1,8 +1,8 @@
 <div id='main'>
 <div class='content'>
 <div class='title'>
-<div class='span-12 heading'><h1><?=$gallery_info['name'] ?></h1></div>
-<div class='span-12 last description'><p><?=$gallery_info['description']?></p></div>
+<div class='span-12 heading'><h1><?=$gallery_info->name ?></h1></div>
+<div class='span-12 last description'><p><?=$gallery_info->description?></p></div>
 </div>
 <?php
 if ($type == 'photo'):

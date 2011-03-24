@@ -156,7 +156,7 @@ class View {
 		
 		foreach ($galleries as $gallery)
 		{
-			$all_galleries[] = array('name' => $gallery['name'],'id' => $gallery['id']);
+			$all_galleries[] = array('name' => $gallery->name,'id' => $gallery->id);
 		}
 		
 		return $all_galleries;

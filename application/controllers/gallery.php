@@ -217,7 +217,7 @@ class Gallery extends CI_Controller {
 		$g_name = rawurldecode($g_name);
 		
 		$gallery_info = $this->gallery->info($g_name);
-		$g_id = $gallery_info[0]['id'];
+		$g_id = $gallery_info->id;
 		
 		if (!$gallery_info)
 		{
@@ -235,8 +235,8 @@ class Gallery extends CI_Controller {
 			else
 			{
 				$this->view->template('show_gallery')->title($g_name);
-				$data = array('gallery_info' => $gallery_info[0], 'image_data' => $all);
-				if ($gallery_info[0]['type'] == 2)
+				$data = array('gallery_info' => $gallery_info, 'image_data' => $all);
+				if ($gallery_info->type == 2)
 				{
 					$data['type'] = 'video';
 					$data['video_data'] = $this->video->get($g_id);
@@ -277,16 +277,16 @@ class Gallery extends CI_Controller {
 			
 			$g_info = $this->gallery->info($g_name);
 			$data['user'] = $this->session->userdata('user');
-			$data['g_info'] = $g_info[0];
+			$data['g_info'] = $g_info;
 			
 			$g_info = $this->gallery->info($g_name);
-			if ($g_info[0]['type'] == 1)
+			if ($g_info->type == 1)
 			{
-				$data['image_data'] = $this->photo->get($g_info[0]['id']);
+				$data['image_data'] = $this->photo->get($g_info->id);
 			}
-			elseif ($g_info[0]['type'] == 2)
+			elseif ($g_info->type == 2)
 			{
-				$data['video_data'] = $this->video->get($g_info[0]['id']);
+				$data['video_data'] = $this->video->get($g_info->id);
 			}
 			$this->view->template('edit')->data($data)->title("Edit gallery {$g_name}");
 			$this->view->load();
@@ -304,6 +304,7 @@ class Gallery extends CI_Controller {
 	function admin()
 	{
 		$galleries = $this->gallery->all();
+		
 		if ($this->session->flashdata('success'))
 		{
 			$this->view->message('success',$this->session->flashdata('success'));
@@ -312,6 +313,7 @@ class Gallery extends CI_Controller {
 		{
 			$this->view->message('success',$this->session->flashdata('success'));
 		}
+		
 		if ($this->_login_check())
 		{
 			$this->view->template('admin')->title('Galleries')->data(array('galleries' => $galleries));
@@ -319,8 +321,7 @@ class Gallery extends CI_Controller {
 		}
 		else
 		{
-			$data = array('galleries' => $galleries);
-			$this->view->title('home')->template('login_form')->message('error','You must be logged in to access this page.')->data($data);
+			$this->view->title('home')->template('login_form')->message('error','You must be logged in to access this page.');
 			$this->view->load();
 		}
 	}
@@ -447,7 +448,7 @@ class Gallery extends CI_Controller {
 				$gallery = $this->gallery->delete($g_id);
 				if ($gallery)
 				{
-					$json = array('code' => 0, 'message' => 'The gallery "' . $gallery[0]['name'] . '" was deleted successfully.');
+					$json = array('code' => 0, 'message' => 'The gallery "' . $gallery->name . '" was deleted successfully.');
 				}
 				else
 				{

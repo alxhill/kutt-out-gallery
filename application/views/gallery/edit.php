@@ -7,7 +7,7 @@
 
 <div id='edit_upload'>
 <div class='upload'>
-	<? if ($g_info['type'] == 1): ?>
+	<? if ($g_info->type == 1): ?>
 	<div class='photo_upload'>
 	<h2 id='upload_title'>Upload an image</h2>
 	<?=form_open_multipart('gallery/upload'); ?>
@@ -19,12 +19,12 @@
 			<label>Select photo:</label><br>
 			<input type="file" name="photo" id="photo" /><br>
 		</div>
-		<input type='hidden' name='g_id' value='<?=$g_info['id']?>' />
+		<input type='hidden' name='g_id' value='<?=$g_info->id?>' />
 		<input type='hidden' name='type' values='photo' />
 		<input type="submit" name="submit" id="submit" value="Upload" />
 	</form>
 	</div>
-<? elseif ($g_info['type'] ==  2): ?>
+<? elseif ($g_info->type ==  2): ?>
 <div class='video_upload'>
 	<?= form_open_multipart('gallery/upload'); ?>
 		<div class='titleform'>
@@ -39,7 +39,7 @@
 			<label>Video Description:</label>
 			<textarea cols='2' id='video_description' name='description'></textarea>
 		</div>
-		<input type='hidden' name='g_id' value='<?=$g_info['id']?>' />
+		<input type='hidden' name='g_id' value='<?=$g_info->id?>' />
 		<input type='hidden' name='type' value='video' />
 		<input type="submit" name="submit" id="submit" value="Add Video" />
 	</form>
@@ -51,17 +51,17 @@
 <h2 id='edit_title'>Edit gallery</h2>
 <?=form_open('gallery/update_gallery')?>
 <label>Title:</label>
-<input type='text' id='g_name' name='g_name' value='<?=$g_info['name']?>'/><br>
+<input type='text' id='g_name' name='g_name' value='<?=$g_info->name?>'/><br>
 <label>Description:</label>
-<textarea name='g_description' class='g_desc_area'><?=$g_info['description']?></textarea>
-<input type='hidden' name='g_id' value='<?=$g_info['id']?>' />
+<textarea name='g_description' class='g_desc_area'><?=$g_info->description?></textarea>
+<input type='hidden' name='g_id' value='<?=$g_info->id?>' />
 <input type='submit' value='Update' />
 </form>
 </div>
 </div>
 
 <div class='table'>
-<? if (($g_info['type'] == 1) && $image_data): ?>
+<? if (($g_info->type == 1) && $image_data): ?>
 <h2 id='edit_title'>Edit and delete images</h2>
 <table class='photos'>
 	<tr>
@@ -77,7 +77,7 @@
 	</tr>
 <? endforeach; ?>
 </table>
-<? elseif (($g_info['type'] == 2) && $video_data): ?>
+<? elseif (($g_info->type == 2) && $video_data): ?>
 <h2 id='edit_title'>Edit and delete videos</h2>
 <div>
 	<table class='video'>
@@ -99,11 +99,11 @@
 </div>
 <? else: ?>
 	<?
-	if ($g_info['type'] == 1)
+	if ($g_info->type == 1)
 	{
 		echo_wrap('There are no photos to display.','p',array('class' => 'no_content'));
 	}
-	else if ($g_info['type'] == 2)
+	else if ($g_info->type == 2)
 	{
 		echo_wrap('There are no videos to display.','p',array('class' => 'no_content'));
 	}
