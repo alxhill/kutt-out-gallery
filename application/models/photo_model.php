@@ -7,6 +7,7 @@ class Photo_model extends CI_Model {
 	 * @param string $file_name file name with extension
 	 * @param string $title title displayed under photo
 	 * @param int $g_id gallery id to insert to
+	 * @return int inserted id
 	 */
 	function create($file_name, $title, $g_id)
 	{
@@ -52,6 +53,7 @@ class Photo_model extends CI_Model {
 	 * Remove a photo from db & delete from file.
 	 * 
 	 * @param int $id photo id
+	 * @return object of image details
 	 */
 	function delete($id)
 	{
