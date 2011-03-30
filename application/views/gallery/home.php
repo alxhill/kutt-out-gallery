@@ -1,4 +1,4 @@
-<div class='span-16 last' id='main'>
+<div id='main'>
 <div class='content'>
 <div class="phrase">
 	<div id='i'>I</div>

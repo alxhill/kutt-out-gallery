@@ -10,6 +10,23 @@
 	font-style: normal;
 }
 
+/* @group Error page */
+
+.error_head {
+	text-align: center;
+	letter-spacing: -2px;
+	font-size: 50px;
+	font-style: italic;
+	margin: 0;
+}
+
+.error_description {
+	text-align: center;
+	font-style: ;
+}
+
+/* @end */
+
 /* @group Edit page */
 
 label {

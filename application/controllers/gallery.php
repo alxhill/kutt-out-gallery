@@ -143,7 +143,7 @@ class Gallery extends CI_Controller {
 			$success = $this->gallery->create($g_title,$g_desc,$type);
 			if ($success)
 			{
-				$this->session->set_flashdata('success','You have successfully created  new gallery.');
+				$this->session->set_flashdata('success','You have successfully created new gallery.');
 			}
 			redirect('admin');
 		}
@@ -221,7 +221,7 @@ class Gallery extends CI_Controller {
 		
 		if (!$gallery_info)
 		{
-			$this->view->template('login_form')->title('No gallery found')->message('notice','No gallery with the name "'.$g_name.'" could be found.');
+			$this->view->template('error')->title('No gallery found')->data(array('head' => 'Not found', 'description' => "A gallery called {$g_name} could not be found."));
 			$this->view->load();
 		}
 		else
@@ -229,7 +229,7 @@ class Gallery extends CI_Controller {
 			$all = $this->photo->get($g_id);
 			if ( ! $all)
 			{	
-				$this->view->template('login_form')->title('Nothing to display')->message('notice','There is nothing to display. Please upload some content into this gallery.');
+				$this->view->template('error')->title('No gallery found')->data(array('head' => 'No content', 'description' => "There is no content to display in this gallery."));
 				$this->view->load();
 			}
 			else
@@ -293,7 +293,7 @@ class Gallery extends CI_Controller {
 		}
 		else
 		{
-			$this->view->template('login_form')->title('Log in')->message('error','You must be logged in to view this page.');
+			$this->view->template('error')->title('Not permitted')->data(array('head' => 'Forbidden', 'description' => 'You do not have permission to view this page'));
 			$this->view->load();
 		}
 	}
@@ -321,7 +321,7 @@ class Gallery extends CI_Controller {
 		}
 		else
 		{
-			$this->view->title('home')->template('login_form')->message('error','You must be logged in to access this page.');
+			$this->view->template('error')->title('Not permitted')->data(array('head' => 'Forbidden', 'description' => 'You do not have permission to view this page'));
 			$this->view->load();
 		}
 	}
