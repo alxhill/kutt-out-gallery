@@ -16,7 +16,7 @@ class Gallery extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->helper(array('form','url','notification', 'neatr'));
-		$this->load->library(array('session', 'view'));
+		$this->load->library(array('session', 'view','form_validation'));
 		$this->load->model('gallery_model', 'gallery');
 		$this->load->model('photo_model','photo');
 		$this->load->model('video_model','video');
@@ -161,6 +161,17 @@ class Gallery extends CI_Controller {
 	{
 		if ($this->_login_check())
 		{
+			// Validation rules
+			$this->form_validation->set_rules('g_name','gallery name','required|max_length[10]');
+			$this->form_validation->set_rules('g_description','gallery description','max_length[120]');
+			
+			// Check the rules work, otherwise return to the gallery with an error
+			if (!$this->form_validation->run())
+			{
+				$this->session->set_flashdata('error',validation_errors());
+				redirect('admin');
+			}
+			
 			// Get the post data
 			$id = $this->input->post('g_id');
 			$description = $this->input->post('g_description');
@@ -185,6 +196,7 @@ class Gallery extends CI_Controller {
 	
 	/**
 	 * Show or hide a gallery, then redirect to admin.
+	 * 
 	 * @param string $action The action to perform - show or hide
 	 * @param string $g_id The gallery ID to change.
 	 */
@@ -208,12 +220,10 @@ class Gallery extends CI_Controller {
 	/**
 	 * Get and show a gallery from its name.
 	 *
-	 * @todo Add in an error view to use for displaying errors properly.
 	 * @param string $g_name gallery name
 	 */
 	function show_gallery($g_name)
 	{
-		// If there's a space in the name, replace it with a normal space.
 		$g_name = rawurldecode($g_name);
 		
 		$gallery_info = $this->gallery->info($g_name);
@@ -311,7 +321,7 @@ class Gallery extends CI_Controller {
 		}
 		else if ($this->session->flashdata('error'))
 		{
-			$this->view->message('success',$this->session->flashdata('success'));
+			$this->view->message('error',$this->session->flashdata('error'));
 		}
 		
 		if ($this->_login_check())
