@@ -50,20 +50,30 @@ class Gallery extends CI_Controller {
 	}
 	
 	/**
-	 * Load the home view, add a logout message if necessary.
+	 * Load static pages, often uses routes to make cleaner URLs.
+	 * 
+	 * @param string $page page to display.
 	 */
-	function home()
+	function static_page($page)
 	{
-		if ($this->session->flashdata('logout'))
+		switch ($page)
 		{
-			$this->view->template('home')->message('success', 'You have successfully logged out.');
-			$this->view->load();
-		}
-		else
-		{
-			$this->view->template('home');
-			$this->view->load();
-			
+			case 'home':
+				if ($this->session->flashdata('logout'))
+				{
+					$this->view->message('success', 'You have successfully logged out.')->load('home');
+				}
+				else
+				{
+					$this->view->load('home');
+				}
+				break;
+			case 'contact':
+				$this->view->load('contact');
+				break;
+			case 'about_me':
+				$this->view->load('about_me');
+				
 		}
 	}
 	

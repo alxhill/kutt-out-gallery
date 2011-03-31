@@ -10,6 +10,58 @@
 	font-style: normal;
 }
 
+/* @group Contact Page */
+
+#contact_page p, #contact_page h4, #contact_page a {
+	color: #6a6a6a;
+}
+
+#contact_page a:hover {
+	color: #454545;
+}
+
+#contact_page > h2 {
+	margin-top: 20px;
+	font-size: 60px;
+	letter-spacing: -3px;
+	color: #313131;
+	margin-bottom: 0;
+	height: 30px;
+
+}
+
+#contact_page > h3 {
+	color: #6a6a6a;
+	font-style: italic;
+	margin-top: 5px;
+}
+
+#contact_page > p {
+	font-size: 14px;
+	margin-top: 0;
+}
+
+#contact_details h4 {
+	margin-bottom: 5px;
+}
+
+#contact_details .reverse {
+	unicode-bidi: bidi-override;
+	direction: rtl;
+}
+
+#contact_footer {
+	position: relative;
+	margin-top: 190px;
+}
+
+#contact_footer p {
+	margin: 5px 0;
+	
+}
+
+/* @end */
+
 /* @group Error page */
 
 .error_head {

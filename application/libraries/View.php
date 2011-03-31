@@ -77,10 +77,12 @@ class View {
 	 * 
 	 * @return bool
 	 */
-	public function load()
+	public function load($template = FALSE)
 	{
 		$CI =& get_instance();
 		$CI->load->library('session');
+		
+		$this->template = $template ?: $this->template;
 		
 		// Exit if no template has been set - no view can be loaded if so.
 		if (!(isset($this->template)))

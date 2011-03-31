@@ -34,7 +34,11 @@
 
 $route['default_controller'] = 'gallery';
 
-$route['home'] = 'gallery/home';
+$route['home'] = 'gallery/static_page/home';
+
+$route['contact'] = 'gallery/static_page/contact';
+
+$route['about_me'] = 'gallery/static_page/contact';
 
 $route['login'] = 'login/index';
 
@@ -49,10 +53,6 @@ $route['admin'] = 'gallery/admin';
 $route['(:any)/edit'] = 'gallery/edit/$1';
 
 $route['(:any)/show'] = 'gallery/show_gallery/$1';
-
-/*$route['landscapes'] = 'gallery/show_gallery/landscapes';
-
-$route['landscapes/edit'] = 'gallery/edit/landscapes';*/
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
