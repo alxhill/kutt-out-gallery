@@ -73,6 +73,9 @@ class Gallery extends CI_Controller {
 				break;
 			case 'about_me':
 				$this->view->load('about_me');
+				break;
+			default:
+				$this->view->template('error')->data(array('head' => 'Page not found','description' => 'No page matching that name could be found'))->load();
 				
 		}
 	}
