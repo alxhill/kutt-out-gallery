@@ -56,28 +56,20 @@ class Gallery extends CI_Controller {
 	 */
 	function static_page($page)
 	{
-		switch ($page)
+		if ($this->session->flashdata('logout'))
 		{
-			case 'home':
-				if ($this->session->flashdata('logout'))
-				{
-					$this->view->message('success', 'You have successfully logged out.')->load('home');
-				}
-				else
-				{
-					$this->view->load('home');
-				}
-				break;
-			case 'contact':
-				$this->view->load('contact');
-				break;
-			case 'about_me':
-				$this->view->load('about_me');
-				break;
-			default:
-				$this->view->template('error')->data(array('head' => 'Page not found','description' => 'No page matching that name could be found'))->load();
-				
+			$this->view->message('success', 'You have successfully logged out.')->load('home');
+			exit;
 		}
+		elseif (file_exists(APPPATH.'views/gallery/'.$page.'.php'))
+		{
+			$this->view->load($page);
+		}
+		else
+		{
+			$this->view->template('error')->data(array('head' => 'Page not found','description' => 'No page matching that name could be found'))->load();
+		}
+
 	}
 	
 	/*		    				   *

@@ -18,7 +18,7 @@ class Video_model extends CI_Model {
 		if (preg_match($pattern,$video_url))
 		{
 			// Insert the standard data into the data array
-			$data = array('gallery_id' => $g_id, 'video_url' => $video_url, 'description' => $description);
+			$data = array('gallery_id' => $g_id, 'vimeo_url' => $video_url, 'description' => $description);
 			
 			// Open the file, check if it's valid, if so decode it to an object.
 			$file = fopen('http://vimeo.com/api/oembed.json?url=' . $video_url,'r');
@@ -38,7 +38,6 @@ class Video_model extends CI_Model {
 			if (isset($json->title) && isset($json->html))
 			{
 				$data['title'] = $json->title;
-				$data['embed_code'] = $json->html;
 				$data['video_id'] = $json->video_id;
 				
 				// Add the thumbnail into the photo gallery & the id into the data array
