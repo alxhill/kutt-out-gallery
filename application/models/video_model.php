@@ -64,7 +64,7 @@ class Video_model extends CI_Model {
 	 * @param int $g_id gallery id
 	 * @return array of videos.
 	 */
-	function get($g_id)
+	function get($g_id,$order = 'asc')
 	{
 		$this->db->join('videos','photos.id = videos.photo_id');
 		$result = $this->db->get_where('photos',array('videos.gallery_id' => $g_id));

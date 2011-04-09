@@ -69,11 +69,11 @@
 		<th>Title</th>
 		<th>Modify</th>
 	</tr>
-<? foreach (array_reverse($image_data) as $pic): ?>
-	<tr id='pic_id_<?=$pic['id']?>'>
-		<td><img src='<?=$pic['file_thumb_link']?>' alt='<?=$pic['title']?>' title='<?=$pic['title']?>' class='admin_thumb'></td>
-		<td class='image_title editable' id='title_<?=$pic['id']?>'><?=$pic['title']?></td>
-		<td class='edit_delete'><a class='edit_link' id='<?=$pic['id']?>' href='javascript:void(0)'>Edit</a>/<a class='delete_link' id='<?=$pic['id']?>' href='javascript: void(0)'>Delete</a></td>
+<? foreach ($image_data as $pic): ?>
+	<tr id='pic_id_<?=$pic->id?>'>
+		<td><img src='<?=$pic->file_thumb_link?>' alt='<?=$pic->title?>' title='<?=$pic->title?>' class='admin_thumb'></td>
+		<td class='image_title editable' id='title_<?=$pic->id?>'><?=$pic->title?></td>
+		<td class='edit_delete'><a class='edit_link' id='<?=$pic->id?>' href='javascript:void(0)'>Edit</a>/<a class='delete_link' id='<?=$pic->id?>' href='javascript: void(0)'>Delete</a></td>
 	</tr>
 <? endforeach; ?>
 </table>

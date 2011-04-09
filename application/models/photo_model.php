@@ -43,10 +43,11 @@ class Photo_model extends CI_Model {
 	 * @param int $g_id gallery id
 	 * @return array of photos
 	 */
-	function get($g_id)
+	function get($g_id,$order = 'asc')
 	{
+		$this->db->order_by('order',$order);
 		$query = $this->db->get_where('photos', array('gallery_id' => $g_id));
-		return $query->result_array();
+		return $query->result();
 	}
 	
 	/**

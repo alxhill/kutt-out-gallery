@@ -249,7 +249,7 @@ class Gallery extends CI_Controller {
 			}
 			else
 			{
-				$this->view->template('show_gallery')->title($g_name);
+				
 				$data = array('gallery_info' => $gallery_info, 'image_data' => $all);
 				if ($gallery_info->type == 2)
 				{
@@ -263,7 +263,7 @@ class Gallery extends CI_Controller {
 					$this->view->gallery_type = 'photo';
 				}
 				
-				$this->view->data($data)->load();
+				$this->view->data($data)->title($g_name)->load('show_gallery');
 			}
 		}
 	}
@@ -297,7 +297,7 @@ class Gallery extends CI_Controller {
 			$g_info = $this->gallery->info($g_name);
 			if ($g_info->type == 1)
 			{
-				$data['image_data'] = $this->photo->get($g_info->id);
+				$data['image_data'] = $this->photo->get($g_info->id,'desc');
 			}
 			elseif ($g_info->type == 2)
 			{
