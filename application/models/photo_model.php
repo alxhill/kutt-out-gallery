@@ -32,6 +32,9 @@ class Photo_model extends CI_Model {
 		$data['title'] = $title;
 		$data['gallery_id'] = $g_id;
 		
+		//add in the order of the new photo
+		$data['order'] = $this->db->select_max('order','`order`')->where('gallery_id',$g_id)->get('photos')->row()->order + 1;
+				
 		$this->db->insert('photos', $data);
 		
 		return $this->db->insert_id();
@@ -43,10 +46,11 @@ class Photo_model extends CI_Model {
 	 * @param int $g_id gallery id
 	 * @return array of photos
 	 */
-	function get($g_id)
+	function get($g_id,$order = 'asc')
 	{
+		$this->db->order_by('order',$order);
 		$query = $this->db->get_where('photos', array('gallery_id' => $g_id));
-		return $query->result_array();
+		return $query->result();
 	}
 	
 	/**

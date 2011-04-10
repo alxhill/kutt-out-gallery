@@ -29,19 +29,19 @@ class Gallery_model extends CI_Model {
 		if (is_string($g_val))
 		{
 			$query = $this->db->get_where('galleries', array('name' => $g_val));
-			$result = $query->row();
-			return $result;
 		}
 		else if (is_int($g_val))
 		{
 			$query = $this->db->get_where('galleries', array('id' => $g_val));
-			$result = $query->row();
-			return $result;
 		}
 		else
 		{
 			return FALSE;
 		}
+		
+		$result = $query->row();
+		return $result;
+		
 	}
 	
 	/**
@@ -53,8 +53,7 @@ class Gallery_model extends CI_Model {
 	function name($g_id)
 	{
 		$query = $this->db->get_where('galleries', array('id' => $g_id));
-		$result = $query->row();
-		return $result->name;
+		return $query->row()->name;
 	}
 	
 	/**
