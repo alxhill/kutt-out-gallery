@@ -499,7 +499,7 @@ class Gallery extends CI_Controller {
 					// Set up some variables to use later
 					$parts = explode('_', $key);
 					$type = $parts[0];
-					$id = $parts[1];
+					$g_id = $parts[1];
 					
 					// Grab the POST data for the key
 					$post_array = $this->input->post($key);
@@ -511,7 +511,12 @@ class Gallery extends CI_Controller {
 					}
 					unset($order[0]);
 					
-					$json = array('code' => -1, 'dump' => array('type' => $type, 'id' => $id,'post_array' => $order));
+					if ($type == 'photo')
+					{
+						$this->photo->order($g_id, $order);
+					}
+					
+					$json = array('code' => -1, 'dump' => array('type' => $type, 'id' => $g_id,'post_array' => $order));
 				}
 				else
 				{
