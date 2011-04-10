@@ -34,7 +34,7 @@ class Photo_model extends CI_Model {
 		
 		//add in the order of the new photo
 		$data['order'] = $this->db->select_max('order','`order`')->where('gallery_id',$g_id)->get('photos')->row()->order + 1;
-		
+
 		$this->db->insert('photos', $data);
 		
 		return $this->db->insert_id();
