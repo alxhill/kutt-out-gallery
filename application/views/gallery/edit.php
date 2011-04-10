@@ -70,7 +70,7 @@
 		<th>Modify</th>
 	</tr>
 <? foreach ($image_data as $pic): ?>
-	<tr id='pic_id_<?=$pic->id?>'>
+	<tr id='pic_id_<?=$pic->id?>' class='photo_element'>
 		<td><img src='<?=$pic->file_thumb_link?>' alt='<?=$pic->title?>' title='<?=$pic->title?>' class='admin_thumb'></td>
 		<td class='image_title editable' id='title_<?=$pic->id?>'><?=$pic->title?></td>
 		<td class='edit_delete'><a class='edit_link' id='<?=$pic->id?>' href='javascript:void(0)'>Edit</a>/<a class='delete_link' id='<?=$pic->id?>' href='javascript: void(0)'>Delete</a></td>
@@ -88,7 +88,7 @@
 			<th>Modify</th>
 		</tr>
 <? foreach ($video_data as $video): ?>
-		<tr id='vid_id_<?=$video->id?>'>
+		<tr id='vid_id_<?=$video->id?>' class='video_element'>
 			<td><img src='<?=$video->file_thumb_link?>' alt='<?=$video->title?>' class='video_thumb' /></td>
 			<td class='video_title editable' id='video_title_<?=$video->id?>'><?=$video->title?></td>
 			<td class='video_description editable' id='video_description_<?=$video->id?>'><?=$video->description?></td>
