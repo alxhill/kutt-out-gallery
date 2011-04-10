@@ -140,6 +140,7 @@ class View {
 			$view['main'] = $CI->load->view('gallery/' . $this->template, $view_data, TRUE);
 			$view['footer'] = $CI->load->view('gallery/common/footer','', TRUE);
 			
+			// Load the final view
 			$CI->load->view('view', $view);
 			
 			// Reset the varibles after displaying the view.

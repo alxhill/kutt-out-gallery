@@ -454,8 +454,6 @@ class Gallery extends CI_Controller {
 	{
 		if (IS_AJAX)
 		{
-			header('Content-type: application/json');
-
 			if ($this->_login_check())
 			{
 				$g_id = $this->input->post('id');
@@ -474,6 +472,59 @@ class Gallery extends CI_Controller {
 				$json = array('code' => 3, 'message' => 'You must be logged in to perform this action.');
 			}
 			
+			header('Content-type: application/json');
+			echo json_encode($json);
+			
+		}
+		else
+		{
+			redirect('home');
+		}
+	}
+	
+	/**
+	 * Reorders a set of photos or videos - not yet implemented fully.
+	 * 
+	 * @todo FINISH THIS!
+	 */
+	function  ajax_reorder()
+	{
+		if (IS_AJAX)
+		{
+			if ($this->_login_check())
+			{
+				$key = array_keys($_POST);
+				if(is_string($key = $key[0]))
+				{
+					// Set up some variables to use later
+					$parts = explode('_', $key);
+					$type = $parts[0];
+					$id = $parts[1];
+					
+					// Grab the POST data for the key
+					$post_array = $this->input->post($key);
+					
+					// Get the $order to have the key and ids only 
+					foreach($post_array as $key => $val)
+					{
+						$order[$key] = substr($val,7);
+					}
+					unset($order[0]);
+					
+					$json = array('code' => -1, 'dump' => array('type' => $type, 'id' => $id,'post_array' => $order));
+				}
+				else
+				{
+					$json = array('code' => -1, 'dump' => $key);
+				}
+				
+			}
+			else
+			{
+				$json = array('code' => 3, 'message' => 'You must be logged in to perform this action.');
+			}
+			
+			header('Content-type: application/json');
 			echo json_encode($json);
 			
 		}

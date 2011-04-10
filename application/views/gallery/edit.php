@@ -63,7 +63,7 @@
 <div class='table'>
 <? if (($g_info->type == 1) && $image_data): ?>
 <h2 id='edit_title'>Edit and delete images</h2>
-<table class='photos'>
+<table class='photos' id='photo_<?=$g_info->id?>' >
 	<tr class='nodrop nodrag'>
 		<th>Drag</th>
 		<th>Thumbnail</th>
@@ -82,7 +82,7 @@
 <? elseif (($g_info->type == 2) && $video_data): ?>
 <h2 id='edit_title'>Edit and delete videos</h2>
 <div>
-	<table class='videos'>
+	<table class='videos' id='video_<?=$g_info->id?>'>
 		<tr class='nodrop nodrag'>
 			<th>Thumbnail</th>
 			<th>Title</th>
