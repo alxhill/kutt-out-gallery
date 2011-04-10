@@ -464,9 +464,6 @@ body {
 /* @group Video Gallery  */
 
 .video_container a img {
-	-moz-box-shadow: 5px 5px 0px #888;
-	-webkit-box-shadow: 5px 5px 0px #888;
-	box-shadow: 5px 5px 0px #888;
 	max-width: 430px;
 }
 
