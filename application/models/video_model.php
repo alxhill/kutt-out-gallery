@@ -66,9 +66,9 @@ class Video_model extends CI_Model {
 	 */
 	function get($g_id,$order = 'asc')
 	{
-		$this->db->join('videos','photos.id = videos.photo_id');
+		$this->db->join('videos','photos.id = videos.photo_id')->order_by('order',$order);
 		$result = $this->db->get_where('photos',array('videos.gallery_id' => $g_id));
-		return $result->result_array();
+		return $result->result();
 	}
 	
 	/**

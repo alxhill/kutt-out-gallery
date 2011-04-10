@@ -301,10 +301,9 @@ class Gallery extends CI_Controller {
 			}
 			elseif ($g_info->type == 2)
 			{
-				$data['video_data'] = $this->video->get($g_info->id);
+				$data['video_data'] = $this->video->get($g_info->id,'desc');
 			}
-			$this->view->template('edit')->data($data)->title("Edit gallery {$g_name}");
-			$this->view->load();
+			$this->view->data($data)->title("Edit gallery {$g_name}")->load('edit');
 		}
 		else
 		{
