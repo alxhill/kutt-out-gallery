@@ -513,14 +513,14 @@ class Gallery extends CI_Controller {
 					
 					if ($type == 'photo')
 					{
-						$this->photo->order($g_id, $order);
+						$this->photo->order($g_id, array_reverse($order));
 					}
-					
-					$json = array('code' => -1, 'dump' => array('type' => $type, 'id' => $g_id,'post_array' => $order));
+										
+					$json = array('code' => 0);
 				}
 				else
 				{
-					$json = array('code' => -1, 'dump' => $key);
+					$json = array('code' => 1, 'message' => 'There was a problem performing your request. Please refresh and try again.');
 				}
 				
 			}

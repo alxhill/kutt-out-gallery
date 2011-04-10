@@ -174,12 +174,12 @@ $(document).ready(function(){
 		dragHandle: 'dragger',
 		onDrop: function(table, row) {
             $.post('/gallery/gallery/ajax_reorder', $.tableDnD.serialize(), function(data){
-				if (data.code == -1) {
-					alert(dump(data.dump));
+				if (data.code == 1) {
+					$('#action').html(data.message).addClass('error').delay(3000).fadeOut('slow');
 				}
-				else
+				else if (data.code == 0)
 				{
-					alert(dump(data));
+					$('#action').html('Reorder was successful.').addClass('info').delay(3000).fadeOut('slow');
 				}
 			});
 		}
