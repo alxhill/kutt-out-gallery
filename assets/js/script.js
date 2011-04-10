@@ -146,4 +146,8 @@ $(document).ready(function(){
 	
 	$('.success, .error, .notice').delay(3000).fadeOut('slow');
 	
+	$('.photos').tableDnD({
+		dragHandle: 'dragger'
+	});
+	
 });

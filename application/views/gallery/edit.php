@@ -64,13 +64,15 @@
 <? if (($g_info->type == 1) && $image_data): ?>
 <h2 id='edit_title'>Edit and delete images</h2>
 <table class='photos'>
-	<tr>
+	<tr class='nodrop nodrag'>
+		<th>Drag</th>
 		<th>Thumbnail</th>
 		<th>Title</th>
 		<th>Modify</th>
 	</tr>
 <? foreach ($image_data as $pic): ?>
 	<tr id='pic_id_<?=$pic->id?>' class='photo_element'>
+		<td class='dragger'></td>
 		<td><img src='<?=$pic->file_thumb_link?>' alt='<?=$pic->title?>' title='<?=$pic->title?>' class='admin_thumb'></td>
 		<td class='image_title editable' id='title_<?=$pic->id?>'><?=$pic->title?></td>
 		<td class='edit_delete'><a class='edit_link' id='<?=$pic->id?>' href='javascript:void(0)'>Edit</a>/<a class='delete_link' id='<?=$pic->id?>' href='javascript: void(0)'>Delete</a></td>
@@ -80,8 +82,8 @@
 <? elseif (($g_info->type == 2) && $video_data): ?>
 <h2 id='edit_title'>Edit and delete videos</h2>
 <div>
-	<table class='video'>
-		<tr>
+	<table class='videos'>
+		<tr class='nodrop nodrag'>
 			<th>Thumbnail</th>
 			<th>Title</th>
 			<th>Description</th>
