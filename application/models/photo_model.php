@@ -102,8 +102,9 @@ class Photo_model extends CI_Model {
 		{
 			$this->db->where('gallery_id',$g_id)->where('id', $id);
 			$this->db->update('photos', array('order' => $o));
-			return TRUE;
 		}
+		
+		return TRUE;
 	}
 	
 }

@@ -33,7 +33,7 @@ class View {
 	 * @access public
 	 * @var string
 	 */
-	public $_title_prefix = 'Kutt Out Studios //';
+	public $_title_prefix = 'Kutt Out Studios // ';
 	public $_default_title = 'Kutt Out Studios';
 	
 	/**
