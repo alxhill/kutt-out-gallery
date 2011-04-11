@@ -1,4 +1,5 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+
 class Photo_model extends CI_Model {
 	
 	/**
@@ -34,7 +35,7 @@ class Photo_model extends CI_Model {
 		
 		//add in the order of the new photo
 		$data['order'] = $this->db->select_max('order','`order`')->where('gallery_id',$g_id)->get('photos')->row()->order + 1;
-				
+
 		$this->db->insert('photos', $data);
 		
 		return $this->db->insert_id();
@@ -46,7 +47,7 @@ class Photo_model extends CI_Model {
 	 * @param int $g_id gallery id
 	 * @return array of photos
 	 */
-	function get($g_id,$order = 'asc')
+	function get($g_id, $order = 'asc')
 	{
 		$this->db->order_by('order',$order);
 		$query = $this->db->get_where('photos', array('gallery_id' => $g_id));
@@ -87,6 +88,23 @@ class Photo_model extends CI_Model {
 		$title = array('title' => $title);
 		$this->db->where('id', $id);
 		$this->db->update('photos', $title);
+	}
+	
+	/**
+	 * Update the order of a set of photos.
+	 * 
+	 * @param int $g_id gallery id photos belong to
+	 * @param array $order order of photos and the corresponding id
+	 */
+	function order($g_id, $order)
+	{
+		foreach ($order as $o => $id)
+		{
+			$this->db->where('gallery_id',$g_id)->where('id', $id);
+			$this->db->update('photos', array('order' => $o));
+		}
+		
+		return TRUE;
 	}
 	
 }

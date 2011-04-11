@@ -301,10 +301,9 @@ class Gallery extends CI_Controller {
 			}
 			elseif ($g_info->type == 2)
 			{
-				$data['video_data'] = $this->video->get($g_info->id);
+				$data['video_data'] = $this->video->get($g_info->id,'desc');
 			}
-			$this->view->template('edit')->data($data)->title("Edit gallery {$g_name}");
-			$this->view->load();
+			$this->view->data($data)->title("Edit gallery {$g_name}")->load('edit');
 		}
 		else
 		{
@@ -455,8 +454,6 @@ class Gallery extends CI_Controller {
 	{
 		if (IS_AJAX)
 		{
-			header('Content-type: application/json');
-
 			if ($this->_login_check())
 			{
 				$g_id = $this->input->post('id');
@@ -475,6 +472,64 @@ class Gallery extends CI_Controller {
 				$json = array('code' => 3, 'message' => 'You must be logged in to perform this action.');
 			}
 			
+			header('Content-type: application/json');
+			echo json_encode($json);
+			
+		}
+		else
+		{
+			redirect('home');
+		}
+	}
+	
+	/**
+	 * Reorders a set of photos or videos - not yet implemented fully.
+	 * 
+	 * @todo FINISH THIS!
+	 */
+	function  ajax_reorder()
+	{
+		if (IS_AJAX)
+		{
+			if ($this->_login_check())
+			{
+				$key = array_keys($_POST);
+				if(is_string($key = $key[0]))
+				{
+					// Set up some variables to use later
+					$parts = explode('_', $key);
+					$type = $parts[0];
+					$g_id = $parts[1];
+					
+					// Grab the POST data for the key
+					$post_array = $this->input->post($key);
+					
+					// Get the $order to have the key and ids only 
+					foreach($post_array as $key => $val)
+					{
+						$order[$key] = substr($val,7);
+					}
+					unset($order[0]);
+					
+					if ($type == 'photo')
+					{
+						$this->photo->order($g_id, array_reverse($order));
+					}
+										
+					$json = array('code' => 0);
+				}
+				else
+				{
+					$json = array('code' => 1, 'message' => 'There was a problem performing your request. Please refresh and try again.');
+				}
+				
+			}
+			else
+			{
+				$json = array('code' => 3, 'message' => 'You must be logged in to perform this action.');
+			}
+			
+			header('Content-type: application/json');
 			echo json_encode($json);
 			
 		}

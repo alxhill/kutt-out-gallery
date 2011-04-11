@@ -10,15 +10,31 @@
 class View {
 	
 	/**
-	 * Private variables, each contain as described and are set by their corresponding function
+	 *  Variables, each contain as described and are set by their corresponding function
 	 * 
 	 * @access private
 	 */
-	private $template = null;
-	private $title = null;
-	private $message = null;
-	private $data = null;
+	private $template;
+	private $title;
+	private $message = array();
+	private $data = array();
+	
+	/**
+	* Contains the gallery type - photo or video
+	* 
+	* @access public
+	* @var string
+	*/
 	public $gallery_type = null;
+	
+	/**
+	 * Contain the default title and title prefix.
+	 * 
+	 * @access public
+	 * @var string
+	 */
+	public $_title_prefix = 'Kutt Out Studios // ';
+	public $_default_title = 'Kutt Out Studios';
 	
 	/**
 	 * Add a template to the final output - templates are located in views/gallery/
@@ -82,7 +98,7 @@ class View {
 		$CI =& get_instance();
 		$CI->load->library('session');
 		
-		$this->template = $template ?: $this->template;
+		$this->template = $template ? $template : $this->template;
 		
 		// Exit if no template has been set - no view can be loaded if so.
 		if (!(isset($this->template)))
@@ -101,8 +117,8 @@ class View {
 				}
 			}
 			
-			// If the title is set preface it with Kutt Out Studios // - otherwise without the slashes alone.
-			$header_data['title'] = (isset($this->title)) ? 'Kutt Out Studios // ' . $this->title : 'Kutt Out Studios';			
+			// If the title is set preface it with $this->_title_prefix - otherwise use $this->_default_title.
+			$header_data['title'] = (isset($this->title)) ? $this->_title_prefix.$this->title : $this->_default_title;			
 			
 			// If a message is set, put it into the header data.
 			if (isset($this->message['class']) && isset($this->message['message']))
@@ -111,6 +127,7 @@ class View {
 				$header_data['message'] = $this->message['message'];
 			}
 			
+			// Set the data required for the header
 			$header_data['template'] = $this->template;
 			$header_data['logged_in'] = $CI->session->userdata('logged_in');
 			$header_data['gallery_type'] = $this->gallery_type;
@@ -123,6 +140,7 @@ class View {
 			$view['main'] = $CI->load->view('gallery/' . $this->template, $view_data, TRUE);
 			$view['footer'] = $CI->load->view('gallery/common/footer','', TRUE);
 			
+			// Load the final view
 			$CI->load->view('view', $view);
 			
 			// Reset the varibles after displaying the view.

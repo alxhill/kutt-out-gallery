@@ -1,8 +1,32 @@
+function dump(arr,level) {
+	var dumped_text = "";
+	if(!level) level = 0;
+	
+	//The padding given at the beginning of the line.
+	var level_padding = "";
+	for(var j=0;j<level+1;j++) level_padding += "    ";
+	
+	if(typeof(arr) == 'object') { //Array/Hashes/Objects 
+		for(var item in arr) {
+			var value = arr[item];
+			
+			if(typeof(value) == 'object') { //If it is an array,
+				dumped_text += level_padding + "'" + item + "' ...\n";
+				dumped_text += dump(value,level+1);
+			} else {
+				dumped_text += level_padding + "'" + item + "' => \"" + value + "\"\n";
+			}
+		}
+	} else { //Stings/Chars/Numbers etc.
+		dumped_text = "===>"+arr+"<===("+typeof(arr)+")";
+	}
+	return dumped_text;
+}
+
+
 $(document).ready(function(){
 	
 	// Fixes the nav bar spacing and front image display in browsers with older versions of WebKit.
-	
-	
 	if ((parseInt($.browser.version, 10) < 534) && ($.browser.webkit))
 	{
 		$('#out, #studios').css('margin-top','-10px');
@@ -145,5 +169,20 @@ $(document).ready(function(){
 	});
 	
 	$('.success, .error, .notice').delay(3000).fadeOut('slow');
+	
+	$('.photos').tableDnD({
+		dragHandle: 'dragger',
+		onDrop: function(table, row) {
+            $.post('/gallery/gallery/ajax_reorder', $.tableDnD.serialize(), function(data){
+				if (data.code == 1) {
+					$('#action').html(data.message).addClass('error').delay(3000).fadeOut('slow');
+				}
+				else if (data.code == 0)
+				{
+					$('#action').html('Reorder was successful.').addClass('info').delay(3000).fadeOut('slow');
+				}
+			});
+		}
+	});
 	
 });

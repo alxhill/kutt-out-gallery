@@ -196,6 +196,10 @@ textarea.g_desc_area {
 	padding-top: 15px;
 }
 
+.dragger {
+	cursor: move;
+}
+
 /* @end */
 
 /* @group Admin page */

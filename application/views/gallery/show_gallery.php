@@ -17,7 +17,7 @@ endforeach;
 elseif ($type == 'video'):
 foreach ($video_data as $video): ?>
 <div class='video_container'>
-<a rel='shadowbox[videos];title="<?=$video['title']?>"' href='http://player.vimeo.com/video/<?=$video['video_id']?>'><img src='<?=$video['file_link']?>'></a>
+<a rel='shadowbox[videos];title="<?=$video->title?>"' href='http://player.vimeo.com/video/<?=$video->video_id?>'><img src='<?=$video->file_link?>'></a>
 </div>
 <?
 endforeach;
