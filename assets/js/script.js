@@ -1,3 +1,6 @@
+/**
+ * Dump script - remove when used in production.
+ */
 function dump(arr,level) {
 	var dumped_text = "";
 	if(!level) level = 0;
@@ -22,7 +25,7 @@ function dump(arr,level) {
 	}
 	return dumped_text;
 }
-
+//-------[Remove when live]--------//
 
 $(document).ready(function(){
 	
@@ -56,7 +59,7 @@ $(document).ready(function(){
 	});
 	
 	// Manages deleting and hiding videos.
-	$('.video .delete_link').click(function(){
+	$('.videos .delete_link').click(function(){
 		var sure = confirm('Are you sure you want to delete this video?');
 		if(sure === true){
 			var video_id = $(this).attr('id');
@@ -107,7 +110,7 @@ $(document).ready(function(){
 		}
 	});
 	
-	$('.video .edit_link').click(function(){
+	$('.videos .edit_link').click(function(){
 		var v_id = $(this).attr('id');
 		var title = $('td#video_title_' + v_id + '.editable');
 		var description = $('td#video_description_' + v_id + '.editable');
