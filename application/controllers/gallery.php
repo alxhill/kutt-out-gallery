@@ -297,11 +297,11 @@ class Gallery extends CI_Controller {
 			$g_info = $this->gallery->info($g_name);
 			if ($g_info->type == 1)
 			{
-				$data['image_data'] = $this->photo->get($g_info->id,'desc');
+				$data['image_data'] = $this->photo->get($g_info->id,'asc');
 			}
 			elseif ($g_info->type == 2)
 			{
-				$data['video_data'] = $this->video->get($g_info->id,'desc');
+				$data['video_data'] = $this->video->get($g_info->id,'asc');
 			}
 			$this->view->data($data)->title("Edit gallery {$g_name}")->load('edit');
 		}
@@ -515,8 +515,20 @@ class Gallery extends CI_Controller {
 					{
 						$this->photo->order($g_id, array_reverse($order));
 					}
-										
-					$json = array('code' => 0);
+					elseif ($type == 'video')
+					{
+						$this->video->order($g_id, array_reverse($order));
+					}
+					
+					if ($type == 'photo')
+					{
+						$json = array('code' => 0);
+					}
+					else
+					{
+						$json = array('code' => -1, 'dump' => array('type' => $type, 'g_id' => $g_id, 'order' => $order));
+					}
+					
 				}
 				else
 				{

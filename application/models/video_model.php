@@ -85,7 +85,7 @@ class Video_model extends CI_Model {
 		// Get the right photo id
 		$this->db->select('photo_id')->where('id',$v_id);
 		$photo_id_db = $this->db->get('videos');
-		if ($photo_id_db->num_rows() <= 0)
+		if ($photo_id_db->num_rows() < 0)
 		{
 			return FALSE;
 			exit;
@@ -125,6 +125,16 @@ class Video_model extends CI_Model {
 		$update['description'] = $description;
 		$this->db->where('id',$id);
 		$this->db->update('videos',$update);
+	}
+	
+	/**
+	 * Change the order of a set of videos using the photo model's order function.
+	 */
+	function order($g_id,$order)
+	{
+		$this->load->model('photo_model','photo');
+		$this->photo->order($g_id,$order);
+		return TRUE;
 	}
 		
 }

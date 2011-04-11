@@ -84,6 +84,7 @@
 <div>
 	<table class='videos' id='video_<?=$g_info->id?>'>
 		<tr class='nodrop nodrag'>
+			<th>Drag</th>
 			<th>Thumbnail</th>
 			<th>Title</th>
 			<th>Description</th>
@@ -91,6 +92,7 @@
 		</tr>
 <? foreach ($video_data as $video): ?>
 		<tr id='vid_id_<?=$video->id?>' class='video_element'>
+			<td class='dragger'></td>
 			<td><img src='<?=$video->file_thumb_link?>' alt='<?=$video->title?>' class='video_thumb' /></td>
 			<td class='video_title editable' id='video_title_<?=$video->id?>'><?=$video->title?></td>
 			<td class='video_description editable' id='video_description_<?=$video->id?>'><?=$video->description?></td>

@@ -173,7 +173,7 @@ $(document).ready(function(){
 	
 	$('.success, .error, .notice').delay(3000).fadeOut('slow');
 	
-	$('.photos').tableDnD({
+	$('.photos, .videos').tableDnD({
 		dragHandle: 'dragger',
 		onDrop: function(table, row) {
             $.post('/gallery/gallery/ajax_reorder', $.tableDnD.serialize(), function(data){
@@ -187,5 +187,5 @@ $(document).ready(function(){
 			});
 		}
 	});
-	
+		
 });
