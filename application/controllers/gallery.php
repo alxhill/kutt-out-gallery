@@ -16,7 +16,9 @@ class Gallery extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->helper(array('form','url','notification', 'neatr'));
+		
 		$this->load->library(array('session', 'view','form_validation'));
+		
 		$this->load->model('gallery_model', 'gallery');
 		$this->load->model('photo_model','photo');
 		$this->load->model('video_model','video');
