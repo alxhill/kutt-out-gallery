@@ -66,7 +66,7 @@ class Video_model extends CI_Model {
 	 */
 	function get($g_id,$order = 'asc')
 	{
-		$this->db->join('videos','photos.id = videos.photo_id')->order_by('order',$order);
+		$this->db->join('videos','photos.id = videos.photo_id')->order_by('photos.order',$order);
 		$result = $this->db->get_where('photos',array('videos.gallery_id' => $g_id));
 		return $result->result();
 	}
@@ -128,12 +128,18 @@ class Video_model extends CI_Model {
 	}
 	
 	/**
-	 * Change the order of a set of videos using the photo model's order function.
+	 * Change the order of a set of videos.
+	 * 
+	 * @param int $g_id gallery id
+	 * @param array $order order of element to be changed to. Key is order, value is array.
 	 */
 	function order($g_id,$order)
 	{
-		$this->load->model('photo_model','photo');
-		$this->photo->order($g_id,$order);
+		foreach ($order as $vid_id)
+		{
+			$pic_order[] = $this->db->select('photo_id')->where('id',$vid_id)->get('videos')->row()->photo_id;
+		}
+		$this->photo->order($g_id,$pic_order);
 		return TRUE;
 	}
 		

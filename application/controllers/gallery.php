@@ -254,7 +254,7 @@ class Gallery extends CI_Controller {
 				if ($gallery_info->type == 2)
 				{
 					$data['type'] = 'video';
-					$data['video_data'] = $this->video->get($g_id);
+					$data['video_data'] = $this->video->get($g_id,'asc');
 					$this->view->gallery_type = 'video';
 				}
 				else
@@ -511,22 +511,23 @@ class Gallery extends CI_Controller {
 					}
 					unset($order[0]);
 					
+					// Call the right reorder function
 					if ($type == 'photo')
 					{
-						$this->photo->order($g_id, array_reverse($order));
+						$success = $this->photo->order($g_id, array_reverse($order));
 					}
 					elseif ($type == 'video')
 					{
-						$this->video->order($g_id, array_reverse($order));
+						$success = $this->video->order($g_id, $order);
 					}
 					
-					if ($type == 'photo')
+					if ($success)
 					{
 						$json = array('code' => 0);
 					}
 					else
 					{
-						$json = array('code' => -1, 'dump' => array('type' => $type, 'g_id' => $g_id, 'order' => $order));
+						$json = array('code' => 1, 'message' => 'There was an error reordering the elements. Please try again.');
 					}
 					
 				}

@@ -147,6 +147,7 @@ td.image_title, td.video_title {
 input {
 	display: block;
 	margin-bottom: 5px;
+	outline: none;
 }
 
 a.link_content {
@@ -183,13 +184,14 @@ input[type=text], input[type=password] {
 textarea.g_desc_area {
 	height: 80px;
 	width: 80%;
-	
+	resize: vertical;
 }
 
 #video_description {
 	width: 80%;
 	height: 80px;
 	display: block;
+	resize: vertical;
 }
 
 .table {
@@ -645,6 +647,7 @@ input.title,
 textarea {
   background-color:#fff;
   border:1px solid #bbb;
+  outline: none;
 }
 input[type=text]:focus,
 input[type=password]:focus,

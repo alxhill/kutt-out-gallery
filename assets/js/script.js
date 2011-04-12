@@ -184,6 +184,10 @@ $(document).ready(function(){
 				{
 					$('#action').html('Reorder was successful.').addClass('info').delay(3000).fadeOut('slow');
 				}
+				/*else if (data.code == -1)
+				{
+					alert(dump(data.dump));
+				}*/
 			});
 		}
 	});
