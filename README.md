@@ -11,4 +11,5 @@ To do:
 * Form validation
 * Add WAY better handling of the initial setup phase - at the very least when there's no galleries, better when there's no database
 * Add the final two static pages *in progress*
-* Make galleries sortable. *in progress*
+* Make everything sortable. *in progress*
+* Remove all hardcoded /gallery/ links in place of dynamically generated ones. 

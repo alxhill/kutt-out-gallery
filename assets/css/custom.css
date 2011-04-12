@@ -220,12 +220,12 @@ textarea.g_desc_area {
 	text-align: center;
 }
 
-li.gallery h3 a {
+li.gallery h3 a, .gallery_drag h3 a {
 	text-decoration: none;
 	color: black;
 }
 
-li.gallery h3 {
+li.gallery h3, .gallery_drag h3 {
 	font-size: 40px;
 	font-style: italic;
 	font-weight: bold;
@@ -267,6 +267,22 @@ li.gallery h3 a:hover {
 
 #new_gallery form input[type=text] {
 	width: 50%;
+}
+
+.dragHandle {
+	display: block;
+	margin-left: 100px;
+	margin-top: 20px;
+	width: 10px;
+	height: 10px;
+	position: absolute;
+	border: 2px solid #000;
+	background:#fff;
+	cursor: move;
+}
+
+.gallery_drag h3, .gallery_drag .gallery_links {
+	margin-left: 150px;
 }
 
 /* @end */

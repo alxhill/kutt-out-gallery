@@ -123,8 +123,7 @@ class Video_model extends CI_Model {
 	{
 		$update['title'] = $title;
 		$update['description'] = $description;
-		$this->db->where('id',$id);
-		$this->db->update('videos',$update);
+		$this->db->where('id',$id)->update('videos',$update);
 	}
 	
 	/**

@@ -57,19 +57,19 @@ class Gallery_model extends CI_Model {
 	}
 	
 	/**
-	 * Get all galleries, option for getting visible galleries only.
+	 * Get all galleries, option for getting visible galleries only as well as changing the order in which to change galleries.
 	 * 
 	 * @param bool $visible should it return only visible galleries, defaults to false.
 	 * @return object of results
 	 */
-	function all($visible = FALSE)
+	function all($visible = FALSE, $order = 'asc')
 	{
 		if ($visible)
 		{
 			$this->db->where('visible',1);
 		}
-		$return = $this->db->get('galleries');
-		return $return->result();
+		$return = $this->db->order_by('order', $order)->get('galleries')->result();
+		return $return;
 	}
 	
 	/**
@@ -78,7 +78,7 @@ class Gallery_model extends CI_Model {
 	 * @param $g_name gallery name
 	 * @param $g_desc gallery description
 	 */
-	function create($g_name,$g_desc,$type=1)
+	function create($g_name, $g_desc, $type = 1)
 	{
 		$insert = array('name' => $g_name, 'description' => $g_desc, 'type' => $type);
 		$this->db->insert('galleries', $insert);
@@ -154,6 +154,21 @@ class Gallery_model extends CI_Model {
 	{
 		$this->db->where('id', $g_id);
 		$this->db->update('galleries', array('visible' => 0));
+		return TRUE;
+	}
+	
+	/**
+	 * Change the order of the galleries
+	 * 
+	 * @param array $order array of the order of the galleries
+	 */
+	function order($order)
+	{
+		foreach ($order as $new_order => $id)
+		{
+			$this->db->where('id', $id)->update('galleries', array('order' => $new_order));
+		}
+		
 		return TRUE;
 	}
 	

@@ -483,9 +483,7 @@ class Gallery extends CI_Controller {
 	}
 	
 	/**
-	 * Reorders a set of photos or videos - not yet implemented fully.
-	 * 
-	 * @todo FINISH THIS!
+	 * Reorders a set of photos or videos based on post data. Works only when called through AJAX.
 	 */
 	function  ajax_reorder()
 	{
@@ -496,6 +494,7 @@ class Gallery extends CI_Controller {
 				$key = array_keys($_POST);
 				if(is_string($key = $key[0]))
 				{
+					
 					// Set up some variables to use later
 					$parts = explode('_', $key);
 					$type = $parts[0];
@@ -514,7 +513,7 @@ class Gallery extends CI_Controller {
 					// Call the right reorder function
 					if ($type == 'photo')
 					{
-						$success = $this->photo->order($g_id, array_reverse($order));
+						$success = $this->photo->order($g_id, $order);
 					}
 					elseif ($type == 'video')
 					{
@@ -536,6 +535,43 @@ class Gallery extends CI_Controller {
 					$json = array('code' => 1, 'message' => 'There was a problem performing your request. Please refresh and try again.');
 				}
 				
+			}
+			else
+			{
+				$json = array('code' => 3, 'message' => 'You must be logged in to perform this action.');
+			}
+			
+			header('Content-type: application/json');
+			echo json_encode($json);
+			
+		}
+		else
+		{
+			redirect('home');
+		}
+	}
+	
+	/**
+	 * Reorder the galleries based on post data when called through AJAX.
+	 */
+	function ajax_reorder_galleries()
+	{
+		if (IS_AJAX)
+		{
+			if ($this->_login_check())
+			{
+				$post_array = $this->input->post('gallery');
+				
+				
+				foreach ($post_array as $gallery)
+				{
+					$order[] = substr($gallery,8);
+				}
+				$this->gallery->order($order);
+				
+				$json = array('code' => 0);
+				
+				//$json = array('code' => -1,'dump' => $order);
 			}
 			else
 			{

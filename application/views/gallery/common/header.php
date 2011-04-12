@@ -13,6 +13,8 @@ window.onload=test();
 </script>-->
 <script type="text/javascript" src="/gallery/assets/js/jquery.min.js"></script>
 <script type="text/javascript" src="/gallery/assets/js/jquery.tablednd.js"></script>
+<script type="text/javascript" src="/gallery/assets/js/jquery.listreorder.js"></script>
+<script type="text/javascript" src="/gallery/assets/js/jquery.disableselect.js"></script>
 <!--[if lt IE 8]><link rel="stylesheet" href="'/gallery/assets/css/ie.css" type="text/css" media="screen, projection"><![endif]-->
 <link rel="stylesheet" href="/gallery/assets/css/custom.css" type="text/css" media="screen" />
 <? if ($gallery_type == 'photo'): ?>

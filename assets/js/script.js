@@ -176,7 +176,7 @@ $(document).ready(function(){
 	$('.photos, .videos').tableDnD({
 		dragHandle: 'dragger',
 		onDrop: function(table, row) {
-            $.post('/gallery/gallery/ajax_reorder', $.tableDnD.serialize(), function(data){
+            $.post('/gallery/gallery/ajax_reorder', $.tableDnD.serialize(), function(data) {
 				if (data.code == 1) {
 					$('#action').html(data.message).addClass('error').delay(3000).fadeOut('slow');
 				}
@@ -190,6 +190,35 @@ $(document).ready(function(){
 				}*/
 			});
 		}
+	});
+	
+	$('#galleries_list').ListReorder({dragTargetClass: 'gallery_drag'}).bind('listorderchanged', function(evt, jq_list, list_order) {
+		
+		var post_array = new Array();
+		
+		jq_list.children().each(function(index) {
+			post_array[index] = $(this).attr('id');
+		});
+		
+		/*for (var i = 1; i < list_order.length; i++)
+		{
+			post_array[i] = list_order[i] + 1;
+		}*/
+				
+		$.post('/gallery/gallery/ajax_reorder_galleries', { gallery: post_array }, function(data) {
+			if (data.code == 0)
+			{
+				$('#action').html('Reorder was successful.').addClass('info').delay(3000).fadeOut('slow');
+			}
+			else if (data.code == 3)
+			{
+				$('#action').html('Please visit the <a href="/gallery/login">login page</a> and try again.').addClass('info').delay(3000).fadeOut('slow');
+			}
+			else if (data.code == -1)
+			{
+				alert(dump(data.dump));
+			}
+		})
 	});
 		
 });
