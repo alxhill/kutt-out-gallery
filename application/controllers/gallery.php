@@ -16,9 +16,7 @@ class Gallery extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->helper(array('form','url','notification', 'neatr'));
-		
 		$this->load->library(array('session', 'view','form_validation'));
-		
 		$this->load->model('gallery_model', 'gallery');
 		$this->load->model('photo_model','photo');
 		$this->load->model('video_model','video');
@@ -83,6 +81,11 @@ class Gallery extends CI_Controller {
 	 */
 	function upload()
 	{
+		if (!$_POST)
+		{
+			redirect('admin');
+		}
+		
 		// Set up and load the upload library.
 		$config['upload_path'] = './assets/upload/';
 		$config['allowed_types'] = 'gif|jpeg|jpg|png';
@@ -94,7 +97,7 @@ class Gallery extends CI_Controller {
 		// Get the gallery's name.
 		$g_name = $this->gallery->name($this->input->post('g_id'));
 		
-		if ( ! $this->upload->do_upload("photo"))
+		if ( ! $this->upload->do_upload('photo'))
 		{
 			$this->session->set_flashdata('error',$this->upload->display_errors());
 			redirect($g_name.'/edit');
@@ -108,10 +111,33 @@ class Gallery extends CI_Controller {
 			$thumb_loc = 'assets/upload/' . $upload_data['raw_name'] . '_thumb' . $upload_data['file_ext'];
 			$img = site_url("assets/upload/" . $upload_data['file_name']);
 			
-			// Resize and crop the image with the zebra library
-			$this->load->library('zebra');
-			$this->zebra->setup($normal_loc,$thumb_loc, array('preserve_aspect_ratio'=>true,'enable_smaller_images'=>true));
-			$this->zebra->resize(120, 80, 3);
+			// Check if a custom thumbnail has been uploaded, then either use that or resize the default image.
+			if ($this->input->post('custom_thumbnail'))
+			{
+				$t_config['upload_path'] = $config['upload_path'];
+				$t_config['allowed_types'] = $config['allowed_types'];
+				$t_config['file_name'] = $upload_data['raw_name'] . '_thumb' . $upload_data['file_ext'];
+				$t_config['max_size'] = '2000';
+				$t_config['max_width'] = '120';
+				$t_config['max_height'] = '80';
+				
+				$this->upload->initialize($t_config);
+				
+				if ( ! $this->upload->do_upload('thumbnail'))
+				{
+					$this->session->set_flashdata('error',$this->upload->display_errors());
+					redirect($g_name.'/edit');
+				}
+				
+				
+			}
+			else
+			{
+				// Resize and crop the image with the zebra library
+				$this->load->library('zebra');
+				$this->zebra->setup($normal_loc,$thumb_loc, array('preserve_aspect_ratio' => TRUE, 'enable_smaller_images' => TRUE));
+				$this->zebra->resize(120, 80, 3);
+			}
 			
 			// Insert the upload into the right place
 			if ($this->input->post('type') == 'video')
@@ -129,7 +155,7 @@ class Gallery extends CI_Controller {
 		}
 		
 	}
-	
+		
 	/*							     *
 	 * =====[GALLERY FUNCTIONS]===== *
 	 *						  	     */
@@ -145,6 +171,17 @@ class Gallery extends CI_Controller {
 			$g_title = $this->input->post('title');
 			$g_desc = $this->input->post('description');
 			$type = $this->input->post('type');
+			
+			// Set up the form validation
+			$this->form_validation->set_rules('title', 'gallery name', 'required|max_length[10]');
+			$this->form_validation->set_rules('description', 'gallery description', 'max_length[150]');
+			
+			// Run the validation and redirect to admin if an error occurs.
+			if ( ! $this->form_validation->run())
+			{
+				$this->session->set_flashdata('error', validation_errors());
+				redirect('admin');
+			}
 			
 			// Create the gallery
 			$success = $this->gallery->create($g_title,$g_desc,$type);

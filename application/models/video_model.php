@@ -68,7 +68,17 @@ class Video_model extends CI_Model {
 	{
 		$this->db->join('videos','photos.id = videos.photo_id')->order_by('photos.order',$order);
 		$result = $this->db->get_where('photos',array('videos.gallery_id' => $g_id));
-		return $result->result();
+		$errors = $this->db->_error_message();
+		if ( ! empty($errors))
+		{
+			$r = $errors;
+		}
+		else
+		{
+			$r = $result->result();
+		}
+		
+		return $r;
 	}
 	
 	/**
@@ -87,8 +97,12 @@ class Video_model extends CI_Model {
 		$photo_id_db = $this->db->get('videos');
 		if ($photo_id_db->num_rows() < 0)
 		{
-			return FALSE;
-			exit;
+			$errors = $this->db->_error_message();
+			if (empty($errors))
+			{
+				return FALSE;
+				exit;
+			}
 		}
 		else
 		{

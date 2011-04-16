@@ -19,6 +19,10 @@
 			<label>Select photo:</label><br>
 			<input type="file" name="photo" id="photo" /><br>
 		</div>
+		<label class='thumb'><input id='thumb_check' type='checkbox' value='true' name='custom_thumbnail'>Custom thumbnail?</label>
+		<div class='custom_thumb'>
+			<input type='file' name='thumbnail' id='thumb' /><br/>
+		</div>
 		<input type='hidden' name='g_id' value='<?=$g_info->id?>' />
 		<input type='hidden' name='type' values='photo' />
 		<input type="submit" name="submit" id="submit" value="Upload" />

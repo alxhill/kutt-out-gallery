@@ -108,6 +108,7 @@ class View {
 		}
 		else
 		{
+			// Add the data into the view data variable.
 			$view_data = null;
 			if (isset($this->data))
 			{
@@ -173,6 +174,11 @@ class View {
 		$CI->load->model('gallery_model','gallery');
 
 		$galleries = $CI->gallery->all(TRUE);
+		
+		if (empty($galleries))
+		{
+			return array('name' =>'', 'id' => 0);
+		}
 		
 		foreach ($galleries as $gallery)
 		{

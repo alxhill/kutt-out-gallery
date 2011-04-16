@@ -81,8 +81,15 @@
 
 /* @group Edit page */
 
-label {
+label.thumb {
 	font-weight: bold;
+	font-size: 15px;
+	font-style: italic;
+}
+
+input[type=checkbox] {
+	display: inline;
+	margin-bottom: 5px;
 }
 
 tbody tr:nth-child(even) td {
@@ -397,6 +404,7 @@ form.loginform label {
 }
 
 label {
+	font-weight: bold;
 	font-size: 25px;
 	font-style: italic;
 }

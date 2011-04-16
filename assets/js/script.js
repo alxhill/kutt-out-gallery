@@ -192,6 +192,7 @@ $(document).ready(function(){
 		}
 	});
 	
+	// Manages redordering and AJAX changing of gallery order.
 	$('#galleries_list').ListReorder({dragTargetClass: 'gallery_drag'}).bind('listorderchanged', function(evt, jq_list, list_order) {
 		
 		var post_array = new Array();
@@ -199,11 +200,6 @@ $(document).ready(function(){
 		jq_list.children().each(function(index) {
 			post_array[index] = $(this).attr('id');
 		});
-		
-		/*for (var i = 1; i < list_order.length; i++)
-		{
-			post_array[i] = list_order[i] + 1;
-		}*/
 				
 		$.post('/gallery/gallery/ajax_reorder_galleries', { gallery: post_array }, function(data) {
 			if (data.code == 0)
@@ -219,6 +215,12 @@ $(document).ready(function(){
 				alert(dump(data.dump));
 			}
 		})
+	});
+	
+	$('.custom_thumb').toggle();
+	
+	$("input[name='custom_thumbnail']").change(function() {
+		$('.custom_thumb').toggle();
 	});
 		
 });

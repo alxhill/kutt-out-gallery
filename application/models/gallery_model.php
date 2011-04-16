@@ -101,6 +101,8 @@ class Gallery_model extends CI_Model {
 			$data['description'] = $g_new_description;
 		}
 		$this->db->update('galleries',$data);
+		
+		return TRUE;
 	}
 	
 	/**
