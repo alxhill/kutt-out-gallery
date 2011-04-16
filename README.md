@@ -13,3 +13,4 @@ To do:
 * Remove all hardcoded /gallery/ links in place of dynamically generated ones, in both PHP and JS.
 * Add in a way to upload custom thumbnails.
 * Add a way to have separators between galleries.
+* Remove all hardcoded /gallery/ links in place of dynamically generated ones. 
