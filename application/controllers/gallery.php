@@ -20,6 +20,7 @@ class Gallery extends CI_Controller {
 		$this->load->model('gallery_model', 'gallery');
 		$this->load->model('photo_model','photo');
 		$this->load->model('video_model','video');
+		$this->view->theme('tobyelwes');
 	}
 	
 	/**
@@ -61,12 +62,13 @@ class Gallery extends CI_Controller {
 			$this->view->message('success', 'You have successfully logged out.')->load('home');
 			exit;
 		}
-		elseif (file_exists(APPPATH.'views/gallery/'.$page.'.php'))
+		elseif (file_exists(APPPATH.'views/'.$this->view->theme.'/'.$page.'.php'))
 		{
 			$this->view->load($page);
 		}
 		else
 		{
+			echo 'Looking for:'.APPPATH.'views/'.$this->view->theme.$page.'.php';
 			$this->view->template('error')->data(array('head' => 'Page not found','description' => 'No page matching that name could be found'))->load();
 		}
 

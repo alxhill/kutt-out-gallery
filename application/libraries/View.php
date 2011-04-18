@@ -37,6 +37,14 @@ class View {
 	public $_default_title = 'Kutt Out Studios';
 	
 	/**
+	 * Contains the theme to be used.
+	 * 
+	 * @access public
+	 * @var string
+	 */
+	public $theme;
+	
+	/**
 	 * Add a template to the final output - templates are located in views/gallery/
 	 * 
 	 * @param string $template template to use
@@ -44,6 +52,17 @@ class View {
 	public function template($template)
 	{
 		$this->template = $template;
+		return $this;
+	}
+	
+	/**
+	 * Choose which theme to use - if none is chosen, use the default kutt-out theme. The theme is not reset by default after a view load. 
+	 * 
+	 * @param string $theme the name of the folder to be used as a string.
+	 */
+	public function theme($theme = FALSE)
+	{
+		$this->theme = $theme ? $theme : 'kutt-out';
 		return $this;
 	}
 	
@@ -108,6 +127,9 @@ class View {
 		}
 		else
 		{
+			// Add in the necessary theme info or use the default.
+			$theme = isset($this->theme) ? $this->theme : 'kutt-out';
+			
 			// Add the data into the view data variable.
 			$view_data = null;
 			if (isset($this->data))
@@ -136,10 +158,10 @@ class View {
 			$nav_data['galleries'] = $this->get_galleries();
 			
 			// Load strings of all the views into the $view array, then load the simple echo view.
-			$view['header'] = $CI->load->view('gallery/common/header', $header_data, TRUE);
-			$view['nav'] = $CI->load->view('gallery/common/nav', $nav_data, TRUE);
-			$view['main'] = $CI->load->view('gallery/' . $this->template, $view_data, TRUE);
-			$view['footer'] = $CI->load->view('gallery/common/footer','', TRUE);
+			$view['header'] = $CI->load->view($theme.'/common/header', $header_data, TRUE);
+			$view['nav'] = $CI->load->view($theme.'/common/nav', $nav_data, TRUE);
+			$view['main'] = $CI->load->view($theme.'/'.$this->template, $view_data, TRUE);
+			$view['footer'] = $CI->load->view($theme.'/common/footer','', TRUE);
 			
 			// Load the final view
 			$CI->load->view('view', $view);

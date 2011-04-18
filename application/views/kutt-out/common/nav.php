@@ -7,7 +7,7 @@
 		<? endforeach; ?>
 		<div id='nav_bottom'>
 		<li id='norm'><a href='/gallery/contact'>Contact</a></li>
-		<li><a href='#'><div id='billy'>Billy</div><div id='boyd'>Boyd</div><div id='cape'>Cape</div></a></li>
+		<li><a href='/gallery/about_me'><div id='billy'>Billy</div><div id='boyd'>Boyd</div><div id='cape'>Cape</div></a></li>
 		</div>
 	</ul>
 </div>

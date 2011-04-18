@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="<?=site_url('/assets/css/custom.css') ?>">
+<link rel="stylesheet" type="text/css" href="<?=site_url('/assets/kutt-out/css/custom.css') ?>">
 <title>Welcome to my playground of creation.</title>
 </head>
 <body>

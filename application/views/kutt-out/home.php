@@ -9,6 +9,6 @@
 	<div id='the'>the</div>
 	<div id='moment'>moment</div>
 </div>
-<img id='home' src='<?=site_url('/assets/images/home.jpg')?>' alt='Home'>
+<img id='home' src='<?=site_url('/assets/kutt-out/images/home.jpg')?>' alt='Home'>
 </div>
 </div>

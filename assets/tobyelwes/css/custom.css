@@ -1,0 +1,251 @@
+/* @override http://tobyelwes.com/style.css */
+
+/* @group Basics */
+
+body {
+	font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+	font-weight: 100;
+	background: black url(/gallery/assets/tobyelwes/images/bg4.jpg) repeat-x scroll center 10px;
+}
+
+h1 {
+	text-transform: uppercase;
+	margin-top: 48px;
+	letter-spacing: 20px;
+	word-spacing: -20px;
+	margin-bottom: 130px;
+	color: #fffeff;
+	padding-left: 46px;
+	font: 100 20px "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+}
+
+#head_nav {
+	width: 733px;
+	margin-left: auto;
+	margin-right: auto;
+}
+ 
+/* @end */
+
+/* @group Nav bar */
+
+nav {
+	width: 733px;
+}
+
+nav ul {
+	padding: 0;
+	margin-bottom: 30px;
+}
+
+nav ul li {
+	display: inline;
+	font-family: "Helvetica Neue";
+	font-weight: 100;
+	padding: 5px;
+	padding-right: 50px;
+	padding-left: 50px;
+	font-size: 14px;
+}
+
+nav ul li a {
+	letter-spacing: 2px;
+	text-decoration: none;
+	color: #767676;
+	text-transform: uppercase;
+}
+
+nav ul li a:hover {
+	color: #cacaca;
+}
+
+.selected {
+	background: url(/gallery/assets/tobyelwes/images/arrow.png) no-repeat scroll center 40px;
+	padding-bottom: 30px;
+}
+
+.selected a {
+	color: white;
+}
+
+.selected a:hover {
+	color: white;
+}
+
+.selected_white {
+		background: url(/gallery/assets/tobyelwes/images/arrow_white.png) no-repeat scroll center 40px;
+	padding-bottom: 30px;
+
+}
+
+.selected_white a {
+	color: white;
+}
+
+.selected_white a:hover {
+	color: white;
+}
+
+/* @end */
+
+/* @group Content */
+
+#content {
+	padding: 20px;
+	margin-left: -8px;
+	margin-right: -8px;
+	min-width: 733px;
+	height: 355px;
+	background-color: #e7e7df;
+	overflow-y: auto;
+}
+
+#content.home {
+	padding: 0px 0px 20px 0px;
+}
+
+#footer p {
+	font-family: "Helvetica Neue";
+	font-weight: 100;
+	font-size: 10px;
+	font-style: italic;
+	margin-left: 40px;
+	letter-spacing: 1px;
+	color: white;
+	text-align: center;
+}
+
+/* @end */
+
+/* @group Scroller */
+
+#scroller {
+	width: 100%;
+}
+
+#scroller ul li {
+	padding-right: 10px;
+}
+
+/* @end */
+
+/* @group Home bar */
+
+#home_content {
+	display: block;
+	position: absolute;
+	width: 200px;
+	height: 375px;
+	z-index: 3;
+	padding-left: 60px;
+	font-style: italic;
+	background: url(/gallery/assets/tobyelwes/images/home_bg2.png) no-repeat 50% 0;
+	margin-left: -55px;
+}
+
+#home_content h2 {
+	font-weight: 100;
+	letter-spacing: 3px;
+}
+
+#home_content h3 {
+	font-weight: 100;
+	font-size: 25px;
+	margin-bottom: 0;
+	margin-top: 5px;
+}
+
+#email {
+	margin-top: 7px;
+}
+
+#links {
+	padding: 0;
+}
+
+#links li {
+	list-style: none;
+	margin: 0;
+	padding-bottom: 5px;
+}
+
+#links li a {
+	color: black;
+	text-decoration: none;
+}
+
+#links li a:hover {
+	color: #4f4f4f;
+}
+
+/* @end */
+
+/* @group Gallery */
+
+a img.gallery_img {
+	margin: 4px;
+	padding: 4px;
+	border: 1px solid #000;
+	background-color: white;
+	height: 60px;
+}
+
+.gallery {
+	width: 100%;
+	z-index: 1;
+}
+
+/* @end */
+
+/* @group Gallery scrollbars */
+
+#content::-webkit-scrollbar {
+	width: 6px;
+	height: 6px;
+}
+
+#content::-webkit-scrollbar-button:start:decrement,
+#content::-webkit-scrollbar-button:end:increment {
+	display: block;
+	height: 10px;
+}
+
+#content::-webkit-scrollbar-button:vertical:increment {
+	background-color: #fff;
+	background: transparent;
+}
+
+#content::-webkit-scrollbar-track {
+	-webkit-border-radius: 3px;
+}
+
+#content::-webkit-scrollbar-track-piece {
+	background-color: #e3e3e3;
+	-webkit-border-radius: 3px;
+}
+
+#content::-webkit-scrollbar-thumb:vertical {
+	height: 50px;
+	background-color: #999;
+	opacity: 0.5;
+	-webkit-border-radius: 3px;
+	position: relative;
+}
+
+#content::-webkit-scrollbar-thumb:horizontal {
+	width: 50px;
+	background-color: #999;
+	-webkit-border-radius: 3px;
+}
+
+#content::-webkit-scrollbar-thumb:vertical:hover,
+#content::-webkit-scrollbar-thumb:horizontal:hover,
+#content::-webkit-scrollbar-thumb:vertical:active,
+#content::-webkit-scrollbar-thumb:horizontal:active, 
+#content::-webkit-scrollbar-thumb:vertical:focus,
+#content::-webkit-scrollbar-thumb:horizontal:focus {
+	background-color: #747474;
+}
+
+
+/* @end */
