@@ -6,7 +6,6 @@ This is a gallery system for kutt-out.co.uk. Currently supports uploading, editi
 To do:
 ------
 
-* Create a non specific version for any views, or add in a way to switch templates.
 * Error handling on db entries - error codes/exceptions or something
 * Add WAY better handling of the initial setup phase - at the very least when there's no galleries, better when there's no database
 * Add the final two static pages *in progress*

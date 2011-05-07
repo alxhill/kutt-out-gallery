@@ -36,9 +36,12 @@ $route['default_controller'] = 'gallery';
 
 $route['home'] = 'gallery/static_page/home';
 
-$route['contact'] = 'gallery/static_page/contact';
+if (THEME == 'kutt-out')
+{
+	$route['contact'] = 'gallery/static_page/contact';
 
-$route['about_me'] = 'gallery/static_page/contact';
+	$route['about_me'] = 'gallery/static_page/contact';
+}
 
 $route['login'] = 'login/index';
 

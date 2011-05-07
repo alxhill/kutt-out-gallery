@@ -1,8 +1,9 @@
-<div id='main'>
-<div class='content'>
+</div>
+<div id='content'>
+<div id='admin_page'>
 <div id='action'></div>
-<h1 id='admin_title'>Gallery manager</h1>
-<h2>Pick a gallery to edit</h2>
+<h2 id='admin_title'>Gallery manager</h2>
+<h3>Pick a gallery to edit</h3>
 <? if ($galleries): ?>
 	<ul id='galleries_list'>
 	<? foreach ($galleries as $gallery): ?>

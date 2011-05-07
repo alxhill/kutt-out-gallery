@@ -1,5 +1,6 @@
-<div id='main'>
-<div class='content'>
+</div>
+<div id='content'>
+<div id='edit_page'>
 <h1 id='admin'>Admin control panel</h1>
 <h2>Upload, update and delete images from this panel</h2>
 <p id='user'>Logged in as user: <span id='username'><?=$user?></span></p>
@@ -26,10 +27,10 @@
 		<input type='hidden' name='g_id' value='<?=$g_info->id?>' />
 		<input type='hidden' name='type' values='photo' />
 		<input type="submit" name="submit" id="submit" value="Upload" />
-	</form>
+		</form>
 	</div>
-<? elseif ($g_info->type ==  2): ?>
-<div class='video_upload'>
+	<? elseif ($g_info->type ==  2): ?>
+	<div class='video_upload'>
 	<?= form_open_multipart('gallery/upload'); ?>
 		<div class='titleform'>
 			<label>Vimeo URL:</label>
@@ -46,22 +47,22 @@
 		<input type='hidden' name='g_id' value='<?=$g_info->id?>' />
 		<input type='hidden' name='type' value='video' />
 		<input type="submit" name="submit" id="submit" value="Add Video" />
-	</form>
+		</form>
 </div>
-<? endif; ?>
+	<? endif; ?>
+</div>
 </div>
 
 <div id='edit_gallery'>
-<h2 id='edit_title'>Edit gallery</h2>
-<?=form_open('gallery/update_gallery')?>
-<label>Title:</label>
-<input type='text' id='g_name' name='g_name' value='<?=$g_info->name?>'/><br>
-<label>Description:</label>
-<textarea name='g_description' class='g_desc_area'><?=$g_info->description?></textarea>
-<input type='hidden' name='g_id' value='<?=$g_info->id?>' />
-<input type='submit' value='Update' />
-</form>
-</div>
+	<h2 id='edit_title'>Edit gallery</h2>
+	<?=form_open('gallery/update_gallery')?>
+	<label>Title:</label>
+	<input type='text' id='g_name' name='g_name' value='<?=$g_info->name?>'/><br>
+	<label>Description:</label>
+	<textarea name='g_description' class='g_desc_area'><?=$g_info->description?></textarea>
+	<input type='hidden' name='g_id' value='<?=$g_info->id?>' />
+	<input type='submit' value='Update' />
+	</form>
 </div>
 
 <div class='table'>
@@ -117,5 +118,6 @@
 	}
 	?>
 <? endif; ?>
+</div>
 </div>
 </div>

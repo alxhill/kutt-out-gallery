@@ -17,6 +17,8 @@ class Login extends CI_Controller {
 		parent::__construct();
 		$this->load->helper(array('form','url','notification'));
 		$this->load->library(array('session','view'));
+		$this->load->library('view');
+		$this->view->theme('tobyelwes');
 	}
 	
 	/**
@@ -35,7 +37,12 @@ class Login extends CI_Controller {
 	{
 		$user = $this->input->post('username');
 		$pass = $this->input->post('password');
-		if (($user == 'boydcape') && ($pass == 'kutt-0ut'))
+		
+		// Set the user and pass based on the theme
+		$t_u = THEME == 'kutt-out' ? 'boydcape' : 'toby';
+		$t_p = THEME == 'kutt-out' ? 'kutt-0ut' : 'pass';
+		
+		if (($user == $t_u) && ($pass == $t_p))
 		{
 			$this->session->set_userdata('logged_in', TRUE);
 			$this->session->set_userdata('user', $user);

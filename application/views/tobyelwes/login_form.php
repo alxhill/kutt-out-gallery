@@ -1,6 +1,7 @@
-<div id='main'>
-<div class='content'>
-<h1 id='login'>Log in:</h1>
+</div>
+<div id='content'>
+<div id='login_form'>
+<h2 id='login'>Log in:</h2>
 <?=form_open('login/submit',array('class' => 'loginform')); ?>
 <label>User name:</label><br>
 <input type='text' name='username' size='50'>

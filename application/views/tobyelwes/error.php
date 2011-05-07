@@ -1,3 +1,4 @@
+</div>
 <div id="main">
 <div class="content">
 <h1 class="error_head"><?=$head?></h1>

@@ -1,4 +1,4 @@
-/* @override http://tobyelwes.com/style.css */
+/* @override http://localhost:8888/gallery/assets/tobyelwes/css/custom.css */
 
 /* @group Basics */
 
@@ -182,6 +182,14 @@ nav ul li a:hover {
 
 /* @group Gallery */
 
+.photo_container {
+	display: inline;
+}
+
+a {
+	text-decoration: none;
+}
+
 a img.gallery_img {
 	margin: 4px;
 	padding: 4px;
@@ -194,8 +202,6 @@ a img.gallery_img {
 	width: 100%;
 	z-index: 1;
 }
-
-/* @end */
 
 /* @group Gallery scrollbars */
 
@@ -249,3 +255,48 @@ a img.gallery_img {
 
 
 /* @end */
+
+/* @end */
+
+/* @group Login form */
+
+#login_form {
+	width: 500px;
+	margin: 0 auto;
+	padding-left: 250px;
+}
+
+/* @end */
+
+/* @group Edit page */
+
+
+
+li.gallery {
+	list-style: none;
+	text-align: center;
+}
+
+li.gallery h3 {
+	font-weight: 100;
+	text-transform:  uppercase;
+	font-size: 23px;
+	letter-spacing: 1px;
+}
+
+li.gallery h3 a {
+	color: gray;
+}
+
+#new_gallery {
+	width: 200px;
+	margin: 0 auto;
+}
+
+#admin_page {
+	width: 600px;
+	margin: 0 auto;
+}
+
+/* @end */
+

@@ -20,7 +20,7 @@ class Gallery extends CI_Controller {
 		$this->load->model('gallery_model', 'gallery');
 		$this->load->model('photo_model','photo');
 		$this->load->model('video_model','video');
-		$this->view->theme('tobyelwes');
+		$this->view->theme(THEME);
 	}
 	
 	/**
