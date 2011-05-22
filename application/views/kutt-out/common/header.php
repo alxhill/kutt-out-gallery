@@ -2,25 +2,20 @@
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="chrome=1">
-<!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
+<!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>-->
 <script>
 // Run the Chrome frame check & script
 function test() {
-CFInstall.check({mode: "overlay"});
+	//CFInstall.check({mode: "overlay"});
 }
 
 window.onload=test();
-</script>-->
+</script>
 <script type="text/javascript" src="/gallery/assets/kutt-out/js/jquery.min.js"></script>
-<script type="text/javascript" src="/gallery/assets/kutt-out/js/jquery.tablednd.js"></script>
-<script type="text/javascript" src="/gallery/assets/kutt-out/js/jquery.listreorder.js"></script>
-<script type="text/javascript" src="/gallery/assets/kutt-out/js/jquery.disableselect.js"></script>
+<script type="text/javascript" src="/gallery/assets/kutt-out/js/plugins.js"></script>
 <!--[if lt IE 8]><link rel="stylesheet" href="'/gallery/assets/kutt-out/css/ie.css" type="text/css" media="screen, projection"><![endif]-->
 <link rel="stylesheet" href="/gallery/assets/kutt-out/css/custom.css" type="text/css" media="screen" />
-<? if ($gallery_type == 'photo'): ?>
-<link rel="stylesheet" href="/gallery/assets/kutt-out/css/slimbox2.css" type="text/css" media="screen" />
-<script type="text/javascript" src="/gallery/assets/kutt-out/js/slimbox2.js"></script>
-<? elseif ($gallery_type == 'video'): ?>
+<? if ($gallery_type == 'video'): ?>
 <link rel="stylesheet" href="/gallery/assets/kutt-out/css/shadowbox.css" type="text/css" media="screen" />
 <script type='text/javascript' src='/gallery/assets/kutt-out/js/shadowbox.js'></script>
 <script>

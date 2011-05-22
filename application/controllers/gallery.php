@@ -47,7 +47,14 @@ class Gallery extends CI_Controller {
 	 */	
 	function index()
 	{
-		$this->load->view('index');
+		if (THEME == 'kutt-out')
+		{
+			$this->load->view('index');
+		}
+		else if (THEME == 'tobyelwes')
+		{
+			redirect('home');
+		}
 	}
 	
 	/**
