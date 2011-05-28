@@ -95,13 +95,15 @@ nav ul li a:hover {
 	margin-left: -8px;
 	margin-right: -8px;
 	min-width: 733px;
-	height: 355px;
+	height: 500px;
 	background-color: #e7e7df;
 	overflow-y: auto;
 }
 
 #content.home {
 	padding: 0px 0px 20px 0px;
+	overflow: hidden;
+	min-height: 280px;
 }
 
 #footer p {
@@ -135,12 +137,13 @@ nav ul li a:hover {
 	display: block;
 	position: absolute;
 	width: 200px;
-	height: 375px;
+	height: 520px;
 	z-index: 3;
 	padding-left: 60px;
 	font-style: italic;
-	background: url(/gallery/assets/tobyelwes/images/home_bg2.png) no-repeat 50% 0;
+	background: url(/gallery/assets/tobyelwes/images/home_bg2.png) repeat-y 50% 0;
 	margin-left: -55px;
+	min-height: 300px;
 }
 
 #home_content h2 {
