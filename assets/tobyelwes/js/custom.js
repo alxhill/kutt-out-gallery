@@ -1,40 +1,22 @@
-var resize = null;
-
-(function($,sr){
- 
-  // debouncing function from John Hann
-  // http://unscriptable.com/index.php/2009/03/20/debouncing-javascript-methods/
-  var debounce = function (func, threshold, execAsap) {
-      var timeout;
- 
-      return function debounced () {
-          var obj = this, args = arguments;
-          function delayed () {
-              if (!execAsap)
-                  func.apply(obj, args);
-              timeout = null; 
-          };
- 
-          if (timeout)
-              clearTimeout(timeout);
-          else if (execAsap)
-              func.apply(obj, args);
- 
-          timeout = setTimeout(delayed, threshold || 100); 
-      };
-  }
-	// smartresize 
-	jQuery.fn[sr] = function(fn){  return fn ? this.bind('resize', debounce(fn)) : this.trigger(sr); };
- 
-})(jQuery,'smartresize');
+/**
+ * Javascript debouncer plugin. MOVE TO PLUGINS.JS!
+ */
+(function($,sr){var debounce=function(func,threshold,execAsap){var timeout;return function debounced(){var obj=this,args=arguments;function delayed(){if(!execAsap)
+func.apply(obj,args);timeout=null;};if(timeout)
+clearTimeout(timeout);else if(execAsap)
+func.apply(obj,args);timeout=setTimeout(delayed,threshold||100);};}
+jQuery.fn[sr]=function(fn){return fn?this.bind('resize',debounce(fn)):this.trigger(sr);};})(jQuery,'smartresize');
 
 $(function() {
-	// variable to store the number of pixels to take off the height of the main content.
-	var hh = 320;
 	
+	/**
+	 * Code to manage page resizing.
+	 */
+	// variable to store the number of pixels to take off the height of the main content.
+	var hh = 340;
 	function setup() {
-		$('#content.home').height($(window).height()-hh);
-		$('#home_content').height($(window).height()-(hh-20));
+		$('#content').height($(window).height()-hh);
+		$('#home_content').length > 0 && $('#home_content').height($(window).height()-(hh-20));
 		$('#scroller').simplyScroll({
 	        autoMode: 'loop',
 	        pauseOnHover: false,
@@ -44,9 +26,91 @@ $(function() {
 		});
 				
 	}
-	
 	setup();
-	
 	$(window).smartresize(setup);
+	
+	/**
+	 * Manages AJAX deletion of photos in gallery edit views.
+	 */
+	$('.photos .delete_link').click(function(){
+		var sure = confirm('Are you sure you want to delete this image?');
+		if(sure === true)
+		{
+			var photo_id = $(this).attr('id');
+			$.post('/gallery/gallery/ajax_delete', { id: photo_id, type: "photo" }, function(data)
+			{
+				if (data.code === 0)
+				{
+					$('#action').html('The image with ID ' + data.id + ' ("' + data.title + '") was deleted successfully.');
+					$('tr#pic_id_' + photo_id).hide('slow');
+					$('#action').addClass('notice').delay(3000).fadeOut('slow');
+				}
+				else
+				{
+					$('#action').html(data.message).addClass('error').delay(3000).fadeOut('slow');
+				}
+			},
+			'json'
+			);
+		}
+	});
+	
+	/**
+	 * Manages AJAX editing of photos in gallery edit views.
+	 */
+	$('.photos .edit_link').click(function(){
+		var p_id = $(this).attr('id');
+		var title = $('td#title_' + p_id + '.editable');
+		var edit_link = $('a.edit_link#' + p_id);
+		if (edit_link.html() === "Edit")
+		{
+			title.attr('contenteditable','true');
+			title.css('border','1px solid #cdcdcd');
+			edit_link.html('Save');
+		}
+		else if (edit_link.html() === 'Save')
+		{
+			title.attr('contenteditable','false');
+			title.css('border','none');
+			edit_link.html('Edit');
+			$.post('/gallery/gallery/ajax_update', { id: p_id, title: title.html(), type: "photo" }, function(data){
+				if (data.code === 1)
+				{
+					$('#action').html(data.message);
+					$('#action').addClass('error').delay(3000).fadeOut('slow');
+				}
+			},
+			'json'
+			);
+		}
+	});	
+	
+	/**
+	 * Manages AJAX redoredering of photos & videos in gallery edit views.
+	 */
+	$('.photos, .videos').tableDnD({
+		dragHandle: 'dragger',
+		onDrop: function(table, row) {
+            $.post('/gallery/gallery/ajax_reorder', $.tableDnD.serialize(), function(data) {
+				if (data.code == 1) {
+					$('#action').html(data.message).addClass('error').delay(3000).fadeOut('slow');
+				}
+				else if (data.code == 0)
+				{
+					$('#action').html('Reorder was successful.').addClass('info').delay(3000).fadeOut('slow');
+				}
+			});
+		}
+	});
+	
+	
+	
+
+	$('.custom_thumb').toggle();
+
+	$("input[name='custom_thumbnail']").change(function() {
+		$('.custom_thumb').toggle();
+	});
+	
 	
 });

@@ -103,7 +103,7 @@ nav ul li a:hover {
 #content.home {
 	padding: 0px 0px 20px 0px;
 	overflow: hidden;
-	min-height: 280px;
+	min-height: 300px;
 }
 
 #footer p {
@@ -141,9 +141,9 @@ nav ul li a:hover {
 	z-index: 3;
 	padding-left: 60px;
 	font-style: italic;
-	background: url(/gallery/assets/tobyelwes/images/home_bg2.png) repeat-y 50% 0;
+	background: url(/gallery/assets/tobyelwes/images/home_bg3.png) repeat-y 50% 0;
 	margin-left: -55px;
-	min-height: 300px;
+	min-height: 320px;
 }
 
 #home_content h2 {

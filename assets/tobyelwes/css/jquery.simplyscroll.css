@@ -97,7 +97,7 @@ Note all DIVs are generated and should not be hard-coded
 		
 .simply-scroll .simply-scroll-list li {
 	float: left;
-	height: 100%;
+	min-height: 100%;
 }
 
 .simply-scroll .simply-scroll-list li img {}

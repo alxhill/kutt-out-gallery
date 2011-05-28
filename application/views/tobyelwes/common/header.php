@@ -8,6 +8,7 @@
 <script src='/gallery/assets/tobyelwes/js/jquery.js' type='text/javascript'></script>
 <script src='/gallery/assets/tobyelwes/js/jquery.simplyscroll.min.js' type='text/javascript'></script>
 <script src='/gallery/assets/tobyelwes/js/slimbox2.js' type='text/javascript'></script>
+<script src='/gallery/assets/tobyelwes/js/jquery.tablednd.js' type='text/javascript'></script>
 <script src='/gallery/assets/tobyelwes/js/custom.js' type='text/javascript'></script>
 </head>
 <body>
