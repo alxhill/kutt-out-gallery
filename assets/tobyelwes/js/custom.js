@@ -14,10 +14,17 @@ $(function() {
 	 */
 	// variable to store the number of pixels to take off the height of the main content.
 	var hh = 340;
-	function setup() {
-		$('#content').height($(window).height()-hh);
-		$('#home_content').length > 0 && $('#home_content').height($(window).height()-(hh-20));
-		$('#scroller').simplyScroll({
+	var $home_content = $('#home_content');
+	var $content = $('#content');
+	var $scroller = $('#scroller');
+	var $window = $(window);
+	function setup(changesize) {
+		if (arguments.length > 0 && changesize)
+		{
+			$content.height($window.height()-hh);
+			$home_content.length > 0 && $home_content.height($window.height()-(hh-20));
+		}
+		$scroller.simplyScroll({
 	        autoMode: 'loop',
 	        pauseOnHover: false,
 	        speed: 1,
@@ -26,8 +33,8 @@ $(function() {
 		});
 				
 	}
-	setup();
-	$(window).smartresize(setup);
+	setup(false);
+	//$(window).smartresize(setup);
 	
 	/**
 	 * Manages AJAX deletion of photos in gallery edit views.
@@ -102,12 +109,31 @@ $(function() {
 			});
 		}
 	});
-	
-	
-	
 
+	/**
+	 * Does magic on video pages.
+	 */
+	$('.video_container a').click(function(el){
+		el.preventDefault();
+		
+		 var v_url = $(this).attr('href'),
+			$video_div = $('#video_view'),
+			$iframe = $video_div.find('iframe');
+		
+		if ($iframe.attr('src') === v_url)
+		{
+			return;
+		}
+		else
+		{
+			$iframe.attr('src', v_url);
+			$iframe.attr('height', ($window.height()-(hh-40)) );
+			$video_div.css('display','inline');
+		}
+	});
+	
+	// Toggle the custom thumbnail checkbox
 	$('.custom_thumb').toggle();
-
 	$("input[name='custom_thumbnail']").change(function() {
 		$('.custom_thumb').toggle();
 	});

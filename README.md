@@ -13,8 +13,10 @@ To do:
 	* Remove all hardcoded /gallery/ links in place of dynamically generated ones, in both PHP, CSS and JS.
 	* Add a way to have separators between galleries.
 	* Minify & combine CSS and JS files!
+	
 * TOBYELWES.COM FIXES
 	* *Make video galleries work, implement video page view.*
 	* Add a logout button.
 	* Improve readability of galleries along bar.
 	* Add JavaScript to do everything it needs to do.
+	* Conversely, stop using shitty JS hacks instead of CSS. 
