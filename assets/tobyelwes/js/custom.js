@@ -7,8 +7,17 @@ clearTimeout(timeout);else if(execAsap)
 func.apply(obj,args);timeout=setTimeout(delayed,threshold||100);};}
 jQuery.fn[sr]=function(fn){return fn?this.bind('resize',debounce(fn)):this.trigger(sr);};})(jQuery,'smartresize');
 
+/**
+ * Javascript function to decode HTML entities. MOVE TO PLUGINS.JS
+ */
+function html_entity_decode(str) {
+  var ta=document.createElement("textarea");
+  ta.innerHTML=str.replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  return ta.value;
+}
+
 $(function() {
-	
+		
 	/**
 	 * Code to manage page resizing.
 	 */
@@ -110,27 +119,73 @@ $(function() {
 		}
 	});
 
+	// Globals. I'm so so sorry.
+	is_out = false;
+	$video_div = $('#video_view');
+	$iframe = $video_div.find('iframe');
+	$title = $video_div.find('h3');
+	$description = $video_div.find('p');
+	
 	/**
 	 * Does magic on video pages.
 	 */
 	$('.video_container a').click(function(el){
 		el.preventDefault();
 		
-		 var v_url = $(this).attr('href'),
-			$video_div = $('#video_view'),
-			$iframe = $video_div.find('iframe');
-		
+		var v_url = $(this).attr('href'),
+			$clicked = $(this);
+
 		if ($iframe.attr('src') === v_url)
 		{
 			return;
 		}
 		else
 		{
-			$iframe.attr('src', v_url);
-			$iframe.attr('height', ($window.height()-(hh-40)) );
-			$video_div.css('display','inline');
+			$iframe.attr('height', ($window.height()-(hh + 50) ) );
+			if (!is_out)
+			{
+				$iframe.css('display', 'none');
+				$title.css('display', 'none');
+				$video_div.css({
+					display: 'inline',
+					'padding-left': 0,
+					'padding-right': 0,
+					'padding-top': 0,
+					'padding-bottom': 0,
+					width: 0
+				})
+				.animate({
+					'padding-top': '10px',
+					'padding-right': '10px',
+					'padding-left': '60px',
+					width: '450px'
+				},
+				500,
+				function(){
+					set_content(v_url, $clicked.attr('title'), html_entity_decode($clicked.find('img').attr('title')));
+					$iframe.fadeIn('slow');
+					$title.fadeIn('slow');
+				});
+				is_out = true;
+			}
+			else
+			{
+				$title.fadeOut().delay(20);
+				$iframe.fadeOut().delay(20);
+				set_content(v_url, $clicked.attr('title'), html_entity_decode($clicked.find('img').attr('title')));
+				$iframe.delay(20).fadeIn();
+				$title.delay(20).fadeIn();
+			}
 		}
 	});
+	
+	// Set the necessary content in the div
+	function set_content(url, title, description)
+	{
+		$iframe.attr('src', url);
+		$title.html(title);
+		$description.html(description);
+	}
 	
 	// Toggle the custom thumbnail checkbox
 	$('.custom_thumb').toggle();

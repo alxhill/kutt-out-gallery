@@ -15,13 +15,15 @@
 			<?php foreach ($video_data as $vid): ?>
 				<div class='video_container'>
 					<a href='http://player.vimeo.com/video/<?=$vid->video_id?>' title='<?=$vid->title?>'>
-						<img src='<?=$vid->file_thumb_link?>' alt='<?=$vid->title?>' class='gallery_img'>
+						<img src='<?=$vid->file_thumb_link?>' alt='<?=$vid->title?>' class='gallery_img' title='<?=htmlspecialchars($vid->description)?>'>
 					</a>
 				</div>
 			<?php endforeach; ?>
 		</div>
 		<div id="video_view">
-			<iframe src="" width="400" height="500" frameborder="0"></iframe>
+			<h3></h3>
+			<iframe src="" width="480" height="500" frameborder="0"></iframe>
+			<p></p>
 		</div>
 	<?php endif; ?>
 </div>

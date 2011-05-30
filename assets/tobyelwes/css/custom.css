@@ -24,7 +24,7 @@ h1#title {
 	margin-left: auto;
 	margin-right: auto;
 }
- 
+
 /* @end */
 
 /* @group Nav bar */
@@ -98,8 +98,9 @@ nav ul li a:hover {
 	position: absolute;
 	left: 0;
 	right: 0;
-	bottom: 20px;
-	top: 300px;
+	bottom: 30px;
+	top: 250px;
+	min-height: 200px;
 }
 
 #content.home {
@@ -154,8 +155,8 @@ nav ul li a:hover {
 	background: url(/gallery/assets/tobyelwes/images/home_bg3.png) repeat-y 50% 0;
 	margin-left: -55px;
 	min-height: 320px;
-	top: 300px;
-	bottom: 20px;
+	top: 250px;
+	bottom: 30px;
 }
 
 #home_content h2 {
@@ -220,18 +221,18 @@ a img.gallery_img {
 
 /* @group Gallery scrollbars */
 
-#content::-webkit-scrollbar {
+#content::-webkit-scrollbar, #video_view p::-webkit-scrollbar {
 	width: 6px;
 	height: 6px;
 }
 
 #content::-webkit-scrollbar-button:start:decrement,
-#content::-webkit-scrollbar-button:end:increment {
+#content::-webkit-scrollbar-button:end:increment, #video_view p::-webkit-scrollbar-button:start:decrement, #video_view p::-webkit-scrollbar-button:start:increment {
 	display: block;
 	height: 10px;
 }
 
-#content::-webkit-scrollbar-button:vertical:increment {
+#content::-webkit-scrollbar-button:vertical:increment, #video_view p::-webkit-scrollbar-button:vertical:increment {
 	background-color: #fff;
 	background: transparent;
 }
@@ -240,12 +241,12 @@ a img.gallery_img {
 	-webkit-border-radius: 3px;
 }
 
-#content::-webkit-scrollbar-track-piece {
+#content::-webkit-scrollbar-track-piece, #video_view p::-webkit-scrollbar-track-piece {
 	background-color: #e3e3e3;
 	-webkit-border-radius: 3px;
 }
 
-#content::-webkit-scrollbar-thumb:vertical {
+#content::-webkit-scrollbar-thumb:vertical, #video_view p::-webkit-scrollbar-thumb:vertical {
 	height: 50px;
 	background-color: #999;
 	opacity: 0.5;
@@ -253,7 +254,7 @@ a img.gallery_img {
 	position: relative;
 }
 
-#content::-webkit-scrollbar-thumb:horizontal {
+#content::-webkit-scrollbar-thumb:horizontal, #video_view p::-webkit-scrollbar-thumb:horizontal {
 	width: 50px;
 	background-color: #999;
 	-webkit-border-radius: 3px;
@@ -264,7 +265,13 @@ a img.gallery_img {
 #content::-webkit-scrollbar-thumb:vertical:active,
 #content::-webkit-scrollbar-thumb:horizontal:active, 
 #content::-webkit-scrollbar-thumb:vertical:focus,
-#content::-webkit-scrollbar-thumb:horizontal:focus {
+#content::-webkit-scrollbar-thumb:horizontal:focus,
+#video_view p::-webkit-scrollbar-thumb:vertical:hover,
+#video_view p::-webkit-scrollbar-thumb:horizontal:hover,
+#video_view p::-webkit-scrollbar-thumb:vertical:active,
+#video_view p::-webkit-scrollbar-thumb:horizontal:active, 
+#video_view p::-webkit-scrollbar-thumb:vertical:focus,
+#video_view p::-webkit-scrollbar-thumb:horizontal:focus {
 	background-color: #747474;
 }
 
@@ -277,8 +284,36 @@ a img.gallery_img {
 	display: none;
 	float: right;
 	position: absolute;
-	right: 10px;
+	right: 0;
+	top: 0;
 	bottom: 0;
+	padding: 10px 10px 0 50px;
+	background-color: white;
+	box-shadow:-5px 0px 10px #333333;
+	-webkit-box-shadow:-7px 0px 30px #333333;
+	-mozbox-shadow:-5px 0px 10px #333333;
+	width: 450px;
+}
+
+#video_view iframe {
+	margin-right: 30px;
+	position: absolute;
+	right: 0;
+}
+
+#video_view h3 {
+	font-weight: 100;
+	font-size: 22px;
+	font-style: italic;
+	margin: 0 0 10px -50px;
+}
+
+#video_view p {
+	margin-top: 310px;
+	margin-left: -50px;
+	padding: 0;
+	max-height: 55px;
+	overflow-y: scroll;
 }
 
 /* @end */

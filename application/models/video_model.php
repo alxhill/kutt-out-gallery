@@ -16,9 +16,9 @@ class Video_model extends CI_Model {
 		// Check if the url is a valid vimeo url as accepted by the API - requires http://, www. or both + vimeo.com/ + 6 - 10 digit number.
 		$pattern = '/\A((((http:\/\/){1})|(www\.){1})|(http:\/\/www\.))vimeo\.com\/\d{6,10}\/?\z/';
 		if (preg_match($pattern,$video_url))
-		{
+		{			
 			// Insert the standard data into the data array
-			$data = array('gallery_id' => $g_id, 'vimeo_url' => $video_url, 'description' => $description);
+			$data = array('gallery_id' => $g_id, 'vimeo_url' => $video_url);
 			
 			// Open the file, check if it's valid, if so decode it to an object.
 			$file = fopen('http://vimeo.com/api/oembed.json?url=' . $video_url,'r');
@@ -39,6 +39,26 @@ class Video_model extends CI_Model {
 			{
 				$data['title'] = $json->title;
 				$data['video_id'] = $json->video_id;
+				
+				// If there's no description, grab the one from the Vimeo Simple API. Because the oEmbed API doesn't provide it :/
+				if (empty($description))
+				{
+					$file = fopen('http://vimeo.com/api/v2/video/'.$json->video_id.'.php','r');
+					if (!$file)
+					{
+						return FALSE;
+						exit;
+					}
+					$file_text = '';
+					while (!feof ($file))
+					{
+						$file_text .= fgets($file);
+					}
+					$d = unserialize($file_text);
+					$description = $d[0]['description'];
+				}
+				
+				$data['description'] = $description;
 				
 				// Add the thumbnail into the photo gallery & the id into the data array
 				$this->load->model('photo_model','photo');
