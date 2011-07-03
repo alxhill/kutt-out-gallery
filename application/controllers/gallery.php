@@ -610,7 +610,6 @@ class Gallery extends CI_Controller {
 			{
 				$post_array = $this->input->post('gallery');
 				
-				
 				foreach ($post_array as $gallery)
 				{
 					$order[] = substr($gallery,8);
@@ -629,6 +628,31 @@ class Gallery extends CI_Controller {
 			header('Content-type: application/json');
 			echo json_encode($json);
 			
+		}
+		else
+		{
+			redirect('home');
+		}
+	}
+	
+	/**
+	 * Send photos in order of how recently they were added, approx - needs editing such that it replies with the right names.
+	 */
+	function ajax_most_recent($num = 5)
+	{
+		if(IS_AJAX)
+		{
+			$photos = $this->photo->get_recent($num);
+			
+			foreach ($photos as $photo)
+			{
+				$photo->src = $photo->file_link;
+				unset($photo->file_link);
+			}
+			
+			header('Content-type: application/json');
+			
+			echo json_encode($photos);
 		}
 		else
 		{

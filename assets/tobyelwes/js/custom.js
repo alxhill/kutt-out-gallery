@@ -21,32 +21,25 @@ $(function() {
 	/**
 	 * Code to manage page resizing.
 	 */
-	// variable to store the number of pixels to take off the height of the main content.
 	var hh = 340;
 	var $home_content = $('#home_content');
 	var $content = $('#content');
 	var $scroller = $('#scroller');
 	var $window = $(window);
-	function setup(changesize) {
-		if (arguments.length > 0 && changesize)
-		{
-			$content.height($window.height()-hh);
-			$home_content.length > 0 && $home_content.height($window.height()-(hh-20));
-		}
+	function setup() {
 		$scroller.simplyScroll({
 	        autoMode: 'loop',
 	        pauseOnHover: false,
 	        speed: 1,
 			frameRate: 35,
-			startOnLoad: false
+			//jsonSource: '/gallery/gallery/ajax_most_recent'
 		});
-				
 	}
-	setup(false);
-	//$(window).smartresize(setup);
+	setup();
+	$(window).smartresize(setup);
 	
 	/**
-	 * Manages AJAX deletion of photos in gallery edit views.
+	 * Manages AJAX deletion of photos & videos in gallery edit views.
 	 */
 	$('.photos .delete_link').click(function(){
 		var sure = confirm('Are you sure you want to delete this image?');
@@ -71,8 +64,31 @@ $(function() {
 		}
 	});
 	
+	$('.videos .delete_link').click(function(){
+		var sure = confirm('Are you sure you want to delete this video?');
+		if(sure === true){
+			var video_id = $(this).attr('id');
+			
+			$.post('/gallery/gallery/ajax_delete', { id: video_id, type: "video" }, function(data){
+				if (data.code === 0)
+				{
+					$('#action').html('The video with ID ' + data.id + ' ("' + data.title + '") was deleted successfully.');
+					$('tr#vid_id_' + video_id).hide('slow');
+					$('#action').addClass('notice').delay(3000).fadeOut('slow');
+				}
+				else
+				{
+					$('#action').html(data.message).addClass('error').delay(3000).fadeOut('slow');
+				}
+			},
+			'json'
+			);
+		}
+	});
+	
+	
 	/**
-	 * Manages AJAX editing of photos in gallery edit views.
+	 * Manages AJAX editing of photos & videos in gallery edit views.
 	 */
 	$('.photos .edit_link').click(function(){
 		var p_id = $(this).attr('id');
@@ -101,6 +117,43 @@ $(function() {
 		}
 	});	
 	
+	$('.videos .edit_link').click(function(){
+		var v_id = $(this).attr('id');
+		var title = $('td#video_title_' + v_id + '.editable');
+		var description = $('td#video_description_' + v_id + '.editable');
+		var edit_link = $('.edit_link#' + v_id);
+		if (edit_link.html() === "Edit")
+		{
+			title.attr('contenteditable','true');
+			title.css('border','1px solid #cdcdcd');
+			
+			description.attr('contenteditable','true');
+			description.css('border','1px solid #cdcdcd');
+			
+			edit_link.html('Save');
+		}
+		else if (edit_link.html() === 'Save')
+		{
+			title.attr('contenteditable','false');
+			title.css('border','none');
+			
+			description.attr('contenteditable','false');
+			description.css('border','none');
+			
+			edit_link.html('Edit');
+			$.post('/gallery/gallery/ajax_update', { id: v_id, title: title.html(), description: description.html(), type: "video" }, function(data){
+				if (data.code === 1)
+				{
+					$('#action').html(data.message);
+					$('#action').addClass('error').delay(3000).fadeOut('slow');
+				}
+			},
+			'json'
+			);
+		}
+	});
+	
+	
 	/**
 	 * Manages AJAX redoredering of photos & videos in gallery edit views.
 	 */
@@ -119,15 +172,14 @@ $(function() {
 		}
 	});
 
-	// Globals. I'm so so sorry.
-	is_out = false;
-	$video_div = $('#video_view');
-	$iframe = $video_div.find('iframe');
-	$title = $video_div.find('h3');
-	$description = $video_div.find('p');
+	var is_out = false,
+    	$video_div = $('#video_view'),
+    	$iframe = $video_div.find('iframe'),
+    	$title = $video_div.find('h3'),
+    	$description = $video_div.find('p');
 	
 	/**
-	 * Does magic on video pages.
+	 * Does the sexy magic on video pages.
 	 */
 	$('.video_container a').click(function(el){
 		el.preventDefault();

@@ -107,4 +107,8 @@ class Photo_model extends CI_Model {
 		return TRUE;
 	}
 	
+	function get_recent($num)
+	{
+		return $this->db->select('title, file_link')->limit($num)->order_by('id')->get('photos')->result();
+	}
 }
