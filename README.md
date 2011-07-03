@@ -22,4 +22,4 @@ To do:
 	* Add edit functionality to video admin pages.
 	* Add gallery reordering
 	* Sort out the CSS of gallery edit pages, because they're freaking ugly
-	* Make the scroller dynamic and AJAXy.
+	* Make the scroller dynamic and AJAXy. *partially complete*

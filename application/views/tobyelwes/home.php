@@ -14,11 +14,13 @@
 <div id='content' class='home'>
 	<div id='scroller'>
 	<ul>
+		<!--
 		<li><img class='scroll_image' src='/gallery/assets/tobyelwes/images/1.jpg' alt='image'></li>
 		<li><img class='scroll_image' src='/gallery/assets/tobyelwes/images/2.jpg' alt='image'></li>
 		<li><img class='scroll_image' src='/gallery/assets/tobyelwes/images/3.jpg' alt='image'></li>
 		<li><img class='scroll_image' src='/gallery/assets/tobyelwes/images/4.jpg' alt='image'></li>
 		<li><img class='scroll_image' src='/gallery/assets/tobyelwes/images/5.jpg' alt='image'></li>
+		-->
 	</ul>
 	</div>
 	</div>

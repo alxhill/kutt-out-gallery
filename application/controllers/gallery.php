@@ -646,9 +646,10 @@ class Gallery extends CI_Controller {
 			
 			foreach ($photos as $photo)
 			{
-				$photo->src = $photo->file_link;
-				unset($photo->file_link);
-			}
+				$photo->link = $photo->file_link;
+				$photo->src = '/gallery/'.$photo->file_path;
+				unset($photo->file_link, $photo->file_path);
+			}	
 			
 			header('Content-type: application/json');
 			

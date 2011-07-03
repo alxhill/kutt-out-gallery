@@ -32,11 +32,13 @@ $(function() {
 	        pauseOnHover: false,
 	        speed: 1,
 			frameRate: 35,
-			//jsonSource: '/gallery/gallery/ajax_most_recent'
+			localJsonSource: '/gallery/gallery/ajax_most_recent',
+			jsonImgHeight: 450,
+			jsonImgWidth: 330
 		});
 	}
 	setup();
-	$(window).smartresize(setup);
+ 	$(window).smartresize(setup);
 	
 	/**
 	 * Manages AJAX deletion of photos & videos in gallery edit views.
