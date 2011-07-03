@@ -15,11 +15,9 @@ To do:
 	* Reduce the repetition of JS for photos and video views. It's 90% identical.
 	
 * TOBYELWES.COM FIXES & ADDITIONS
-	* Add a logout button.
 	* Improve readability of galleries along bar.
 	* Add JavaScript to do everything it needs to do. *in progress*
-	* Conversely, stop using shitty JS hacks instead of CSS. *basically done*
-	* Add edit functionality to video admin pages.
-	* Add gallery reordering
-	* Sort out the CSS of gallery edit pages, because they're freaking ugly
+	* Add edit functionality to video admin pages. *partially done*
+	* Add gallery reordering.
+	* Sort out the CSS of gallery edit pages, because they're freaking ugly.
 	* Make the scroller dynamic and AJAXy. *partially complete*

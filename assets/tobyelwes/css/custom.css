@@ -25,6 +25,14 @@ h1#title {
 	margin-right: auto;
 }
 
+#logged_in_link, .l_link {
+	color: white;
+}
+
+.l_link:hover {
+	border-bottom: 1px solid white;
+}
+
 /* @end */
 
 /* @group Nav bar */

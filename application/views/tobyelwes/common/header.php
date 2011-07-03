@@ -13,5 +13,11 @@
 </head>
 <body>
 	<div id='container'>
+	<? if ($logged_in): ?>
+		<div id='logged_in_link'>
+			<a class='l_link' href='/gallery/login/logout/' >Logout</a> - 
+			<a class='l_link' href='/gallery/admin' >Admin</a>
+		</div>
+	<? endif; ?>
 	<div id='head_nav'>
 	<h1 id="title">Toby <strong>Elwes</strong></h1>
