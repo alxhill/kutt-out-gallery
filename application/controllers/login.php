@@ -18,7 +18,7 @@ class Login extends CI_Controller {
 		$this->load->helper(array('form','url','notification'));
 		$this->load->library(array('session','view'));
 		$this->load->library('view');
-		$this->view->theme('tobyelwes');
+		$this->view->theme(THEME);
 	}
 	
 	/**
