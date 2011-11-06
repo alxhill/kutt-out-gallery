@@ -42,7 +42,7 @@ define('IS_AJAX', isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVE
 
 /* Define THEME constant for use all over the app. */
 
-define('THEME', 'tobyelwes');
+define('THEME', 'kutt-out');
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */
