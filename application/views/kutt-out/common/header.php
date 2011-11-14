@@ -4,12 +4,9 @@
 <meta http-equiv="X-UA-Compatible" content="chrome=1">
 <!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>-->
 <script>
-// Run the Chrome frame check & script
-function test() {
-	//CFInstall.check({mode: "overlay"});
-}
-
-window.onload=test();
+window.onload=function(){
+  //CFInstall.check({mode: "overlay"});
+};
 </script>
 <script type="text/javascript" src="/gallery/assets/kutt-out/js/jquery.min.js"></script>
 <script type="text/javascript" src="/gallery/assets/kutt-out/js/plugins.js"></script>
@@ -21,11 +18,13 @@ window.onload=test();
 <script>
 Shadowbox.init();
 </script>
-<? endif; ?>
+<? elseif($gallery_type == 'photo'): ?>
+<link rel="stylesheet" href="/gallery/assets/kutt-out/css/slimbox2.css" type="text/css" media="screen" charset="utf-8">
+<? endif;?>
 <script type='text/javascript' src='/gallery/assets/kutt-out/js/script.js'></script>
 <title><?=$title?></title>
 </head>
-<body onload='test();'>
+<body>
 <? if ($logged_in): ?>
 <div id='logged_in_link'>
 <a class='l_link' href='/gallery/login/logout/' >Logout</a> - 

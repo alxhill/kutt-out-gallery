@@ -31,6 +31,14 @@
 			<option value='1'>Photo</option>
 			<option value='2'>Video</option>
 		</select><br><br>
+		<label>Category:</label><br>
+		<select name='category'>
+    <?foreach ($categories as $cat):?>
+      <option value='<?=$cat->id?>'><?=$cat->title?></option>
+    <?endforeach;?>
+    </select>
+    <button type='button' id='new_category'>New Category</button>
+    <br><br>
 		<label>Description:</label><br>
 		<textarea title='description' name='description' class='g_desc_area'></textarea><br>
 		<input type="submit" name="submit" id="submit" value="Create">

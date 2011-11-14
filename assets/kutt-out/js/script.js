@@ -13,53 +13,44 @@ $(document).ready(function(){
 		$('#out, #studios').css('margin-top','-10px');
 		$('img#home').css('margin-top','-250px');
 	}
-	
-	// Manages deleting and hiding photos.
-	$('.photos .delete_link').click(function(){
-		var sure = confirm('Are you sure you want to delete this image?');
-		if(sure === true){
-			var photo_id = $(this).attr('id');
-			$.post('/gallery/gallery/ajax_delete', { id: photo_id, type: "photo" }, function(data){
-				if (data.code === 0)
-				{
-					$('#action').html('The image with ID ' + data.id + ' ("' + data.title + '") was deleted successfully.');
-					$('tr#pic_id_' + photo_id).hide('slow');
-					$('#action').addClass('notice').delay(3000).fadeOut('slow');
-				}
-				else
-				{
-					$('#action').html(data.message).addClass('error').delay(3000).fadeOut('slow');
-				}
-			},
-			'json'
-			);
-		}
-	});
-	
-	// Manages deleting and hiding videos.
-	$('.videos .delete_link').click(function(){
+		
+	// Manages deleting and hiding photos and videos.
+	$('.delete_link').click(function(){
+		
 		var sure = confirm('Are you sure you want to delete this video?');
-		if(sure === true){
-			var video_id = $(this).attr('id');
-			
-			$.post('/gallery/gallery/ajax_delete', { id: video_id, type: "video" }, function(data){
+		if (sure === true)
+		{
+			var $this = $(this);
+			var type = $this.parent().parent().parent().parent().hasClass('photos') ? 'photo' : 'video';
+			var id = $(this).attr('id');
+			console.log([type, id]);
+			$.post('/gallery/gallery/ajax_delete', { id: id, type: type }, function(data){
+				console.log(data);
 				if (data.code === 0)
 				{
-					$('#action').html('The video with ID ' + data.id + ' ("' + data.title + '") was deleted successfully.');
-					$('tr#vid_id_' + video_id).hide('slow');
+					$('#action').html('The '+ type +' with ID ' + data.id + ' ("' + data.title + '") was deleted successfully.');
+					var css = '';
+					if (type == 'photo')
+					{
+						selector = 'tr#pic_id_' + id;
+					}
+					else if (type == 'video')
+					{
+						selector = 'tr#vid_id_' + id;
+					}
+					$(selector).hide('slow');
 					$('#action').addClass('notice').delay(3000).fadeOut('slow');
 				}
 				else
 				{
-					$('#action').html(data.message).addClass('error').delay(3000).fadeOut('slow');
+					$('#action').html(data.message + "<br>Code:"+data.code).addClass('error').delay(3000).fadeOut('slow');
 				}
 			},
 			'json'
 			);
 		}
 	});
-	
-	
+		
 	// Manage clicking the edit link and making the title for the relevant element editable, then saving that content - for photos.
 	$('.photos .edit_link').click(function(){
 		var p_id = $(this).attr('id');
@@ -192,7 +183,7 @@ $(document).ready(function(){
 			{
 				alert(dump(data.dump));
 			}
-		})
+		});
 	});
 	
 	$('.custom_thumb').toggle();

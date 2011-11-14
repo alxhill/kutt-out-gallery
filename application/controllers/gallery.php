@@ -20,6 +20,7 @@ class Gallery extends CI_Controller {
 		$this->load->model('gallery_model', 'gallery');
 		$this->load->model('photo_model','photo');
 		$this->load->model('video_model','video');
+		$this->load->model('category_model', 'category');
 		$this->view->theme(THEME);
 	}
 	
@@ -47,14 +48,7 @@ class Gallery extends CI_Controller {
 	 */	
 	function index()
 	{
-		if (THEME == 'kutt-out')
-		{
-			$this->load->view('index');
-		}
-		else if (THEME == 'tobyelwes')
-		{
-			redirect('home');
-		}
+		redirect('home');
 	}
 	
 	/**
@@ -215,7 +209,7 @@ class Gallery extends CI_Controller {
 		if ($this->_login_check())
 		{
 			// Validation rules
-			$this->form_validation->set_rules('g_name','gallery name','required|max_length[10]');
+			$this->form_validation->set_rules('g_name','gallery name','required|max_length[12]');
 			$this->form_validation->set_rules('g_description','gallery description','max_length[120]');
 			
 			// Check the rules work, otherwise return to the gallery with an error
@@ -366,6 +360,7 @@ class Gallery extends CI_Controller {
 	function admin()
 	{
 		$galleries = $this->gallery->all();
+		$categories = $this->category->all();
 		
 		if ($this->session->flashdata('success'))
 		{
@@ -378,7 +373,7 @@ class Gallery extends CI_Controller {
 		
 		if ($this->_login_check())
 		{
-			$this->view->template('admin')->title('Galleries')->data(array('galleries' => $galleries));
+			$this->view->template('admin')->title('Galleries')->data(array('galleries' => $galleries, 'categories' => $categories));
 			$this->view->load();
 		}
 		else
@@ -659,6 +654,28 @@ class Gallery extends CI_Controller {
 		{
 			redirect('home');
 		}
+	}
+	
+	function ajax_create_category()
+	{
+	  if (IS_AJAX)
+	  {
+	    if ($this->_login_check())
+	    {
+        $this->category->create($this->input->post('title'));
+        $json = array('code' => 0);
+		  }
+		  else
+		  {
+		    $json = array('code' => 3, 'message' => 'You must be logged in to perform this action.');
+		  }
+	    header('Content-type: application/json');
+  		echo json_encode($json);
+	  }
+	  else
+	  {
+	    redirect('home');
+	  }
 	}
 	
 }
