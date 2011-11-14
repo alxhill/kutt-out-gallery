@@ -81,9 +81,9 @@ class Gallery extends CI_Controller {
 
 	}
 	
-	/*		    				   *
+	/*		    				             *
 	 * =====[PHOTO FUNCTIONS]===== *
-	 *			    			   */
+	 *			    			             */
 		
 	/**
 	 * Upload function, gets data from post and uploads into a folder/database.
@@ -165,9 +165,9 @@ class Gallery extends CI_Controller {
 		
 	}
 		
-	/*							     *
+	/*						            	     *
 	 * =====[GALLERY FUNCTIONS]===== *
-	 *						  	     */
+	 *						  	               */
 	
 	/**
 	 * Creates a new gallery in the database based on post data, then redirects the user to the admin page with a success message.
@@ -388,9 +388,9 @@ class Gallery extends CI_Controller {
 		}
 	}
 	
-	/*						      *
+	/*						                *
 	 * =====[AJAX FUNCTIONS]===== *
-	 *						      */
+	 *						                */
 	
 	/**
 	 * Deletes a photo when called through AJAX.
