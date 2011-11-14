@@ -38,6 +38,8 @@
     <?endforeach;?>
     </select>
     <button type='button' id='new_category'>New Category</button>
+    <input type="text" id="cat_title" class="hidden"/>
+    <button type="button" id="cat_submit" class="hidden">Create</button>
     <br><br>
 		<label>Description:</label><br>
 		<textarea title='description' name='description' class='g_desc_area'></textarea><br>

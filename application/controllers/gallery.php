@@ -662,8 +662,8 @@ class Gallery extends CI_Controller {
 	  {
 	    if ($this->_login_check())
 	    {
-        $this->category->create($this->input->post('title'));
-        $json = array('code' => 0);
+        $id = $this->category->create($this->input->post('title'));
+        $json = array('code' => 0, 'id' => $id);
 		  }
 		  else
 		  {

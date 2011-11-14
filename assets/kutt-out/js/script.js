@@ -5,15 +5,12 @@ function dump(arr,level){var dumped_text="";if(!level)level=0;var level_padding=
 return dumped_text;}
 //-------[Remove when live]--------//
 
+showMessage = function(text, type){
+	$('#action').html(text).addClass().delay(3000).fadeOut('slow');
+};
+
 $(document).ready(function(){
 	
-	// Fixes the nav bar spacing and front image display in browsers with older versions of WebKit.
-	if ((parseInt($.browser.version, 10) < 534) && ($.browser.webkit))
-	{
-		$('#out, #studios').css('margin-top','-10px');
-		$('img#home').css('margin-top','-250px');
-	}
-		
 	// Manages deleting and hiding photos and videos.
 	$('.delete_link').click(function(){
 		
@@ -28,7 +25,6 @@ $(document).ready(function(){
 				console.log(data);
 				if (data.code === 0)
 				{
-					$('#action').html('The '+ type +' with ID ' + data.id + ' ("' + data.title + '") was deleted successfully.');
 					var css = '';
 					if (type == 'photo')
 					{
@@ -39,11 +35,11 @@ $(document).ready(function(){
 						selector = 'tr#vid_id_' + id;
 					}
 					$(selector).hide('slow');
-					$('#action').addClass('notice').delay(3000).fadeOut('slow');
+					showMessage('The '+ type +' with ID ' + data.id + ' ("' + data.title + '") was deleted successfully.', 'notice');
 				}
 				else
 				{
-					$('#action').html(data.message + "<br>Code:"+data.code).addClass('error').delay(3000).fadeOut('slow');
+					showMessage(data.message + "<br>Code:" + data.code, type);
 				}
 			},
 			'json'
@@ -98,8 +94,7 @@ $(document).ready(function(){
 			$.post('/gallery/gallery/ajax_update', dataObj, function(data){
 				if (data.code === 1)
 				{
-					$('#action').html(data.message);
-					$('#action').addClass('error').delay(3000).fadeOut('slow');
+					showMessage(data.message, 'error');
 				}
 			},
 			'json'
@@ -113,16 +108,15 @@ $(document).ready(function(){
 		if(sure === true){
 			var g_id = $(this).attr('id');
 			$.post('/gallery/gallery/ajax_gallery_delete', { id: g_id }, function(data){
-				$('div#action').html(data.message);
 				if (data.code === 0)
 				{
 					$('li#gallery_' + g_id).fadeOut('slow');
 					$('li a.nav_link#g_' + g_id).fadeOut('slow');
-					$('#action').addClass('notice').delay(3000).fadeOut('slow');
+					showMessage(data.message, 'notice');
 				}
 				else
 				{
-					$('#action').addClass('error').delay(3000).fadeOut('slow');
+					showMessage(data.message, 'error');
 				}
 			},
 			'json'
@@ -138,16 +132,12 @@ $(document).ready(function(){
 		onDrop: function(table, row) {
             $.post('/gallery/gallery/ajax_reorder', $.tableDnD.serialize(), function(data) {
 				if (data.code == 1) {
-					$('#action').html(data.message).addClass('error').delay(3000).fadeOut('slow');
+					showMessage(data.message, 'error');
 				}
 				else if (data.code == 0)
 				{
-					$('#action').html('Reorder was successful.').addClass('info').delay(3000).fadeOut('slow');
+					showMessage('Reorder was successful.', 'info');
 				}
-				/*else if (data.code == -1)
-				{
-					alert(dump(data.dump));
-				}*/
 			});
 		}
 	});
@@ -155,7 +145,7 @@ $(document).ready(function(){
 	// Manages redordering and AJAX changing of gallery order.
 	$('#galleries_list').ListReorder({dragTargetClass: 'gallery_drag'}).bind('listorderchanged', function(evt, jq_list, list_order) {
 		
-		var post_array = new Array();
+		var post_array = [];
 		
 		jq_list.children().each(function(index) {
 			post_array[index] = $(this).attr('id');
@@ -164,15 +154,11 @@ $(document).ready(function(){
 		$.post('/gallery/gallery/ajax_reorder_galleries', { gallery: post_array }, function(data) {
 			if (data.code == 0)
 			{
-				$('#action').html('Reorder was successful.').addClass('info').delay(3000).fadeOut('slow');
+				showMessage('Reorder was successful.', 'info');
 			}
 			else if (data.code == 3)
 			{
-				$('#action').html('Please visit the <a href="/gallery/login">login page</a> and try again.').addClass('info').delay(3000).fadeOut('slow');
-			}
-			else if (data.code == -1)
-			{
-				alert(dump(data.dump));
+				showMessage('Please visit the <a href="/gallery/login">login page</a> and try again.', 'info');
 			}
 		});
 	});
@@ -181,6 +167,28 @@ $(document).ready(function(){
 	
 	$("input[name='custom_thumbnail']").change(function() {
 		$('.custom_thumb').toggle();
+	});
+	
+	$('#new_category').click(function(){
+		$('#cat_title, #cat_submit').removeClass('hidden');
+		$(this).addClass('hidden');
+	});
+	
+	$('#cat_submit').click(function(){
+		var $this = $(this);
+		var $title = $('#cat_title');
+		$.post('/gallery/gallery/ajax_create_category', {title: $title.val()}, function(data){
+			if (data.code === 0)
+			{
+				$this.addClass('hidden');
+				$title.addClass('hidden');
+				$('#new_category').removeClass('hidden').val('');
+				
+				$('select[name="category"]').append($('<option>', {value: data.id}).text($title.val())).val(data.id);
+				
+				showMessage('Category created successfully', 'success');
+			}
+		});
 	});
 		
 });

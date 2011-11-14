@@ -269,7 +269,7 @@ li.gallery h3 a:hover {
 }
 
 .l_link:hover {
-	color: grey;
+	color: "grey";
 }
 
 #new_gallery form input[type=text] {
@@ -290,6 +290,11 @@ li.gallery h3 a:hover {
 
 .gallery_drag h3, .gallery_drag .gallery_links {
 	margin-left: 150px;
+}
+
+.hidden {
+  visibility: hidden;
+  display: none;
 }
 
 /* @end */

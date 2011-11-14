@@ -18,11 +18,13 @@ class Category_model extends CI_Model {
   
   function create($title)
   {
+    $order = $this->db->select_max('order')->get('category')->row()->order + 1;
     $data = array(
       'title' => $title,
-      'order' => $this->db->select_max('order')->get('catergory')->row()->order + 1
+      'order' => $order
     );
     $this->db->insert('categories', $data);
+    return $this->db->insert_id();
   }
   
 }
