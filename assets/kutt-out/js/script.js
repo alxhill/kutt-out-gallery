@@ -51,23 +51,51 @@ $(document).ready(function(){
 		}
 	});
 		
-	// Manage clicking the edit link and making the title for the relevant element editable, then saving that content - for photos.
-	$('.photos .edit_link').click(function(){
-		var p_id = $(this).attr('id');
-		var title = $('td#title_' + p_id + '.editable');
-		var edit_link = $('a.edit_link#' + p_id);
+	// Manage clicking the edit link and making the title for the relevant element editable, then saving that content for photos and videos.
+	$('.edit_link').click(function(){
+		var $this = $(this),
+		 	type = $this.parent().parent().parent().parent().hasClass('photos') ? 'photo' : 'video',
+			id = $this.attr('id'),
+			title;
+		
+		if (type == 'photo')
+		{
+			title = $('td#title_' + id + '.editable');
+		}
+		else if (type == 'video')
+		{
+			title = $('td#video_title_' + id + '.editable');
+			var description = $('td#video_description_' + id + '.editable');
+		}
+		var edit_link = $('a.edit_link#' + id);
+		
 		if (edit_link.html() === "Edit")
 		{
 			title.attr('contenteditable','true');
 			title.css('border','1px solid #cdcdcd');
+			if (type == 'video')
+			{
+				description.attr('contenteditable','true');
+				description.css('border','1px solid #cdcdcd');
+			}
 			edit_link.html('Save');
 		}
 		else if (edit_link.html() === 'Save')
 		{
 			title.attr('contenteditable','false');
 			title.css('border','none');
+			
+			var dataObj = { id: id, title: title.html(), type: type };
+			
+			if (type == 'video')
+			{
+				description.attr('contenteditable','false');
+				description.css('border','none');
+				dataObj.description = description.html();
+			}
+			
 			edit_link.html('Edit');
-			$.post('/gallery/gallery/ajax_update', { id: p_id, title: title.html(), type: "photo" }, function(data){
+			$.post('/gallery/gallery/ajax_update', dataObj, function(data){
 				if (data.code === 1)
 				{
 					$('#action').html(data.message);
@@ -78,43 +106,6 @@ $(document).ready(function(){
 			);
 		}
 	});
-	
-	$('.videos .edit_link').click(function(){
-		var v_id = $(this).attr('id');
-		var title = $('td#video_title_' + v_id + '.editable');
-		var description = $('td#video_description_' + v_id + '.editable');
-		var edit_link = $('.edit_link#' + v_id);
-		if (edit_link.html() === "Edit")
-		{
-			title.attr('contenteditable','true');
-			title.css('border','1px solid #cdcdcd');
-			
-			description.attr('contenteditable','true');
-			description.css('border','1px solid #cdcdcd');
-			
-			edit_link.html('Save');
-		}
-		else if (edit_link.html() === 'Save')
-		{
-			title.attr('contenteditable','false');
-			title.css('border','none');
-			
-			description.attr('contenteditable','false');
-			description.css('border','none');
-			
-			edit_link.html('Edit');
-			$.post('/gallery/gallery/ajax_update', { id: v_id, title: title.html(), description: description.html(), type: "video" }, function(data){
-				if (data.code === 1)
-				{
-					$('#action').html(data.message);
-					$('#action').addClass('error').delay(3000).fadeOut('slow');
-				}
-			},
-			'json'
-			);
-		}
-	});
-	
 	
 	// Manages deleting and removing of galleries.
 	$('.g_delete_link').click(function(){
