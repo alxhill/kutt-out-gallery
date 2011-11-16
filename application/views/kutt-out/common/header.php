@@ -33,3 +33,4 @@ Shadowbox.init();
 <? endif; ?>
 <div class="container">
 <?=isset($message) ? show_messages($class,$message) : null ?>
+<div id="title"><span class="large">kutt out</span>billy boyd cape</div>

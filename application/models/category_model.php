@@ -18,7 +18,8 @@ class Category_model extends CI_Model {
   
   function create($title)
   {
-    $order = $this->db->select_max('order')->get('category')->row()->order + 1;
+    $order = $this->db->select_max('`order`')->get('categories')->row()->order + 1;
+    //$order = 3;
     $data = array(
       'title' => $title,
       'order' => $order

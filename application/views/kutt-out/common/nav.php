@@ -1,7 +1,6 @@
 <div id='nav'>
 <div id='mainbg'>
 	<ul>
-		<li><a href='<?=site_url('/home')?>'><div id='kutt'>Kutt</div><div id='out'>Out</div><div id='studios'>Studios</div></a></li>
 		<? foreach ($galleries as $gallery):?>
 		<li><a class='nav_link' href='/gallery/<?=$gallery['name']?>/show' id='g_<?=$gallery['id']?>'><?=$gallery['name']?></a></li>
 		<? endforeach; ?>

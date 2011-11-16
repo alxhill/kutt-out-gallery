@@ -1,13 +1,17 @@
-/* @override http://localhost:8888/gallery/assets/css/custom.css */
+/* @override 
+	http://localhost:8888/gallery/assets/css/custom.css
+	http://localhost:8888/gallery/assets/kutt-out/css/custom.css
+*/
 
 @font-face {
-	font-family: 'Reboard';
-	src:url('reboard-webfont.eot?') format('eot'),
-		url('reboard-webfont.woff') format('woff'),
-		url('reboard-webfont.ttf') format('truetype'),
-		url('reboard-webfont.svg#webfontDL6sIqhh') format('svg');
-	font-weight: normal;
-	font-style: normal;
+    font-family: 'Lobster';
+    src: url('lobster_1.4-webfont.eot');
+    src: url('lobster_1.4-webfont.eot?#iefix') format('embedded-opentype'),
+         url('lobster_1.4-webfont.woff') format('woff'),
+         url('lobster_1.4-webfont.ttf') format('truetype'),
+         url('lobster_1.4-webfont.svg#Lobster14Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
 }
 
 /* @group Contact Page */
@@ -358,28 +362,6 @@ img#home {
 
 /* @end */
 
-/* @group Index page */
-
-#homepagewrapper {
-	position: relative;
-	width: 900px;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-a#homepagelink {
-	text-decoration: none;
-	color: #c8c8c8;
-}
-
-h1#homepageh1 {
-	font-family: Reboard;
-	font-size: 120px;
-	text-shadow: #454545 5px 5px 0;
-}
-
-/* @end */
-
 /* @group Login form */
 
 form.loginform label {
@@ -393,7 +375,7 @@ form.loginform label {
 .content {
 	padding-left: 20px;
 	padding-top: 20px;
-	font-family: "Times New Roman";
+	font-family: "Lobster";
 }
 
 .content h1#login {
@@ -429,7 +411,7 @@ input#submit {
 }
 
 .heading, .description {
-	font-family: "Times New Roman";
+	font-family: "Lobster";
 	display: block;
 	color: #454545;
 }
@@ -487,7 +469,7 @@ a img {
 }
 
 body {
-	background-color: #c2c2c2;
+	background-color: #efefef;
 }
 
 .description {
@@ -526,33 +508,15 @@ body {
 	line-height: 48px;
 	list-style-position: right;
 	text-align: right;
-	font-family: "Times New Roman";
+	font-family: "Lobster";
 	font-size: 40px;
 	font-weight: bold;
-	font-style: italic;
 	text-transform: lowercase;
 	letter-spacing: -2px;
 }
 
-#nav ul li:first-child {
-	font-size: 80px;
-	line-height: 35px;
-	display: block;
-}
-
-#nav ul li:first-child div {
-	display: block;
-}
-
-#nav ul li:last-child {
-	padding-top: 15px;
-	line-height: 35px;
-	letter-spacing: -5px;
-	font-size: 80px;
-}
-
 #nav ul li a {
-	color: white;
+	color: #424242;
 	text-decoration: none;
 }
 
@@ -591,13 +555,13 @@ body {
 #main {
 	width: 470px;
 	height: 620px;
-	background-color: #f1f0ee;
+	background-color: #c9c9c9;
 	float: right;
 }
 
 .content {
 	width: 450px;
-	background-color: #f1f0ee;
+	background-color: #c9c9c9;
 	padding-bottom: 10px;
 	margin-bottom: 10px;
 }
@@ -607,6 +571,18 @@ body {
 	margin-top: 20px;
 	margin-left: auto;
 	margin-right: auto;
+}
+
+#title {
+	text-align: center;
+	font-family: "Lobster";
+	font-size: 40px;
+	padding-left: 190px;
+	color: #424242;
+}
+
+#title .large {
+	font-size: 70px;
 }
 
 /* @end */
