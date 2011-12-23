@@ -69,8 +69,8 @@ class Gallery extends CI_Controller {
 		}
 		else
 		{
-			echo 'Looking for:'.APPPATH.'views/'.$this->view->theme.$page.'.php';
-			$this->view->template('error')->data(array('head' => 'Page not found','description' => 'No page matching that name could be found'))->load();
+			$desc = 'No page matching that name could be found. Looking for:'.APPPATH.'views/'.$this->view->theme."/".$page.'.php';
+			$this->view->template('error')->data(array('head' => 'Page not found','description' => $desc))->load();
 		}
 
 	}

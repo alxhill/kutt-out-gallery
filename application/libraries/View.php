@@ -194,8 +194,7 @@ class View {
 	{
 		$CI =& get_instance();
 		$CI->load->model('gallery_model','gallery');
-
-		$galleries = $CI->gallery->all(TRUE);
+		/*$galleries = $CI->gallery->all(TRUE);
 		
 		if (empty($galleries))
 		{
@@ -207,8 +206,11 @@ class View {
 			$all_galleries[] = array('name' => $gallery->name,'id' => $gallery->id);
 		}
 		
-		return $all_galleries;
+		return $all_galleries;*/
+		$galleries = $CI->gallery->category_sorted(TRUE);
 		
+		//print_r($galleries);
+		return $galleries;
 	}
 	
 }

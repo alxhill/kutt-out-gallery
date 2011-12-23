@@ -16,6 +16,7 @@ class Gallery_model extends CI_Model {
 	{
 		parent::__construct();
 		$this->load->helper('file', 'neatr');
+		$this->load->model('category_model', 'category');
 	}
 	
 	/**
@@ -60,6 +61,7 @@ class Gallery_model extends CI_Model {
 	 * Get all galleries, option for getting visible galleries only as well as changing the order in which to change galleries.
 	 * 
 	 * @param bool $visible should it return only visible galleries, defaults to false.
+	 * @param string $order 'asc' or 'desc' (asc by default)
 	 * @return object of results
 	 */
 	function all($visible = FALSE, $order = 'asc')
@@ -70,6 +72,35 @@ class Gallery_model extends CI_Model {
 		}
 		$return = $this->db->order_by('order', $order)->get('galleries')->result();
 		return $return;
+	}
+	
+	/**
+	 * Get all galleries sorted into an array by category.
+	 * 
+	 * @param bool $visible
+	 */
+	function category_sorted($visible_only = TRUE)
+	{
+	    $sorted = $this->category->all_galleries(TRUE);
+	    /*if($visible_only)
+	    {
+    	    foreach($sorted as &$galleries)
+    	    {
+    	        //print_r($galleries);
+    	        foreach($galleries as &$gallery)
+    	        {
+    	            //print_r($gallery);
+    	            if (isset($gallery->visible))
+    	            {
+    	              if ($gallery->visible === 0)
+    	              {
+    	                unset($gallery);
+    	              }
+    	            }
+    	        }
+    	    }
+      }*/
+	    return $sorted;
 	}
 	
 	/**
