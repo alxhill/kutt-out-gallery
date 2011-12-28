@@ -1,0 +1,694 @@
+/* @override 
+	http://localhost:8888/gallery/assets/css/custom.css
+	http://localhost:8888/gallery/assets/kutt-out/css/custom.css
+*/
+
+@font-face {
+    font-family: 'Lobster';
+    src: url('lobster_1.4-webfont.eot');
+    src: url('lobster_1.4-webfont.eot?#iefix') format('embedded-opentype'),
+         url('lobster_1.4-webfont.woff') format('woff'),
+         url('lobster_1.4-webfont.ttf') format('truetype'),
+         url('lobster_1.4-webfont.svg#Lobster14Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* @group Contact Page */
+
+#contact_page p, #contact_page h4, #contact_page a {
+	color: #6a6a6a;
+}
+
+#contact_page a:hover {
+	color: #454545;
+}
+
+#contact_page > h2 {
+	margin-top: 20px;
+	font-size: 60px;
+	letter-spacing: -3px;
+	color: #313131;
+	margin-bottom: 0;
+	height: 30px;
+
+}
+
+#contact_page > h3 {
+	color: #6a6a6a;
+	font-style: italic;
+	margin-top: 5px;
+}
+
+#contact_page > p {
+	font-size: 14px;
+	margin-top: 0;
+}
+
+#contact_details h4 {
+	margin-bottom: 5px;
+}
+
+#contact_details .reverse {
+	unicode-bidi: bidi-override;
+	direction: rtl;
+}
+
+#contact_footer {
+	position: relative;
+	margin-top: 190px;
+}
+
+#contact_footer p {
+	margin: 5px 0;
+	
+}
+
+/* @end */
+
+/* @group Error page */
+
+.error_head {
+	text-align: center;
+	letter-spacing: -2px;
+	font-size: 50px;
+	font-style: italic;
+	margin: 0;
+}
+
+.error_description {
+	text-align: center;
+	font-style: ;
+}
+
+/* @end */
+
+/* @group Edit page */
+
+label.thumb {
+	font-weight: bold;
+	font-size: 15px;
+	font-style: italic;
+}
+
+input[type=checkbox] {
+	display: inline;
+	margin-bottom: 5px;
+}
+
+tbody tr:nth-child(even) td {
+	background: #e5ecf9;
+}
+
+.content h2 {
+	line-height: 20px;
+	font-weight: bold;
+	font-style: italic;
+	margin-top: 15px;
+}
+
+.content #admin {
+	margin-top: 0px;
+	margin-bottom: -13px;
+	font-size: 50px;
+	font-style: italic;
+}
+
+#user {
+	font-size: 15px;
+	letter-spacing: -1pt;
+}
+
+p#user span#username {
+	font-weight: bold;
+}
+
+table.photos {
+	width: 450px;
+}
+
+table.photos tbody tr {
+	font-size: 15px;
+}
+
+td.edit_delete {
+	font-family: 'Helvetica';
+	text-align: center;
+}
+
+.edit_delete a {
+	text-decoration: none;
+	color: #0087ff;
+}
+
+.edit_delete a:hover {
+	color: #0b48ac;
+	border-bottom: 1px solid #0b48ac;
+}
+
+td.image_id {
+	font-size: 20px;
+	text-align: center;
+}
+
+td.image_title, td.video_title {
+	font-weight: bold;
+}
+
+input {
+	display: block;
+	margin-bottom: 5px;
+	outline: none;
+}
+
+a.link_content {
+	font-family: 'Helvetica Neue';
+	font-size: 13px;
+	color: #848484;
+}
+
+a.link_content:hover {
+	color: #4d4d4d;
+}
+
+.upload {
+	float: left;
+	margin-right: -20px;
+}
+
+#edit_gallery {
+	float: right;
+	width: 200px;
+	padding-bottom: 1em;
+	padding-left: 1.8em;
+	border-left: 1px dashed #787878;
+}
+
+#edit_upload {
+	padding-bottom: 18pc;
+}
+
+input[type=text], input[type=password] {
+	width: 80%;
+}
+
+textarea.g_desc_area {
+	height: 80px;
+	width: 80%;
+	resize: vertical;
+}
+
+#video_description {
+	width: 80%;
+	height: 80px;
+	display: block;
+	resize: vertical;
+}
+
+.table {
+	padding-top: 15px;
+}
+
+.dragger {
+	cursor: move;
+}
+
+/* @end */
+
+/* @group Admin page */
+
+#admin_title {
+	font-size: 40px;
+	font-style: italic;
+	letter-spacing: -2px;
+	margin-top: 0px;
+}
+
+#galleries_list {
+	list-style: none;
+	padding: 0px;
+	padding-bottom: 5px;
+	text-align: center;
+}
+
+li.gallery h3 a, .gallery_drag h3 a {
+	text-decoration: none;
+	color: black;
+}
+
+li.gallery h3, .gallery_drag h3 {
+	font-size: 40px;
+	font-style: italic;
+	font-weight: bold;
+	color: #000;
+	margin-bottom: 0px;
+	margin-top: 10px;
+}
+
+li.gallery h3 a:hover {
+	text-shadow: #454545 2px 2px 0;
+}
+
+#logged_in_link {
+	position:fixed;
+	margin-top: -15px;
+}
+
+.gallery_links a {
+	font-family: 'Helvetica Neue';
+	font-size: 14px;
+	color: #0087ff;
+	text-decoration: none;
+}
+
+.gallery_links a:hover {
+	color: #0b48ac;
+	border-bottom: 1px solid #0b48ac;
+}
+
+.l_link {
+	font-family: 'Helvetica Neue';
+	font-size: 13px;
+	color: white;
+}
+
+.l_link:hover {
+	color: "grey";
+}
+
+#new_gallery form input[type=text] {
+	width: 50%;
+}
+
+.dragHandle {
+	display: block;
+	margin-left: 100px;
+	margin-top: 20px;
+	width: 10px;
+	height: 10px;
+	position: absolute;
+	border: 2px solid #000;
+	background:#fff;
+	cursor: move;
+}
+
+.gallery_drag h3, .gallery_drag .gallery_links {
+	margin-left: 150px;
+}
+
+.hidden {
+  visibility: hidden;
+  display: none;
+}
+
+/* @end */
+
+/* @group Home page */
+
+.phrase {
+	font-size: 60px;
+	line-height: 30px;
+	color: white;
+	position: relative;
+	top: 30px;
+	left: 25px;
+	font-style: italic;
+	font-weight: bold;
+	text-shadow: #000 5px 5px 2px;
+}
+
+img#home {
+	margin-top: -220px;
+	padding-left: 15px;
+}
+
+/* @end */
+
+/* @group Homepage words */
+
+#just {
+	font-size: 70px;
+	padding-left: 20px;
+}
+
+#want {
+	padding-top: 10px;
+	padding-left: 25px;
+	font-size: 50px;
+	display: inline;
+	letter-spacing: -3px;
+}
+
+#to {
+	display: inline;
+	font-size: 50px;
+	letter-spacing: -3px;
+}
+
+#capture {
+	font-size: 90px;
+}
+
+#the {
+	padding-top: 20px;
+	padding-left: 100px;
+	font-size: 40px;
+}
+
+#moment {
+	font-size: 70px;
+	padding-top: 20px;
+}
+
+/* @end */
+
+/* @group Login form */
+
+form.loginform label {
+	font-size: 20px;
+}
+
+/* @end */
+
+/* @group Add photo */
+
+.content {
+	padding-left: 20px;
+	padding-top: 20px;
+	font-family: "Lobster";
+}
+
+.content h1#login {
+	font-weight: bold;
+	font-style: italic;
+	letter-spacing: -2px;
+	font-size: 50px;
+	margin-top: 0px;
+}
+
+.titleform {
+	padding-bottom: 15px;
+}
+
+label {
+	font-weight: bold;
+	font-size: 25px;
+	font-style: italic;
+}
+
+input#submit {
+	margin-top: 10px;
+}
+
+/* @end */
+
+/* @group Header */
+
+.title {
+	margin: 10px;
+	padding-bottom: 20px;
+	height: 30px;
+}
+
+.heading, .description {
+	font-family: "Lobster";
+	display: block;
+	color: #454545;
+}
+
+.heading {
+	font-size: 17px;
+	width: 190px;
+	letter-spacing: -3px;
+	text-align: center;
+	height: 3px;
+}
+
+.description {
+	padding-top: 8px;
+	font-size: 15px;
+	width: 230px;
+	line-height: 12px;
+}
+
+.heading h1, .description p {
+	color: #454545;
+	display: inline;
+	font-style: italic;
+	font-weight: bold;
+}
+
+/* @end */
+
+/* @group Gallery */
+
+.heading h1 {
+	font-size: 50px;
+	text-transform: capitalize;
+}
+
+.title .description {
+	padding-left: 40px;
+	width: 220px;
+}
+
+.photo_container {
+	display: inline-table;
+	margin: 5px;
+}
+
+.photo_container a img {
+	padding: 5px;
+	border: 1px solid #000;
+	background-color: white;
+	height: 60px;
+}
+
+a img {
+	border: none;
+}
+
+body {
+	background-color: #efefef;
+}
+
+.description {
+	margin-left: 180px;
+}
+
+/* @end */
+
+/* @group Video Gallery  */
+
+.video_container a img {
+	max-width: 430px;
+}
+
+.video_container {
+	margin-top: 20px;
+	padding-right: 15px;
+	text-align: center;
+}
+
+/* @end */
+
+/* @group Nav bar */
+
+#nav {
+	margin-right: -10px;
+	position: fixed;
+}
+
+#nav ul {
+	padding-right: 4px;
+}
+
+#nav ul li {
+	list-style: none;
+	line-height: 48px;
+	list-style-position: right;
+	text-align: right;
+	font-family: "Lobster";
+	font-size: 40px;
+	font-weight: bold;
+	text-transform: lowercase;
+	letter-spacing: -2px;
+}
+
+#nav ul li a {
+	color: #424242;
+	text-decoration: none;
+}
+
+#nav ul li a:hover {
+	text-shadow: #454545 4px 4px 0;
+}
+
+#out {
+	font-size: 100px;
+	padding-top: 5px;
+}
+
+#studios {
+	padding-top: 6px;
+	font-size: 50px;
+}
+
+#norm a {
+	font-size: 40px;
+}
+
+#nav_bottom {
+	position: relative;
+	top: 90px;
+}
+
+/* @end */
+
+/* @group Columns */
+
+#nav {
+	float: left;
+	width: 200px;
+}
+
+#main {
+	width: 470px;
+	height: 620px;
+	background-color: #c9c9c9;
+	float: right;
+}
+
+.content {
+	width: 450px;
+	background-color: #c9c9c9;
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+}
+
+.container {
+	width: 670px;
+	margin-top: 20px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#title {
+	text-align: center;
+	font-family: "Lobster";
+	font-size: 40px;
+	padding-left: 190px;
+	color: #424242;
+}
+
+#title .large {
+	font-size: 70px;
+}
+
+/* @end */
+
+/* @group Messages (blueprint) */
+.error, .alert, .notice, .success, .info {
+	padding: 0.8em;
+	margin-bottom: 1em;
+	border: 2px solid #ddd;
+	font-family: 'Helvetica Neue';
+	font-size: 15px;
+	text-align: center;
+	font-weight: 300;
+	position: fixed;
+	bottom: 2%;
+	right: 2%;
+	width: 300px;
+}
+
+.error, .alert {
+	background: #fbe3e4;
+	color: #8a1f11;
+	border-color: #fbc2c4;
+}
+
+.notice {
+	background: #fff6bf;
+	color: #514721;
+	border-color: #ffd324;
+}
+
+.success {
+	background: #e6efc2;
+	color: #264409;
+	border-color: #c6d880;
+}
+
+.info {
+	background: #d5edf8;
+	color: #205791;
+	border-color: #92cae4;
+}
+
+.error a, .alert a {
+	color: #8a1f11;
+}
+
+.notice a {
+	color: #514721;
+}
+
+.success a {
+	color: #264409;
+}
+
+.info a {
+	color: #205791;
+}
+
+/* @end */
+
+/* @group Form input fields */
+input[type=text],
+input[type=password],
+input.text,
+input.title,
+textarea {
+  background-color:#fff;
+  border:1px solid #bbb;
+  outline: none;
+}
+input[type=text]:focus,
+input[type=password]:focus,
+input.text:focus,
+input.title:focus,
+textarea:focus {
+  border-color:#666;
+}
+select {
+	background-color:#fff;
+	border-width:1px;
+	border-style:solid;
+}
+
+input[type=text],
+input[type=password],
+input.text, 
+input.title,
+textarea,
+select {
+  margin:0.5em 0;
+}
+
+input.text,
+input.title {
+	width: 300px;
+	padding:5px;
+}
+
+input.title {
+	font-size:1.5em;
+}
+
+textarea {
+	width: 390px;
+	height: 250px;
+	padding:5px;
+}
+/* @end */

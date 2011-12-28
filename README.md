@@ -7,12 +7,16 @@ To do:
 ------
 
 * GENERAL & SYSTEM FIXES:
-	* Error handling on db entries - error codes/exceptions or something
 	* Add WAY better handling of the initial setup phase - at the very least when there's no galleries, better when there's no database
-	* Remove all hardcoded /gallery/ links in place of dynamically generated ones, in both PHP, CSS and JS.
-	* Add a way to have separators between galleries.
+	* Remove all hardcoded /gallery/ links in place of dynamically generated ones, in both PHP, CSS and JS
 	* Minify & combine CSS and JS files!
-	* Reduce the repetition of JS for photos and video views. It's 90% identical.
+	* Finalise new design
+    * Add necesary JS
+    * Add nicer styling to most of the unseen pages
+    * Sort out the title - an image might be the best solution :(
+    * Redo video page
+	* Implement something simple to detect (and hence not show) missing images. *maybe*
+	
 	
 * TOBYELWES.COM FIXES & ADDITIONS
 	* Improve readability of galleries along bar.
