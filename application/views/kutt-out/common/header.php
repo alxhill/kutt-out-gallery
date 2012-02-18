@@ -7,17 +7,19 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-	<title>Kutt Out Studios</title>
+	<title></title>
 	<meta name="description" content="">
 	<meta name="author" content="">
 
 	<meta name="viewport" content="width=device-width,initial-scale=1">
+	
+	<link rel="stylesheet" href="/gallery/assets/kutt-out/css/960_12_col.css">
+	<link rel="stylesheet" href="/gallery/assets/kutt-out/css/style.css">
   
   <script src="/gallery/assets/kutt-out/js/libs/jquery-1.6.2.min.js"></script>
   <script src="/gallery/assets/kutt-out/js/plugins.js"></script>
   <script src="/gallery/assets/kutt-out/js/script.js"></script>
   
-	<link rel="stylesheet" href="/gallery/assets/kutt-out/css/style.css">
   <? if ($gallery_type == 'video'): ?>
   <link rel="stylesheet" href="/gallery/assets/kutt-out/css/shadowbox.css" type="text/css" media="screen" />
   <script>
@@ -26,6 +28,7 @@
   <? elseif($gallery_type == 'photo'): ?>
   <link rel="stylesheet" href="/gallery/assets/kutt-out/css/slimbox2.css" type="text/css" media="screen" charset="utf-8">
   <? endif;?>
+  
 	<script src="/gallery/assets/kutt-out/js/libs/modernizr-2.0.6.min.js"></script>
 </head>
 <body>
@@ -35,11 +38,10 @@
 <a class='l_link' href='/gallery/admin' >Admin</a>
 </div>
 <? endif; ?>
+
 <div id="container">
-  
   <?=isset($message) ? show_messages($class,$message) : null ?>
-  
 	<header>
-    <a href="/gallery/"><h1>BILLY BOYD CAPE</h1></a>
+    <h1 class="caps">billy boyd cape</h1>
 	</header>
-	<div id="main" role="main">
+	<div id="main" role="main"  class="container_12">
