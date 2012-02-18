@@ -29,18 +29,17 @@
 	<script src="/gallery/assets/kutt-out/js/libs/modernizr-2.0.6.min.js"></script>
 </head>
 <body>
-
+<? if ($logged_in): ?>
+<div id='logged_in_link'>
+<a class='l_link' href='/gallery/login/logout/' >Logout</a> - 
+<a class='l_link' href='/gallery/admin' >Admin</a>
+</div>
+<? endif; ?>
 <div id="container">
-  <? if ($logged_in): ?>
-  <div id='logged_in_link'>
-  <a class='l_link' href='/gallery/login/logout/' >Logout</a> - 
-  <a class='l_link' href='/gallery/admin' >Admin</a>
-  </div>
-  <? endif; ?>
   
   <?=isset($message) ? show_messages($class,$message) : null ?>
   
 	<header>
-    <a href="/gallery/"><h1 class="left">kutt out</h1><h1 class="right">billy boyd cape</h1></a>
+    <a href="/gallery/"><h1>BILLY BOYD CAPE</h1></a>
 	</header>
 	<div id="main" role="main">

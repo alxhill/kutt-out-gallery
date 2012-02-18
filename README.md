@@ -13,8 +13,8 @@ To do:
 	* Finalise new design
     * Add necesary JS
     * Add nicer styling to most of the unseen pages
-    * Sort out the title - an image might be the best solution :(
     * Redo video page
+    * Make message boxes look right
 	* Implement something simple to detect (and hence not show) missing images. *maybe*
 	
 	

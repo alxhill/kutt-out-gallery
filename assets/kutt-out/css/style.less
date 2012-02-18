@@ -6,30 +6,16 @@
  * Kroc Camen, and the H5BP dev community and team.
  */
 
-/*
- * Lobster Font
- */
-@font-face {
- font-family: 'Lobster';
- src: url('lobster_1.4-webfont.eot');
- src: url('lobster_1.4-webfont.eot?#iefix') format('embedded-opentype'),
-      url('lobster_1.4-webfont.woff') format('woff'),
-      url('lobster_1.4-webfont.ttf') format('truetype'),
-      url('lobster_1.4-webfont.svg#Lobster14Regular') format('svg');
- font-weight: normal;
- font-style: normal;
-}
-
 article, aside, details, figcaption, figure, footer, header, hgroup, nav, section { display: block; }
 audio[controls], canvas, video { display: inline-block; *display: inline; *zoom: 1; }
 
 html { font-size: 100%; overflow-y: scroll; -webkit-overflow-scrolling: touch; -webkit-tap-highlight-color: rgba(0,0,0,0); -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
 
-body { margin: 0; font-size: 20px; line-height: 1.231; }
+body { margin: 0; font-size: 18px; line-height: 1.231; }
 
-h1, nav { font-family: 'Lobster'; }
+h1, nav { font-family: 'Helvetica', arial; }
 
-body, button, input, select, textarea { font-family: sans-serif; color: @text-grey; }
+body, button, input, select, textarea { font-family: 'Helvetica', arial; color: @text-grey; }
 
 ::-moz-selection { background: @select-grey; color: #fff; text-shadow: none; }
 ::selection { background: @select-grey; color: #fff; text-shadow: none; }
@@ -132,9 +118,6 @@ fieldset { border: 0; margin: 0; padding: 0; }
 
 legend { border: 0; *margin-left: -7px; padding: 0; }
 
-/* Indicate that 'label' will shift focus to the associated form element */
-label { cursor: pointer; }
-
 /*
  * 1. Correct font-size not inheriting in all browsers
  * 2. Remove margins in FF3/4 S5 Chrome
@@ -155,7 +138,7 @@ button, input { line-height: normal; *overflow: visible; }
  * 2. Allow styling of clickable form elements in iOS
  */
 
-button, input[type="button"], input[type="reset"], input[type="submit"] { cursor: pointer; -webkit-appearance: button; }
+button, input[type="button"], input[type="reset"], input[type="submit"] { cursor: pointer; /*-webkit-appearance: button;*/ }
 
 /*
  * Consistent box sizing and appearance
@@ -193,12 +176,12 @@ table { border-collapse: collapse; border-spacing: 0; }
 /*
  * LESS definitions and functions
  */
-@light-grey: #efefef;
-@dark-grey: #c9c9c9;
-@text-grey: #424242;
+@light-grey: #ebe7dc;
+@dark-grey: #322923;
+@text-grey: @dark-grey;
 @select-grey: darken(@text-grey, 10%);
 @window-size: 630px;
-@content-margin: 15px;
+@content-margin: 25px;
 @content-size: 500px - @content-margin;
 
 .center() {
@@ -229,11 +212,37 @@ body {
     min-height: 550px;
     background-color: @dark-grey;
     padding-left: @content-margin;
+    float: right;
+}
+
+h3 {
+    margin-top: 0;
+    margin-bottom: 5px;
+    padding-top: @content-margin;
+    font-family: 'Helvetica';
+    font-size: 30px;
+}
+
+#logged_in_link {
+    position: absolute;
+    font-size: 16px;
+    margin: 5px;
+    a {
+        text-decoration: none;
+        color: @text-grey;
+        &:visited {
+            color: @text-grey;
+        }
+        &:hover {
+            color: lighten(@text-grey, 20%);
+            border-bottom: 1px solid black;
+        }
+    }
 }
 
 /* Header Stuff */
 header {
-    height: 70px;
+    height: 60px;
     a, a:hover, a:active, a:visited {
         text-decoration: none;
         color: @text-grey;
@@ -241,32 +250,23 @@ header {
     h1 {
         position: absolute;
         display: inline;
-        &.right {
-            font-size: 40px;
-            top: 6px;
-            left: 45%;
-            letter-spacing: -3px;
-        }
-        &.left {
-            letter-spacing: -2px;
-            font-size: 80px;
-            top: -50px;
-            margin-left: 45px;
-        }
+        letter-spacing: -2px;
     }
 }
 
 /* Nav Stuff */
 nav {
-    width: @window-size - @content-size - 20px;
-    float: right;
-    word-wrap: normal;
+    width: @window-size - @content-size - @content-margin - 20px;
+    float: left;
+    text-align: left;
     h2 {
+        text-align: right;
         margin-bottom: 0;
         font-size: 50px;
         border-bottom: 1px normal black
     }
     ul li {
+        text-align: right;
         margin-top: -6px;
         margin-bottom: 5px;
         text-transform: capitalize;
@@ -309,6 +309,7 @@ nav {
 
 /* Footer Stuff */
 footer {
+    float: right;
     margin-top: 10px;
     margin-left: 10px;
     p {
@@ -325,12 +326,19 @@ footer {
     }
 }
 
-/* Edit Page Stuff */
-h3 {
-    margin-top: 0;
-    padding-top: @content-margin;
-    font-family: 'Lobster';
+/* Login Page Stuff */
+.login_form {
+    margin-top: 16px;
+    label {
+        font-size: 18px;
+    }
+    input {
+        margin: 5px 0;
+    }
 }
+
+/* Edit Page Stuff */
+
 
 /* =============================================================================
    Non-semantic helper classes

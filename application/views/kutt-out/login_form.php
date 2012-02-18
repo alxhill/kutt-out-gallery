@@ -1,5 +1,5 @@
 <h3 id='login'>Log in:</h3>
-<?=form_open('login/submit',array('class' => 'loginform')); ?>
+<?=form_open('login/submit',array('class' => 'login_form')); ?>
 <label>User name:</label><br>
 <input type='text' name='username'>
 <br>
