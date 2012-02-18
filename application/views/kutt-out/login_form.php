@@ -1,3 +1,4 @@
+<div class="padding">
 <h3 id='login'>Log in:</h3>
 <?=form_open('login/submit',array('class' => 'login_form')); ?>
 <label>User name:</label><br>
@@ -8,3 +9,4 @@
 <br>
 <input type='submit' value='Log in'>
 </form>
+</div>

@@ -331,7 +331,7 @@ nav {
 nav h2 {
   margin-bottom: 0;
   font-size: 50px;
-  border-bottom: 1px normal black;
+  border-bottom: 1px normal #000000;
 }
 nav ul li {
   margin-top: -9px;

@@ -1,3 +1,4 @@
+<div class="padding">
 <h3 id='admin'>Admin control panel</h3>
 <h4>Upload, update and delete images from this panel</h4>
 <div id='action'></div>
@@ -114,3 +115,4 @@
 	}
 	?>
 <? endif; ?>
+</div>

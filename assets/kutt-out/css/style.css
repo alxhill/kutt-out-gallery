@@ -342,6 +342,7 @@ body {
 #content {
   background-color: #322923;
   min-height: 700px;
+  color: #ebe7dc;
 }
 header {
   margin-left: auto;
@@ -421,8 +422,75 @@ footer {
   font-weight: 100;
   font-size: 12px;
 }
+/* Logged in links */
+#logged_in_link {
+  padding-top: 5px;
+  padding-left: 5px;
+}
+#logged_in_link a, #logged_in_link a:visited, #logged_in_link a:active {
+  color: #322923;
+  text-decoration: none;
+}
+#logged_in_link a:hover {
+  color: #6e5a4d;
+}
+/* Helper Classes */
+.padding {
+  padding-left: 20px;
+  padding-bottom: 20px;
+}
 .caps {
   text-transform: uppercase;
+}
+/* Message Boxes */
+.error,
+.alert,
+.notice,
+.success,
+.info {
+  padding: 0.8em;
+  margin-bottom: 1em;
+  border: 2px solid #ddd;
+  font-family: 'Helvetica Neue';
+  font-size: 15px;
+  text-align: center;
+  font-weight: 300;
+  position: fixed;
+  bottom: 2%;
+  right: 2%;
+  width: 300px;
+}
+.error, .alert {
+  background: #fbe3e4;
+  color: #8a1f11;
+  border-color: #fbc2c4;
+}
+.notice {
+  background: #fff6bf;
+  color: #514721;
+  border-color: #ffd324;
+}
+.success {
+  background: #e6efc2;
+  color: #264409;
+  border-color: #c6d880;
+}
+.info {
+  background: #d5edf8;
+  color: #205791;
+  border-color: #92cae4;
+}
+.error a, .alert a {
+  color: #8a1f11;
+}
+.notice a {
+  color: #514721;
+}
+.success a {
+  color: #264409;
+}
+.info a {
+  color: #205791;
 }
 /* ==|== media queries ======================================================
    EXAMPLE Media Query for Responsive Design.

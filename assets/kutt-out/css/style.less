@@ -27,15 +27,13 @@
 	width:@width;
 }
 
-.transition(@prop, @timing)
-{
+.transition(@prop, @timing) {
 	-webkit-transition: @arguments;
     -moz-transition: @arguments;
     -o-transition: @arguments;
     -ms-transition: @arguments;
     transition: @arguments;
 }
-
 
 /* =============================================================================
    HTML5 display definitions
@@ -254,6 +252,7 @@ body {
 #content {
 	background-color: @main-color;
 	min-height: 700px;
+	color: @bg-color;
 }
 
 header {
@@ -343,11 +342,84 @@ footer {
 	}
 }
 
+/* Logged in links */
+#logged_in_link {
+	padding-top: 5px;
+	padding-left: 5px;
+	a, a:visited, a:active {
+		color: @text-color;
+		text-decoration: none;
+	}
+	a:hover {
+		color: lighten(@text-color, 20%);
+	}
+}
 
-
+/* Helper Classes */
+.padding {
+	padding-left: 20px;
+	padding-bottom: 20px;
+}
 .caps {
 	text-transform: uppercase;
 }
+
+/* Message Boxes */
+.error, .alert, .notice, .success, .info {
+	padding: 0.8em;
+	margin-bottom: 1em;
+	border: 2px solid #ddd;
+	font-family: 'Helvetica Neue';
+	font-size: 15px;
+	text-align: center;
+	font-weight: 300;
+	position: fixed;
+	bottom: 2%;
+	right: 2%;
+	width: 300px;
+}
+
+.error, .alert {
+	background: #fbe3e4;
+	color: #8a1f11;
+	border-color: #fbc2c4;
+}
+
+.notice {
+	background: #fff6bf;
+	color: #514721;
+	border-color: #ffd324;
+}
+
+.success {
+	background: #e6efc2;
+	color: #264409;
+	border-color: #c6d880;
+}
+
+.info {
+	background: #d5edf8;
+	color: #205791;
+	border-color: #92cae4;
+}
+
+.error a, .alert a {
+	color: #8a1f11;
+}
+
+.notice a {
+	color: #514721;
+}
+
+.success a {
+	color: #264409;
+}
+
+.info a {
+	color: #205791;
+}
+
+
 /* ==|== media queries ======================================================
    EXAMPLE Media Query for Responsive Design.
    This example overrides the primary ('mobile first') styles

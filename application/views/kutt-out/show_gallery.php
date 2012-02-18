@@ -14,4 +14,4 @@ $class = $type == 'photo' ? 'photo' : 'video';
   <? else: ?>
   <h3>Videos not yet implemented</h3>
   <? endif; ?>
-</div>
+</div> <!-- end of .gallery.<?=$class?> -->

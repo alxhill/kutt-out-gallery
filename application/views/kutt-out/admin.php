@@ -1,4 +1,5 @@
 <div id='action'></div>
+<div class="padding">
 <h3>Gallery Manager</h3>
 <h4>Pick a gallery to edit</h4>
 
@@ -45,4 +46,5 @@
 		<textarea title='description' name='description' class='g_desc_area'></textarea><br>
 		<input type="submit" name="submit" id="submit" value="Create">
 	</form>
+</div>
 </div>

@@ -34,8 +34,8 @@
 <body>
 <? if ($logged_in): ?>
 <div id='logged_in_link'>
-<a class='l_link' href='/gallery/login/logout/' >Logout</a> - 
-<a class='l_link' href='/gallery/admin' >Admin</a>
+<a href='/gallery/login/logout/'>logout</a> - 
+<a href='/gallery/admin'>admin</a>
 </div>
 <? endif; ?>
 

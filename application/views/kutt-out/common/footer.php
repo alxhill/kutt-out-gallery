@@ -1,4 +1,5 @@
   </div> <!-- end of #content -->
+  <!-- SIDEBAR GOES HERE -->
   </div> <!-- end of #main -->
 	<footer>
     <p>All Copyright &copy; Billy Boyd Cape. No Unauthorized Use.</p>
