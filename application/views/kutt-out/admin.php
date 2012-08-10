@@ -3,11 +3,13 @@
 <h3>Gallery Manager</h3>
 <h4>Pick a gallery to edit</h4>
 
-<? if($galleries): ?>
-  <ul id="galleries-list">
+<? if($types): ?>
+  <? foreach($types as $type => $galleries): ?>
+  <h5 class="type"><?=$type?></h5>
+  <ul class="galleries-list">
     <? foreach($galleries as $gallery): ?>
 		<li class='gallery' id='gallery_<?=$gallery->id?>'>
-			<h3><a href='<?=$gallery->name ?>/edit'><?=$gallery->name?></a></h3>
+			<div class="gallery_title"><a href='<?=$gallery->name ?>/edit'><?=$gallery->name?></a></div>
 			<div class='gallery_links'>
 				<? if ($gallery->visible == 1): ?><a href='<?=$gallery->name?>/show'>View</a> | <? endif; ?> 
 				<a href='<?=$gallery->name?>/edit'>Edit</a> | 
@@ -17,6 +19,7 @@
 		</li>
 	<? endforeach; ?>
 	</ul>
+  <? endforeach; ?>
 <? else: ?>
 	<p id='no_galleries'>There are no galleries to display</p>
 <? endif; ?>

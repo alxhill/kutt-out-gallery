@@ -330,7 +330,7 @@ td {
   color: black;
   padding: 0.2em 0;
 }
-/* ==|== primary styles =====================================================
+/* ===== primary styles =====================================================
    Author:Alexander Hill
    ========================================================================== */
 /* Basic stuff */
@@ -433,6 +433,36 @@ footer {
 }
 #logged_in_link a:hover {
   color: #6e5a4d;
+}
+/* Admin Page (gallery list) */
+.admin h5.type {
+  text-align: center;
+  font-size: 30px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-style: italic;
+}
+.admin ul.galleries-list {
+  padding: 0;
+  list-style: none;
+}
+.admin ul.galleries-list .gallery_title, .admin ul.galleries-list .gallery_links {
+  text-align: center;
+}
+.admin ul.galleries-list .gallery_title a,
+.admin ul.galleries-list .gallery_links a,
+.admin ul.galleries-list .gallery_title a:visited,
+.admin ul.galleries-list .gallery_links a:visited,
+.admin ul.galleries-list .gallery_title a:active,
+.admin ul.galleries-list .gallery_links a:active {
+  color: #ebe7dc;
+  text-decoration: none;
+}
+.admin ul.galleries-list .gallery_title a:hover, .admin ul.galleries-list .gallery_links a:hover {
+  color: #c6ba9b;
+}
+.admin ul.galleries-list .gallery_links {
+  padding-top: 5px;
 }
 /* Helper Classes */
 .padding {

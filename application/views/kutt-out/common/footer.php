@@ -1,5 +1,8 @@
   </div> <!-- end of #content -->
-  <!-- SIDEBAR GOES HERE -->
+  <div id="sidebar" class="grid_3">
+    <h2>Title</h2>
+    <p>Aliquip craft beer whatever enim. Tofu retro fixie, exercitation squid letterpress lomo voluptate vinyl anim raw denim occupy brunch. Kale chips gluten-free single-origin coffee VHS lomo semiotics cred vinyl. Sriracha portland hella flexitarian freegan american apparel, 8-bit excepteur craft beer authentic messenger bag chillwave semiotics high life fap.</p>
+  </div>
   </div> <!-- end of #main -->
 	<footer>
     <p>All Copyright &copy; Billy Boyd Cape. No Unauthorized Use.</p>

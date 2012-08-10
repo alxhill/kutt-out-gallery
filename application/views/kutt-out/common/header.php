@@ -7,7 +7,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-	<title></title>
+	<title><?=$title?></title>
 	<meta name="description" content="">
 	<meta name="author" content="">
 
@@ -39,7 +39,7 @@
 </div>
 <? endif; ?>
 
-<div id="container">
+<div id="container" class="<?=$template?>">
   <?=isset($message) ? show_messages($class,$message) : null ?>
 	<header>
     <h1 class="caps">billy boyd cape</h1>

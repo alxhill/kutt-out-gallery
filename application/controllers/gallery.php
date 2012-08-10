@@ -362,6 +362,23 @@ class Gallery extends CI_Controller {
 		$galleries = $this->gallery->all();
 		$categories = $this->category->all();
 		
+		$videos = array();
+		$photos = array();
+		
+		foreach($galleries as $gallery)
+		{
+		  if($gallery->type == 1)
+		  {
+		    $photos[] = $gallery;
+		  }
+		  else
+		  {
+		    $videos[] = $gallery;
+		  }
+		}
+		
+		$galleries_type = array('videos' => $videos, 'photos' => $photos);
+		
 		if ($this->session->flashdata('success'))
 		{
 			$this->view->message('success',$this->session->flashdata('success'));
@@ -373,7 +390,7 @@ class Gallery extends CI_Controller {
 		
 		if ($this->_login_check())
 		{
-			$this->view->template('admin')->title('Galleries')->data(array('galleries' => $galleries, 'categories' => $categories));
+			$this->view->template('admin')->title('Galleries')->data(array('types' => $galleries_type, 'categories' => $categories));
 			$this->view->load();
 		}
 		else
