@@ -3,3 +3,4 @@ assets/upload/*.jpeg
 assets/upload/*.png
 assets/upload/*.gif
 .DS_Store
+application/config/database.php
